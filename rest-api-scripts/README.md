@@ -3,6 +3,12 @@
 
 Scripts helps in interacting with fire rest-api's.
 
+Generating Access Token
+-------------------------
+For interacting with fire rest-api's access token is required. 
+Access Token generation steps are in below document link : 
+https://docs.sparkflows.io/en/latest/rest-api/rest-api-authentication/acquire-token-curl.html
+
 active_users_and_groups.py :
 ---------------------------
 This script gets all active users and there groups and write these details in csv file.
