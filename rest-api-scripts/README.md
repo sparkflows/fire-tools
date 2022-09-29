@@ -28,3 +28,7 @@ This script will read project.json file and get the Project Tag to fetch the pro
 user_create_automation.py :
 ---------------------------
 This script will  create_update_user details/delete_user/user_list/active_users_and_groups based on added arguments.
+
+import_project.py:
+----------------------
+This script will import project workflows,datasets,analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments in given Project Id. 
