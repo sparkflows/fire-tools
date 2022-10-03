@@ -1,23 +1,26 @@
 
 # rest-api-scripts
 
-Scripts helps in interacting with fire rest-api's.
+The below scripts help in interacting with Fire REST API's.
 
 Generating Access Token
 -------------------------
-For interacting with fire rest-api's access token is required. 
-Access Token generation steps are in below document link : 
+
+For interacting with Fire REST API's access token is required.
+
+The steps to generate the access token are in the page below:
+
 https://docs.sparkflows.io/en/latest/rest-api/rest-api-authentication/acquire-token-curl.html
 
 active_users_and_groups.py
 ---------------------------
 
-This script gets all active users and there groups and write these details in csv file.
+This script gets all active users and their groups. It then writes these details into a csv file.
 
 display-hide-apps.py
 ----------------------
 
-This script display or hide apps based on the customer’s licensed use case. Ex: sales & marketing customers should only see apps that are Sales & Marketing related. It would be done via the usecase of each app.  If the usecase of the fire app matches the use case in yaml (ex: marketing or finance), that app will be displayed. Any usecase of app not matching the customer’s use case will be hidden.
+This script displays or hide apps based on the customer’s licensed use case. Ex: sales & marketing customers should only see apps that are Sales & Marketing related. It would be done via the usecase of each app.  If the usecase of the fire app matches the use case in yaml (ex: marketing or finance), that app will be displayed. Any usecase of app not matching the customer’s use case will be hidden.
 
 load-app.py
 -------------
