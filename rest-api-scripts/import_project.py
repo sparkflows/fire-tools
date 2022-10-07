@@ -6,7 +6,7 @@ import argparse
 
 # import project
 #**********COMMAND******************
-#python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="C:\Users\NMBR\Downloads\Projects_133535.zip" --project_id=42 --selected_project_name="pipeline-test"
+#python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="/home/user/projects/Projects_133535.zip" --project_id=42 --selected_project_name="pipeline-test"
 #***********************************
 def import_project(token: str, fire_host: str, file_path: str, proj_id,project_name: str):
     import_project_api_url = fire_host + "/api/v1/projects/import"
