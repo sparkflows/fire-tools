@@ -112,10 +112,10 @@ def get_pipeline_details_by_proj_id(fire_host, token, project_id,project_name,zi
     pipeline_list_to_export_api_call_response = requests.get(pipeline_list_to_export_api_url, headers=api_call_headers)
     if pipeline_list_to_export_api_call_response.status_code == 200:
         for pipeline_detail in json.loads(pipeline_list_to_export_api_call_response.text):
-            pipeline_dict = pipeline_detail;
-            pipelineFileName = 'Projects' + '/' + project_name + '/' + 'pipelines/' + pipeline_dict['name'].replace(" ","")+"_"+str(pipeline_dict['id']) + '.json';
+            
+            pipelineFileName = 'Projects' + '/' + project_name + '/' + 'pipelines/' + pipeline_detail['name'].replace(" ","")+"_"+str(pipeline_detail['id']) + '.json';
             # Serializing json
-            pipeline_data_json_object = json.dumps(pipeline_dict['content'], indent = 1)
+            pipeline_data_json_object = pipeline_detail['content']
             zipObj.open(pipelineFileName, "w").write(pipeline_data_json_object.encode("utf-8"))
 
     else:
