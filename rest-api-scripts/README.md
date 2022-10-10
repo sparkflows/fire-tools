@@ -35,26 +35,52 @@ This script will read project.json file and get the Project Tag to fetch the pro
 user_create_automation.py
 ---------------------------
 
-This script will  create_update_user details/delete_user/user_list/active_users_and_groups based on added arguments.
+This script will create_update_user details/delete_user/user_list/active_users_and_groups based on added arguments.
 
 
 users_create_automation.py
 ---------------------------
 
-This script will  create_update_user details/delete_user/user_list/active_users_and_groups based on provided list of users in the file.
+This script will create_update_user with details based on provided list of users in the file.
 
 format of the file content
 
 <username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>
-ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
-Multiple role and group ids separated with pipe. 
 
+   ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
+
+   Multiple role and group ids separated with pipe. 
+
+and pass the file path to --users_file_path argument.
+   
+command: 
+   users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
+
+   
 import_project.py
 ----------------------
 
-This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments in given Project Id. 
+This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments.
+   
 
+command: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+
+   Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
+   
+   
+command: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
+   
+   Above command will update the existing project with id 42.
+   
+   
 export_project.py
 ----------------------
 
-This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments in given Project Id. 
+This script will export the project worfklows, datasets, analytics apps and pipelines into zip file. Inside the zip file there will be folder for each projects.
+  
+command:  
+   export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+   
+   Above command will create the zipfolder with separate folder for each project ids passed in --project_ids arguments.
+   
+   
