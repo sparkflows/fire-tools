@@ -37,7 +37,24 @@ user_create_automation.py
 
 This script will  create_update_user details/delete_user/user_list/active_users_and_groups based on added arguments.
 
+
+users_create_automation.py
+---------------------------
+
+This script will  create_update_user details/delete_user/user_list/active_users_and_groups based on provided list of users in the file.
+
+format of the file content
+
+<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>
+ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
+Multiple role and group ids separated with pipe. 
+
 import_project.py
+----------------------
+
+This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments in given Project Id. 
+
+export_project.py
 ----------------------
 
 This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments in given Project Id. 
