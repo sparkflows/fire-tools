@@ -86,7 +86,7 @@ command: import_project.py --fire_host_url="https://localhost:8080" --access_tok
    Above command will update the existing project with id 42.
    
    
-Expoprt Project
+Export Project
 ----------------------
 
 Script: export_project.py
