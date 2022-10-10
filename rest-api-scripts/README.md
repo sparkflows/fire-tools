@@ -45,7 +45,8 @@ This script will create_update_user with details based on provided list of users
 
 format of the file content
 
-<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>
+```<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>```
+
 ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
 
 Multiple role and group ids separated with pipe. 
