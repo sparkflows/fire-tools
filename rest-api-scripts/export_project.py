@@ -3,6 +3,17 @@ from zipfile import ZipFile
 import requests
 import json
 
+
+'''
+**********EXPORT PROJECTS******************
+python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+
+In project_ids, pass the pipeseparated prject id.
+***********************************
+
+'''
+
+
 def export_project(fire_host, token, project_id_list):
     zipObj = ZipFile('Projects.zip', 'w')
     for project_id in project_id_list:
@@ -114,7 +125,7 @@ if __name__ == '__main__':
     args_parser = argparse.ArgumentParser(allow_abbrev=False)
     args_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     args_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
-    args_parser.add_argument('--project_ids')
+    args_parser.add_argument('--project_ids', help='Pipe Separated project ids', type=str, required=True)
     args = args_parser.parse_args()
 
     fire_host_url = args.fire_host_url
