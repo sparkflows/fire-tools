@@ -39,14 +39,14 @@ def create_project(token: str, fire_host: str, project_name: str):
     api_call_headers = {'token': token}
     project_Description = project_name+" Project"
     create_project_body = "{\"name\": \"" + project_name + "\",\"description\":\"" + project_Description+ "\"} "
-    print("create_update_user_body:" + create_project_body)
+    print("create_project_body:" + create_project_body)
 
     create_project_api_body = json.loads(create_project_body)
 
     create_project_api_call_response = requests.post(create_project_api_url, json=create_project_api_body,
                                                          headers=api_call_headers)
 
-    if create_project_api_call_response.status_code == 200:
+    if create_project_api_call_response.status_code == 200 or create_project_api_call_response.status_code == 201:
 
         print("create project response: " + create_project_api_call_response.text)
 
