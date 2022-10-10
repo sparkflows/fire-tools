@@ -40,8 +40,8 @@ if __name__ == '__main__':
     my_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     my_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
     my_parser.add_argument('--project_zip_path', help='Project Zip path is required', type=str, required=True)
-    my_parser.add_argument('--project_id', help='Project Id is required', type=str,required = True)
     my_parser.add_argument('--selected_project_name', help='Project name is required', type=str, required=True)
+    my_parser.add_argument('--project_id', help='Overwrite the existing project ids with latest.')
     args = my_parser.parse_args()
 
     fire_host_url = args.fire_host_url
