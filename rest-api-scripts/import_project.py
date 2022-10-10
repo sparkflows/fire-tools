@@ -33,6 +33,27 @@ def import_project(token: str, fire_host: str, file_path: str, proj_id,project_n
         else:
             print("Error in import project api: " + import_project_api_call_response.text)
 
+def create_project(token: str, fire_host: str, project_name: str):
+    create_project_api_url = fire_host + "/api/v1/projects"
+
+    api_call_headers = {'token': token}
+    project_Description = project_name+" Project"
+    create_project_body = "{\"name\": \"" + project_name + "\",\"description\":\"" + project_Description+ "\"} "
+    print("create_update_user_body:" + create_project_body)
+
+    create_project_api_body = json.loads(create_project_body)
+
+    create_project_api_call_response = requests.post(create_project_api_url, json=create_project_api_body,
+                                                         headers=api_call_headers)
+
+    if create_project_api_call_response.status_code == 200:
+
+        print("create project response: " + create_project_api_call_response.text)
+
+    else:
+        print("Error in create project api: " + create_project_api_call_response.text)
+
+    return create_project_api_call_response.text            
 
 if __name__ == '__main__':
 
@@ -53,10 +74,13 @@ if __name__ == '__main__':
     print("fire_host_url: "+fire_host_url)
     print("access_token: "+access_token)
     print("project_zip_path: "+project_zip_path)
-    print("project_id: "+project_id)
     print("selected_project_name: "+selected_project_name)
 
     try:
+         if project_id is None or project_id == "":
+            project = create_project(access_token, fire_host_url,selected_project_name)
+            dict = json.loads(project)
+            project_id = str(dict['id'])
         import_project(access_token, fire_host_url, project_zip_path, project_id,selected_project_name)
     except Exception as e:
         if str(e).find("Connection refused") != -1 or str(e).lower().find("connection") != -1:
