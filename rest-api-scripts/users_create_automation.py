@@ -8,7 +8,7 @@ import argparse
 python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
 
 Users file content format:
-username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>
+<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>
 ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
 
 Multiple role and group ids separated with pipe.   
