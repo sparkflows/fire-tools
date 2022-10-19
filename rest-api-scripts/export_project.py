@@ -6,21 +6,44 @@ import json
 
 '''
 **********EXPORT PROJECTS******************
-python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3" --export_type="wpad"
 
 In project_ids, pass the pipeseparated prject id.
+The export_type is any permutation of the letters wpad, with w standing for workflow, p for pipeline, a for app details, and d for dataset. Can be in any order and at most 4 letters long.
 ***********************************
 
 '''
 
 
-def export_project(fire_host, token, project_id_list):
+def export_project(fire_host, token, project_id_list, export_type):
     zipObj = ZipFile('Projects.zip', 'w')
     for project_id in project_id_list:
         project_name = get_project_details(fire_host,token,project_id,zipObj)
-        get_workflow_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
-        get_app_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
-        get_pipeline_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
+        i = 0
+        while(i < len(export_type)):
+            if(export_type[i]=="w"):
+                print("Exporting workflows to zip")
+                get_workflow_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
+            elif(export_type[i]=="a"):
+                print("Exporting app deatails to zip")
+                get_app_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
+            elif(export_type[i]=="d"):
+                print("Exporting dataset details to zip")
+                get_dataset_details_by_proj_id(fire_host,token,project_id, project_name,zipObj)
+            elif(export_type[i]=="p"):
+                pipeline_list_to_export_api_url = fire_host + "/getExportPipelinesDetailsByProjectId/" + project_id
+                api_call_headers = {'token': token}
+                pipeline_list_to_export_api_call_response = requests.get(pipeline_list_to_export_api_url, headers=api_call_headers)
+                if pipeline_list_to_export_api_call_response.status_code == 200:
+                    print("Exporting pipelines to zip")
+                    get_pipeline_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
+                else:
+                    print("ERROR IN PIPELINE LIST API CHECK PIPELINES ON THE PROJECT" + pipeline_list_to_export_api_call_response.text)
+                    print("THE SCRIPT WILL CONTINUE WITHOUT ANY PIPELINES")
+            else:
+                print("INVALID EXPORT_TYPE MAKE SURE IT IS AT MOST 4 LETTERS LOWERCASE w for WORKFLOW, a for app details, d FOR DATASET, OR p FOR PIPELINE")
+                zipObj.close();
+            i=i+1
     zipObj.close();
 
 def get_project_details(fire_host, token, project_id,zipObj):
@@ -36,7 +59,7 @@ def get_project_details(fire_host, token, project_id,zipObj):
         project_meta_data = {
             "Id": project_detail['id'],
             "name": project_detail['name'],
-            "tag": project_detail['tag'],
+            #"tag": project_detail['tag'],
             "description": project_detail['description'],
             "createdBy": project_detail['createdBy']
         }
@@ -77,7 +100,7 @@ def get_dataset_details_by_proj_id(fire_host, token, project_id,project_name,zip
     if dataset_list_to_export_api_call_response.status_code == 200:
         for dataset_detail in json.loads(dataset_list_to_export_api_call_response.text):
             dataset_dict = json.loads(dataset_detail);
-            datasetFileName = 'Projects' + '/' + project_name + '/' + 'datasets/' + wf_dict['name'].replace(" ","")+"_"+str(wf_dict['id']) + '.json';
+            datasetFileName = 'Projects' + '/' + project_name + '/' + 'datasets/' + dataset_dict['name'].replace(" ","")+"_"+str(dataset_dict['id']) + '.json';
             # Serializing json
             dataset_data_json_object = json.dumps(dataset_dict, indent = 1)
             zipObj.open(datasetFileName, "w").write(dataset_data_json_object.encode("utf-8"))
@@ -126,13 +149,16 @@ if __name__ == '__main__':
     args_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     args_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
     args_parser.add_argument('--project_ids', help='Pipe Separated project ids', type=str, required=True)
+    args_parser.add_argument('--export_type', help='w for workflow, p for pipeline, d for datasets', type=str, required=True)
     args = args_parser.parse_args()
 
     fire_host_url = args.fire_host_url
     access_token = args.access_token
     project_ids = args.project_ids
+    export_type = args.export_type
     print("fire_host_url: " + fire_host_url)
     print("access_token: " + access_token)
     print("project_ids: " + project_ids)
+    print("export_type:" + export_type)
 
-    export_project(fire_host=fire_host_url, token=access_token, project_id_list=project_ids.split('|'))
+    export_project(fire_host=fire_host_url, token=access_token, project_id_list=project_ids.split('|'),export_type=export_type)
