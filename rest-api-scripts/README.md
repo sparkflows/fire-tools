@@ -58,11 +58,9 @@ Format of each row in the file:
 
 ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
 
-Multiple roles and group ids separated with pipe. 
-
-and pass the file path to --users_file_path argument.
+Multiple roles and group ids can be separated with pipe as shown in the example above. Then, pass the file path to --users_file_path argument.
    
-command: 
+Command: 
    users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
 
    
