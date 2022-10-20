@@ -42,7 +42,7 @@ View, Create, Update and Delete User Details
 
 **Script Name**: `user_create_automation.py`
 
-This script will create_update_user details/delete_user/user_list/active_users_and_groups based on added arguments.
+This script will create/update/delete/list User Details based on added arguments.
 
 
 Create and Update List of Users
@@ -72,15 +72,35 @@ Import Project
 **Script Name**: `import_project.py`
 
 This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments.
-   
 
 **Command**:
+import_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --project_zip_path="Projects_xxxx.zip" --selected_project_name="yyyyyyy"
+
+**Arguments**:
+
+The above script expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--project_zip_path` : The zip file of exported projects from which we intend to import projects.
+
+`--selected_project_name` : The Name of the project that needs to be imported.
+
+`--project_id` : Pass the project ID if the project needs to be imported/updated into one of the existing project. This will not create a new project.
+
+   
+
+**Example to import as a new project**:
+
 import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
 
 Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
    
    
-**Command**: 
+**Example to import into an existing project**: 
+
 import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
    
 Above command will update the existing project with id 42.
