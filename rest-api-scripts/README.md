@@ -50,23 +50,38 @@ Create and Update List of Users
 
 **Script Name**: `users_create_automation.py`
 
-This script will create_update_user with details based on provided list of users in the file.
+This script will create/update User details based on provided list of users in the file.
 
-Format of each row in the file:
+**Command**: 
+
+`users_create_automation.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --users_file_path="path_of_file_with_list_of_users"`
+
+**Arguments**:
+
+The above script expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--users_file_path` : The path of the file which has the list of Users. Format of each row in the file should be in the format below.Multiple roles and group ids can be separated with pipe.
 
 ```<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>```
 
-**Example**:
+**Example to update only one role and group along with other properties**:
+
+test,test@123,test,test,test@email.com,role1,group1,true,true
+
+**Example to update multiple roles and groups along with other properties**:
 
 test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
-
-Multiple roles and group ids can be separated with pipe as shown in the example above. Then, pass the file path to --users_file_path argument.
    
-**Command**: 
+**Example to update the details of users**: 
+
    users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
 
    
-Import Project
+Import Projects
 ----------------------
 
 **Script Name**: `import_project.py`
@@ -107,7 +122,7 @@ import_project.py --fire_host_url="https://localhost:8080" --access_token="cacak
 Above command will update the existing project with id 42.
    
    
-Export Project
+Export Projects
 ----------------------
 
 **Script Name**: `export_project.py`
