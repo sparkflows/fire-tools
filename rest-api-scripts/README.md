@@ -32,9 +32,9 @@ Load Apps
 
 This script will read `project.json` file and get the Project Tag to fetch the projects to be updated. Then it would read through all the Projects listed one by one and would read all the Apps in the Project. For each App, it would find the corresponding App based on UUID of the App in Fire and:
 
-   1. update it if it exists. 
-   2. Or it would create a new one if it does not exist. 
-   3. Or hide apps if doesn’t exist in zip file
+   1. Update, if it exists. 
+   2. Create a new one if it does not exist. 
+   3. Hide apps if doesn’t exist in zip file
 
 
 View, Create, Update and Delete User Details
@@ -52,13 +52,13 @@ Create and Update List of Users
 
 This script will create_update_user with details based on provided list of users in the file.
 
-format of the file content
+Format of each row in the file:
 
 ```<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>```
 
 ex: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
 
-Multiple role and group ids separated with pipe. 
+Multiple roles and group ids separated with pipe. 
 
 and pass the file path to --users_file_path argument.
    
@@ -74,12 +74,12 @@ Import Project
 This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments.
    
 
-command: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+Command: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
 
    Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
    
    
-command: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
+Command: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
    
    Above command will update the existing project with id 42.
    
@@ -91,7 +91,7 @@ Export Project
 
 This script will export the project worfklows, datasets, analytics apps and pipelines into zip file. Inside the zip file there will be folder for each projects.
   
-command:  
+Command:  
    export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
    
    Above command will create the zipfolder with separate folder for each project ids passed in --project_ids arguments.
