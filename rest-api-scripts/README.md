@@ -56,7 +56,9 @@ Format of each row in the file:
 
 ```<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>```
 
-**Example**: test,test@123,test,test,test@**.com,role1|role2,group1|group1,true or false, true or false
+**Example**:
+
+test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
 
 Multiple roles and group ids can be separated with pipe as shown in the example above. Then, pass the file path to --users_file_path argument.
    
@@ -72,14 +74,16 @@ Import Project
 This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments.
    
 
-**Command**: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+**Command**:
+import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
 
-   Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
+Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
    
    
-**Command**: import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
+**Command**: 
+import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
    
-   Above command will update the existing project with id 42.
+Above command will update the existing project with id 42.
    
    
 Export Project
