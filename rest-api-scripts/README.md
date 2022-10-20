@@ -74,7 +74,8 @@ Import Project
 This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments.
 
 **Command**:
-import_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --project_zip_path="Projects_xxxx.zip" --selected_project_name="yyyyyyy"
+
+`import_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --project_zip_path="Projects_xxxx.zip" --selected_project_name="yyyyyyy"`
 
 **Arguments**:
 
@@ -111,11 +112,26 @@ Export Project
 
 **Script Name**: `export_project.py`
 
-This script will export the project worfklows, datasets, analytics apps and pipelines into zip file. Inside the zip file there will be folder for each projects.
-  
-**Command**:  
+This script will export the project workflows, datasets, analytics apps and pipelines into zip file. Inside the zip file there will be folder for each project.
+
+**Command**:
+
+`export_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --project_ids="yyy|zzz"`
+
+**Arguments**:
+
+The above script expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--project_ids` : Pass the project ID's of the porjects that need to be Exported seperated by a Pipe operator
+
+**Example to export multiple projects**:  
+
    export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
    
-   Above command will create the zipfolder with separate folder for each project ids passed in --project_ids arguments.
+   Above command will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
    
    
