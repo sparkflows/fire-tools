@@ -15,14 +15,14 @@ https://docs.sparkflows.io/en/latest/rest-api/rest-api-authentication/acquire-to
 Fetch All Active Users and Groups
 ---------------------------
 
-Script: active_users_and_groups.py
+**Script Name**: active_users_and_groups.py
 
 This script gets all active users and their groups. It then writes these details into a csv file.
 
 Display or hide Apps
 ----------------------
 
-Script: display-hide-apps.py
+**Script Name**: display-hide-apps.py
 
 This script displays or hide apps based on the customer’s licensed use case. Ex: sales & marketing customers should only see apps that are Sales & Marketing related. It would be done via the usecase of each app.  If the usecase of the fire app matches the use case in yaml (ex: marketing or finance), that app will be displayed. Any usecase of app not matching the customer’s use case will be hidden.
 
@@ -30,7 +30,7 @@ This script displays or hide apps based on the customer’s licensed use case. E
 Load Apps
 -------------
 
-Script: load-app.py
+**Script Name**: load-app.py
 
 This script will read project.json file and get the Project Tag to fetch the projects to be updated. Then it would read through all the Projects listed one by one and would read all the Apps in the Project. For each App, it would find the corresponding App based on UUID of the App in Fire and:
 
@@ -42,7 +42,7 @@ This script will read project.json file and get the Project Tag to fetch the pro
 View, Create, Update and Delete User Details
 ---------------------------
 
-Script: user_create_automation.py
+**Script Name**: user_create_automation.py
 
 This script will create_update_user details/delete_user/user_list/active_users_and_groups based on added arguments.
 
@@ -50,7 +50,7 @@ This script will create_update_user details/delete_user/user_list/active_users_a
 Create and Update List of Users
 ---------------------------
 
-Script: users_create_automation.py
+Script Name: users_create_automation.py
 
 This script will create_update_user with details based on provided list of users in the file.
 
@@ -71,7 +71,7 @@ command:
 Import Project
 ----------------------
 
-Script: import_project.py
+**Script Name**: import_project.py
 
 This script will import project workflows, datasets, analytics apps and pipelines present in exported zip file in which it will read through that project folder whose name is given in arguments.
    
@@ -89,7 +89,7 @@ command: import_project.py --fire_host_url="https://localhost:8080" --access_tok
 Export Project
 ----------------------
 
-Script: export_project.py
+**Script Name**: export_project.py
 
 This script will export the project worfklows, datasets, analytics apps and pipelines into zip file. Inside the zip file there will be folder for each projects.
   
