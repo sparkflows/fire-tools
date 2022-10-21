@@ -7,9 +7,10 @@ import json
 '''
 **********EXPORT PROJECTS******************
 python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3" --export_type="wpad"
-
+python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck"
 In project_ids, pass the pipeseparated prject id.
 The export_type is any permutation of the letters wpad, with w standing for workflow, p for pipeline, a for app details, and d for dataset. Can be in any order and at most 4 letters long.
+The script ran with just fire_host_url and access_token as parameters will export all projects within the url 
 ***********************************
 
 '''
@@ -31,15 +32,8 @@ def export_project(fire_host, token, project_id_list, export_type):
                 print("Exporting dataset details to zip")
                 get_dataset_details_by_proj_id(fire_host,token,project_id, project_name,zipObj)
             elif(export_type[i]=="p"):
-                pipeline_list_to_export_api_url = fire_host + "/getExportPipelinesDetailsByProjectId/" + project_id
-                api_call_headers = {'token': token}
-                pipeline_list_to_export_api_call_response = requests.get(pipeline_list_to_export_api_url, headers=api_call_headers)
-                if pipeline_list_to_export_api_call_response.status_code == 200:
-                    print("Exporting pipelines to zip")
-                    get_pipeline_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
-                else:
-                    print("ERROR IN PIPELINE LIST API CHECK PIPELINES ON THE PROJECT" + pipeline_list_to_export_api_call_response.text)
-                    print("THE SCRIPT WILL CONTINUE WITHOUT ANY PIPELINES")
+                print("Exporting pipelines to zip")
+                get_pipeline_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
             else:
                 print("INVALID EXPORT_TYPE MAKE SURE IT IS AT MOST 4 LETTERS LOWERCASE w for WORKFLOW, a for app details, d FOR DATASET, OR p FOR PIPELINE")
                 zipObj.close();
@@ -148,17 +142,27 @@ if __name__ == '__main__':
     args_parser = argparse.ArgumentParser(allow_abbrev=False)
     args_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     args_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
-    args_parser.add_argument('--project_ids', help='Pipe Separated project ids', type=str, required=True)
-    args_parser.add_argument('--export_type', help='w for workflow, p for pipeline, d for datasets', type=str, required=True)
+    args_parser.add_argument('--project_ids', help='Pipe Separated project ids', type=str, required=False)
+    args_parser.add_argument('--export_type', help='w for workflow, p for pipeline, a for app details, d for datasets', type=str, required=False)
     args = args_parser.parse_args()
 
     fire_host_url = args.fire_host_url
+
     access_token = args.access_token
     project_ids = args.project_ids
     export_type = args.export_type
     print("fire_host_url: " + fire_host_url)
     print("access_token: " + access_token)
-    print("project_ids: " + project_ids)
-    print("export_type:" + export_type)
-
-    export_project(fire_host=fire_host_url, token=access_token, project_id_list=project_ids.split('|'),export_type=export_type)
+    print("project_ids: " + str(project_ids))
+    print("export_type:" + str(export_type))
+    if(str(project_ids)=="None"):
+        api_call_headers = {'token': access_token}
+        project_info=json.loads(requests.get(fire_host_url+'/api/v1/projects/',headers=api_call_headers).text)
+        project_id_list=[]
+        for i in project_info:
+            project_id_list.append(str(i["id"]))
+        export_project(fire_host=fire_host_url, token=access_token, project_id_list=project_id_list, export_type="wpad")
+    elif(str(export_type)=="None"):
+        export_project(fire_host=fire_host_url, token=access_token, project_id_list=project_ids.split('|'), export_type="wpad")
+    else:
+        export_project(fire_host=fire_host_url, token=access_token, project_id_list=project_ids.split('|'),export_type=export_type)
