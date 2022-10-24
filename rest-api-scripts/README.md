@@ -54,7 +54,7 @@ This script will create/update User details based on provided list of users in t
 
 **Command**: 
 
-`users_create_automation.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --users_file_path="path_of_file_with_list_of_users"`
+`python users_create_automation.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --users_file_path="path_of_file_with_list_of_users"`
 
 **Arguments**:
 
@@ -78,7 +78,7 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
    
 **Example to update the details of users**: 
 
-   users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
+   python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
 
    
 Import Projects
@@ -110,7 +110,7 @@ The above script expects the below command line arguments:
 
 **Example to import as a new project**:
 
-import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
 
 Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
    
@@ -131,7 +131,7 @@ This script will export the project workflows, datasets, analytics apps and pipe
 
 **Command**:
 
-`export_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --project_ids="yyy|zzz"`
+`python export_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --project_ids="yyy|zzz"`
 
 **Arguments**:
 
@@ -145,7 +145,7 @@ The above script expects the below command line arguments:
 
 **Example to export multiple projects**:  
 
-   export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+   python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
    
    Above command will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
    
