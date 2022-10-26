@@ -20,6 +20,7 @@ def export_project(fire_host, token, project_id_list):
         project_name = get_project_details(fire_host,token,project_id,zipObj)
         get_workflow_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
         get_app_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
+        get_dataset_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
         get_pipeline_details_by_proj_id(fire_host,token,project_id,project_name,zipObj)
     zipObj.close();
 
@@ -77,7 +78,7 @@ def get_dataset_details_by_proj_id(fire_host, token, project_id,project_name,zip
     if dataset_list_to_export_api_call_response.status_code == 200:
         for dataset_detail in json.loads(dataset_list_to_export_api_call_response.text):
             dataset_dict = json.loads(dataset_detail);
-            datasetFileName = 'Projects' + '/' + project_name + '/' + 'datasets/' + wf_dict['name'].replace(" ","")+"_"+str(wf_dict['id']) + '.json';
+            datasetFileName = 'Projects' + '/' + project_name + '/' + 'datasets/' + dataset_dict['name'].replace(" ","")+"_"+str(dataset_dict['id']) + '.json';
             # Serializing json
             dataset_data_json_object = json.dumps(dataset_dict, indent = 1)
             zipObj.open(datasetFileName, "w").write(dataset_data_json_object.encode("utf-8"))
