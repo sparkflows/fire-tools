@@ -1,0 +1,9 @@
+{
+  "name": "test-forecast",
+  "uuid": "151287d6-4deb-4128-bc68-1b70f3208066",
+  "category": "-",
+  "nodes": [],
+  "edges": [],
+  "dataSetDetails": [],
+  "engine": "scala"
+}
