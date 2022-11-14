@@ -484,7 +484,7 @@
         },
         {
           "name": "bgColor",
-          "value": "gray",
+          "value": "blue",
           "widget": "textfield",
           "title": "Bg Color",
           "description": "Background of note",
