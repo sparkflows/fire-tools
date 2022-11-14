@@ -1,0 +1,144 @@
+{
+  "name": "example_pipeline",
+  "category": "",
+  "description": "",
+  "parameters": "",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/02-Code/",
+      "name": "Bash Operator",
+      "description": "This node executes the commands depends on selected trigger rule.",
+      "details": "",
+      "examples": "",
+      "type": "bashOperator",
+      "nodeClass": "fire.pipelineNodes.bashOperator",
+      "x": "216.984px",
+      "y": "104.99px",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Name of the task in airflow dag and it should be unique in the dag.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "notes",
+          "value": "",
+          "widget": "textfield",
+          "title": "Notes",
+          "description": "Notes",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "trigger_rule",
+          "value": "all_success",
+          "widget": "array",
+          "title": "Trigger Rule",
+          "description": "trigger_rule",
+          "optionsArray": [
+            "all_success",
+            "all_failed",
+            "all_done",
+            "all_skipped",
+            "one_failed",
+            "one_success",
+            "none_failed",
+            "none_failed_min_one_success",
+            "none_skipped",
+            "always"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "shellCommand",
+          "widget": "shellcommand",
+          "title": "shell Command",
+          "description": "Shell Command to be executed.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "path": "/09-Documentation/",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Pipeline",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.pipelineNodes.doc.NodeStickyNote",
+      "x": "449.984px",
+      "y": "161.99px",
+      "fields": [
+        {
+          "name": "bgColor",
+          "value": "blue",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "width",
+          "value": "300px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "height",
+          "value": "110px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "comment",
+          "value": "",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Pipeline",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    }
+  ],
+  "edges": []
+}
