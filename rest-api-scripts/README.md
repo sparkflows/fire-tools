@@ -152,14 +152,14 @@ The above script expects the below command line arguments:
 Workflow Metric Reporter
 ----------------------
 Script: workflow_metric_reporter.py
-This script will export a csv file containing the latency and status of all execution of a specified project_id. The descriptive argument is a Boolean, if set to True additional metrics will be exported (longest_latency, status_count).
+This script will export a csv file containing the latency and status of all execution of a specified project_id. The summary argument is a Boolean, if set to True additional metrics will be exported (longest_latency, status_count).
 command:  
 
-   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1" --summary=True  
+   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True  
 
    The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
    
-   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1" --summary=False
+   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=False
    
    The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
 
