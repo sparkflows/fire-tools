@@ -3,6 +3,6 @@
 This repository contains scripts for the following tools:
 
 * Docker file
-* Script for automating CI/CD etc.
+* Scripts for automating CI/CD etc.
 
 
