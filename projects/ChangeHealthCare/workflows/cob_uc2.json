@@ -1,0 +1,2606 @@
+{
+  "name": "cob_uc2",
+  "uuid": "71ee2055-525a-4155-a2e8-028853683de3",
+  "category": "-",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "115px",
+      "y": "115px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/lob_uc2.csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Text file/directory",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "true",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "false",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"LOB_ID\",\"LOB_NAME\",\"SRC_LOB_CD\",\"Grp_Set_Num_lob\",\"Nasco_Pkg_Cd_lob\",\"GrpID_lob\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"STRING\",\"INTEGER\",\"STRING\",\"STRING\",\"STRING\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "2",
+      "name": "Row Filter",
+      "description": "This node creates a new DataFrame containing the rows that satisfy the given condition",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeRowFilter",
+      "x": "284px",
+      "y": "122px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "conditionExpr",
+          "value": "SRC_LOB_CD in (\u0027111\u0027, \u0027113\u0027, \u0027121\u0027, \u0027123\u0027, \u0027131\u0027, \u0027133\u0027, \u00271H1\u0027, \u00271H3\u0027, \u00271I1\u0027, \u00271I3\u0027)",
+          "widget": "textarea_small",
+          "title": "Conditional Expression",
+          "description": "The filtering condition. Rows not satisfying given condition will be excluded from output DataFrame. eg: usd_pledged_real \u003e 0 and (category \u003d 1 or category \u003d\u003d 2) and goal \u003e 100",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "3",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "122px",
+      "y": "297px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/grp_cov_uc2.csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Text file/directory",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "true",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "false",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"rec_id\",\"grp_set_num_gc\",\"nasco_pkg_cd_gc\",\"grpid_gc\",\"grp_name\",\"lob_cd_gc\",\"EFF_DT_gc\",\"TERM\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"INTEGER\",\"DATE\",\"STRING\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"dd/mm/yy\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "4",
+      "name": "Row Filter",
+      "description": "This node creates a new DataFrame containing the rows that satisfy the given condition",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeRowFilter",
+      "x": "278px",
+      "y": "297px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "conditionExpr",
+          "value": "EFF_DT_gc \u003e\u003d current_date() - 365",
+          "widget": "textarea_small",
+          "title": "Conditional Expression",
+          "description": "The filtering condition. Rows not satisfying given condition will be excluded from output DataFrame. eg: usd_pledged_real \u003e 0 and (category \u003d 1 or category \u003d\u003d 2) and goal \u003e 100",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "5",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "127px",
+      "y": "422px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/cov_control_uc2.csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Text file/directory",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "true",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "false",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"rec_id_cc\",\"grp_set_num_cc\",\"nasco_pkg_cd_cc\",\"grpid_cc\",\"ctrc_num_cc\",\"EXT_Id_cc\",\"active_ind_cc\",\"EFF_DT_cc\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"DATE\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"mm/dd/yy\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "6",
+      "name": "Window Ranking",
+      "description": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeWindowRanking",
+      "x": "492px",
+      "y": "300px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "partitionByCols",
+          "value": "grp_set_num_gc, nasco_pkg_cd_gc, grpid_gc",
+          "widget": "textfield",
+          "title": "PartitionBy",
+          "description": "partition column names separated by comma(,) ",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "orderByCols",
+          "value": "EFF_DT_gc desc",
+          "widget": "textfield",
+          "title": "OrderBy",
+          "description": "order by column names separated by comma(,)",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "windowFunction",
+          "value": "RANK",
+          "widget": "array",
+          "title": "Window Function",
+          "description": "Window Function Name",
+          "optionsArray": [
+            "RANK",
+            "ROW_NUMBER",
+            "DENSE_RANK"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "7",
+      "name": "Row Filter",
+      "description": "This node creates a new DataFrame containing the rows that satisfy the given condition",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeRowFilter",
+      "x": "635px",
+      "y": "304px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "conditionExpr",
+          "value": "rank \u003d\u003d 1",
+          "widget": "textarea_small",
+          "title": "Conditional Expression",
+          "description": "The filtering condition. Rows not satisfying given condition will be excluded from output DataFrame. eg: usd_pledged_real \u003e 0 and (category \u003d 1 or category \u003d\u003d 2) and goal \u003e 100",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "8",
+      "name": "Window Ranking",
+      "description": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeWindowRanking",
+      "x": "312px",
+      "y": "426px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "partitionByCols",
+          "value": "grp_set_num_cc, nasco_pkg_cd_cc, grpid_cc",
+          "widget": "textfield",
+          "title": "PartitionBy",
+          "description": "partition column names separated by comma(,) ",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "orderByCols",
+          "value": "EFF_DT_cc desc",
+          "widget": "textfield",
+          "title": "OrderBy",
+          "description": "order by column names separated by comma(,)",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "windowFunction",
+          "value": "RANK",
+          "widget": "array",
+          "title": "Window Function",
+          "description": "Window Function Name",
+          "optionsArray": [
+            "RANK",
+            "ROW_NUMBER",
+            "DENSE_RANK"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "9",
+      "name": "Row Filter",
+      "description": "This node creates a new DataFrame containing the rows that satisfy the given condition",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeRowFilter",
+      "x": "487px",
+      "y": "440px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "conditionExpr",
+          "value": "rank \u003d\u003d 1",
+          "widget": "textarea_small",
+          "title": "Conditional Expression",
+          "description": "The filtering condition. Rows not satisfying given condition will be excluded from output DataFrame. eg: usd_pledged_real \u003e 0 and (category \u003d 1 or category \u003d\u003d 2) and goal \u003e 100",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "10",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "126px",
+      "y": "536px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/sub_ctrl_uc2.csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Text file/directory",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "true",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "false",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"rec_num_sc\",\"sub_name_sc\",\"policy_id_sc\",\"ctrc_num_sc\",\"ext_ID_sc\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"STRING\",\"STRING\",\"STRING\",\"STRING\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "11",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "123px",
+      "y": "650px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/mbr_ctrl_uc2.csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Text file/directory",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "true",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "false",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"rec_num_mc\",\"mbr_seg_can_dt_mc\",\"policy_id_mc\",\"ctrc_num_mc\",\"ext_ID_mc\",\"mem_num_mc\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"DATE\",\"STRING\",\"STRING\",\"STRING\",\"STRING\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"mm/dd/yy\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "12",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "104px",
+      "y": "787px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/dep_ctrl_uc2.csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Text file/directory",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "true",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "true",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"rec_num\",\"sub_id_dc\",\"dep_id_dc\",\"active_ind_dc\",\"term_dt_dc\",\"ctrc_num_dc\",\"ext_ID_dc\",\"mem_num_dc\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"STRING\",\"STRING\",\"STRING\",\"DATE\",\"STRING\",\"STRING\",\"STRING\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"mm/dd/yy\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "13",
+      "name": "Expressions",
+      "description": "This node creates a new DataFrame by adding new columns to the incoming Dataframe as per the Expression computation",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeExpressions",
+      "x": "306px",
+      "y": "556px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "description",
+          "value": "",
+          "widget": "textfield",
+          "title": "Description",
+          "description": "Description to capture processing in this node",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"Sub_id_sc_prep\"]",
+          "widget": "key_array",
+          "title": "New Column Names",
+          "description": "New Column Names",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "expressions",
+          "value": "[\"concat(ctrc_num_sc, ext_ID_sc)\"]",
+          "widget": "value_array",
+          "title": "Expressions",
+          "description": "Expressions to create new columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "14",
+      "name": "Expressions",
+      "description": "This node creates a new DataFrame by adding new columns to the incoming Dataframe as per the Expression computation",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeExpressions",
+      "x": "604px",
+      "y": "446px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "description",
+          "value": "",
+          "widget": "textfield",
+          "title": "Description",
+          "description": "Description to capture processing in this node",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"Sub_id_cc_prep\"]",
+          "widget": "key_array",
+          "title": "New Column Names",
+          "description": "New Column Names",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "expressions",
+          "value": "[\"concat(ctrc_num_cc, ext_ID_cc)\"]",
+          "widget": "value_array",
+          "title": "Expressions",
+          "description": "Expressions to create new columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "15",
+      "name": "Expressions",
+      "description": "This node creates a new DataFrame by adding new columns to the incoming Dataframe as per the Expression computation",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeExpressions",
+      "x": "305px",
+      "y": "669px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "description",
+          "value": "",
+          "widget": "textfield",
+          "title": "Description",
+          "description": "Description to capture processing in this node",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"Sub_id_mc_prep\"]",
+          "widget": "key_array",
+          "title": "New Column Names",
+          "description": "New Column Names",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "expressions",
+          "value": "[\"concat(ctrc_num_mc, ext_ID_mc)\"]",
+          "widget": "value_array",
+          "title": "Expressions",
+          "description": "Expressions to create new columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "16",
+      "name": "Expressions",
+      "description": "This node creates a new DataFrame by adding new columns to the incoming Dataframe as per the Expression computation",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeExpressions",
+      "x": "301px",
+      "y": "794px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "description",
+          "value": "",
+          "widget": "textfield",
+          "title": "Description",
+          "description": "Description to capture processing in this node",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"Sub_id_dc_prep\"]",
+          "widget": "key_array",
+          "title": "New Column Names",
+          "description": "New Column Names",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "expressions",
+          "value": "[\"concat(ctrc_num_dc, ext_ID_dc)\"]",
+          "widget": "value_array",
+          "title": "Expressions",
+          "description": "Expressions to create new columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "17",
+      "name": "Window Ranking",
+      "description": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeWindowRanking",
+      "x": "449px",
+      "y": "664px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "partitionByCols",
+          "value": "ctrc_num_mc, ext_id_mc",
+          "widget": "textfield",
+          "title": "PartitionBy",
+          "description": "partition column names separated by comma(,) ",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "orderByCols",
+          "value": "mbr_seg_can_dt_mc desc",
+          "widget": "textfield",
+          "title": "OrderBy",
+          "description": "order by column names separated by comma(,)",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "windowFunction",
+          "value": "RANK",
+          "widget": "array",
+          "title": "Window Function",
+          "description": "Window Function Name",
+          "optionsArray": [
+            "RANK",
+            "ROW_NUMBER",
+            "DENSE_RANK"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "18",
+      "name": "Row Filter",
+      "description": "This node creates a new DataFrame containing the rows that satisfy the given condition",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeRowFilter",
+      "x": "594px",
+      "y": "666px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "conditionExpr",
+          "value": "rank \u003d\u003d 1",
+          "widget": "textarea_small",
+          "title": "Conditional Expression",
+          "description": "The filtering condition. Rows not satisfying given condition will be excluded from output DataFrame. eg: usd_pledged_real \u003e 0 and (category \u003d 1 or category \u003d\u003d 2) and goal \u003e 100",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "19",
+      "name": "Join On Columns",
+      "description": "Joins the incoming Dataframes on the given columns",
+      "type": "join2inputs",
+      "nodeClass": "fire.nodes.etl.JoinOnColumns",
+      "x": "800px",
+      "y": "379px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "joinType",
+          "value": "inner",
+          "widget": "array",
+          "title": "Join Type",
+          "description": "Type of Join",
+          "optionsArray": [
+            "inner",
+            "outer",
+            "left_outer",
+            "right_outer",
+            "leftsemi"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "leftTableJoinColumn",
+          "value": "[\"grp_set_num_gc\",\"nasco_pkg_cd_gc\"]",
+          "widget": "key_array_join",
+          "title": "LeftTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "rightTableJoinColumn",
+          "value": "[\"grp_set_num_cc\",\"nasco_pkg_cd_cc\"]",
+          "widget": "value_array_join",
+          "title": "RightTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "20",
+      "name": "Join On Columns",
+      "description": "Joins the incoming Dataframes on the given columns",
+      "type": "join2inputs",
+      "nodeClass": "fire.nodes.etl.JoinOnColumns",
+      "x": "510px",
+      "y": "151px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "joinType",
+          "value": "inner",
+          "widget": "array",
+          "title": "Join Type",
+          "description": "Type of Join",
+          "optionsArray": [
+            "inner",
+            "outer",
+            "left_outer",
+            "right_outer",
+            "leftsemi"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "leftTableJoinColumn",
+          "value": "[\"Grp_Set_Num_lob\",\"Nasco_Pkg_Cd_lob\"]",
+          "widget": "key_array_join",
+          "title": "LeftTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "rightTableJoinColumn",
+          "value": "[\"grp_set_num_gc\",\"lob_cd_gc\"]",
+          "widget": "value_array_join",
+          "title": "RightTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "21",
+      "name": "Join On Columns",
+      "description": "Joins the incoming Dataframes on the given columns",
+      "type": "join2inputs",
+      "nodeClass": "fire.nodes.etl.JoinOnColumns",
+      "x": "810px",
+      "y": "557px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "joinType",
+          "value": "inner",
+          "widget": "array",
+          "title": "Join Type",
+          "description": "Type of Join",
+          "optionsArray": [
+            "inner",
+            "outer",
+            "left_outer",
+            "right_outer",
+            "leftsemi"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "leftTableJoinColumn",
+          "value": "[\"Sub_id_sc_prep\"]",
+          "widget": "key_array_join",
+          "title": "LeftTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "rightTableJoinColumn",
+          "value": "[\"Sub_id_cc_prep\"]",
+          "widget": "value_array_join",
+          "title": "RightTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "22",
+      "name": "Join On Columns",
+      "description": "Joins the incoming Dataframes on the given columns",
+      "type": "join2inputs",
+      "nodeClass": "fire.nodes.etl.JoinOnColumns",
+      "x": "796px",
+      "y": "688px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "joinType",
+          "value": "inner",
+          "widget": "array",
+          "title": "Join Type",
+          "description": "Type of Join",
+          "optionsArray": [
+            "inner",
+            "outer",
+            "left_outer",
+            "right_outer",
+            "leftsemi"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "leftTableJoinColumn",
+          "value": "[\"Sub_id_mc_prep\"]",
+          "widget": "key_array_join",
+          "title": "LeftTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "rightTableJoinColumn",
+          "value": "[\"Sub_id_cc_prep\"]",
+          "widget": "value_array_join",
+          "title": "RightTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "23",
+      "name": "Join On Columns",
+      "description": "Joins the incoming Dataframes on the given columns",
+      "type": "join2inputs",
+      "nodeClass": "fire.nodes.etl.JoinOnColumns",
+      "x": "748px",
+      "y": "805px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "joinType",
+          "value": "inner",
+          "widget": "array",
+          "title": "Join Type",
+          "description": "Type of Join",
+          "optionsArray": [
+            "inner",
+            "outer",
+            "left_outer",
+            "right_outer",
+            "leftsemi"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "leftTableJoinColumn",
+          "value": "[\"Sub_id_dc_prep\"]",
+          "widget": "key_array_join",
+          "title": "LeftTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "rightTableJoinColumn",
+          "value": "[\"Sub_id_cc_prep\"]",
+          "widget": "value_array_join",
+          "title": "RightTableJoinColumn",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "24",
+      "name": "Select Columns",
+      "description": "This node creates a new DataFrame that contains only the selected columns",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeColumnFilter",
+      "x": "990px",
+      "y": "790px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"Sub_id_cc_prep\",\"ctrc_num_dc\",\"ext_ID_dc\",\"mem_num_dc\",\"policy_id_mc\",\"grp_set_num_gc\",\"nasco_pkg_cd_gc\",\"grp_name\",\"lob_cd_gc\"]",
+          "widget": "variables",
+          "title": "Columns",
+          "description": "Columns to be included in the output DataFrame",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "25",
+      "name": "Add  Columns",
+      "description": "This node allows adding new columns with certain values",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeAddColumns",
+      "x": "1146px",
+      "y": "797px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addCurrentDateCol",
+          "value": "true",
+          "widget": "array",
+          "title": "Add Current Date Column",
+          "description": "Whether to add the current date as a new column",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "currentDateColName",
+          "value": "processing_date",
+          "widget": "textfield",
+          "title": "Current Date Column Name",
+          "description": "Name of the new Current Date Column Created",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addCurrentTimeCol",
+          "value": "true",
+          "widget": "array",
+          "title": "Add Current Time Column",
+          "description": "Whether to add the current time as a new column",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "currentTimeColName",
+          "value": "processing_time",
+          "widget": "textfield",
+          "title": "Current Time Column Name",
+          "description": "Name of the new Current Time Column Created",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addConstantStringCol1",
+          "value": "false",
+          "widget": "array",
+          "title": "Add Constant String Column",
+          "description": "Whether to add a new columns with constant string value",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "constantStringColName1",
+          "value": "",
+          "widget": "textfield",
+          "title": "Constant String Column Name",
+          "description": "Constant String Name",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "constantStringColValue1",
+          "value": "",
+          "widget": "textfield",
+          "title": "Constant String Column Value",
+          "description": "Constant String Value",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "addConstantIntCol1",
+          "value": "false",
+          "widget": "array",
+          "title": "Add Constant Integer Column",
+          "description": "Whether to add a new columns with constant integer value",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "constantIntColName1",
+          "value": "",
+          "widget": "textfield",
+          "title": "Constant Integer Column Name",
+          "description": "Constant Integer Column Name",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "constantIntColValue1",
+          "value": "",
+          "widget": "textfield",
+          "title": "Constant Integer Column Value",
+          "description": "Constant Integer Value",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "26",
+      "name": "Save Parquet",
+      "description": "Saves the DataFrame into the specified location in Parquet Format. When running on Hadoop, it is saved onto HDFS.",
+      "type": "transform",
+      "nodeClass": "fire.nodes.save.NodeSaveParquet",
+      "x": "1342px",
+      "y": "782px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "path",
+          "value": "s3a://assume-role-bucket1/data/ch/paymentintegrity/cob_uc_2_output_parquet",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path where to save the Parquet files",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "saveMode",
+          "value": "Overwrite",
+          "widget": "array",
+          "title": "Save Mode",
+          "description": "Whether to Append, Overwrite or Error if the path Exists",
+          "optionsArray": [
+            "Append",
+            "Overwrite",
+            "ErrorIfExists",
+            "Ignore"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "advanced",
+          "value": "",
+          "widget": "tab",
+          "title": "Advanced",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        },
+        {
+          "name": "partitionColNames",
+          "value": "[]",
+          "widget": "variables",
+          "title": "Partition Column Names",
+          "description": "Partition Column Names",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false
+        }
+      ],
+      "engine": "all"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    },
+    {
+      "source": "3",
+      "target": "4",
+      "id": 2
+    },
+    {
+      "source": "4",
+      "target": "6",
+      "id": 3
+    },
+    {
+      "source": "6",
+      "target": "7",
+      "id": 4
+    },
+    {
+      "source": "5",
+      "target": "8",
+      "id": 5
+    },
+    {
+      "source": "8",
+      "target": "9",
+      "id": 6
+    },
+    {
+      "source": "10",
+      "target": "13",
+      "id": 7
+    },
+    {
+      "source": "9",
+      "target": "14",
+      "id": 8
+    },
+    {
+      "source": "11",
+      "target": "15",
+      "id": 9
+    },
+    {
+      "source": "12",
+      "target": "16",
+      "id": 10
+    },
+    {
+      "source": "15",
+      "target": "17",
+      "id": 11
+    },
+    {
+      "source": "17",
+      "target": "18",
+      "id": 12
+    },
+    {
+      "source": "2",
+      "target": "20",
+      "id": 13
+    },
+    {
+      "source": "7",
+      "target": "20",
+      "id": 14
+    },
+    {
+      "source": "7",
+      "target": "19",
+      "id": 15
+    },
+    {
+      "source": "14",
+      "target": "19",
+      "id": 16
+    },
+    {
+      "source": "13",
+      "target": "21",
+      "id": 17
+    },
+    {
+      "source": "19",
+      "target": "21",
+      "id": 18
+    },
+    {
+      "source": "18",
+      "target": "22",
+      "id": 19
+    },
+    {
+      "source": "21",
+      "target": "22",
+      "id": 20
+    },
+    {
+      "source": "16",
+      "target": "23",
+      "id": 21
+    },
+    {
+      "source": "22",
+      "target": "23",
+      "id": 22
+    },
+    {
+      "source": "23",
+      "target": "24",
+      "id": 23
+    },
+    {
+      "source": "24",
+      "target": "25",
+      "id": 24
+    },
+    {
+      "source": "25",
+      "target": "26",
+      "id": 25
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "scala"
+}
