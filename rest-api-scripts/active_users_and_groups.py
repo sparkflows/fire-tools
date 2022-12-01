@@ -28,8 +28,7 @@ def write_active_users_groups(data):
     for user in users:
         print(user)
         user_id = dict(user).get('id')
-        value = dict(user).get('username') + " ," + dict(user).get('firstName') + " ," + dict(user).get(
-            'lastName') + " ," + dict(user).get('email')
+        value = str(dict(user).get('username')) + " ," + str(dict(user).get('firstName')) + " ," + str(dict(user).get('lastName')) + " ," + str(dict(user).get('email'))
         is_user_active = dict(user).get('isActive')
 
         if is_user_active:
