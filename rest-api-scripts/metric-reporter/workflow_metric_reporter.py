@@ -10,11 +10,11 @@ from datetime import datetime
 Script: workflow_metric_reporter.py
 This script will export a csv file containing the latency and status of all execution of a specified project_id. The summary argument is a Boolean, if set to True additional metrics will be exported (longest_latency, status_count, oldest executions).
 command:  
-   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True  
+   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary  
 
    The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
 
-   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=False
+   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"
 
    The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
 ----------------------
@@ -129,8 +129,8 @@ if __name__ == '__main__':
     args_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     args_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
     args_parser.add_argument('--project_id', help='ID of project', type=str, required=True)
-    args_parser.add_argument('--summary', help='True or False to get the summary metrics of project', type=bool,
-                             required=True)
+    args_parser.add_argument('--summary', help='Optional Parameter if included descriptive csv is returned as well', action='store_true',
+                             required=False)
     args = args_parser.parse_args()
     fire_host_url = args.fire_host_url
     access_token = args.access_token
