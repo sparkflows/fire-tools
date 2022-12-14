@@ -4,11 +4,22 @@ import requests
 import json
 
 '''
-**********EXECUTE WORKFLOW******************
-python execute_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
-In project_ids, pass the pipeseparated prject id.
-***********************************
+************Execute Workflow************
+----------------------
+Script: execute_workflow.py
+
+This script executes inputted workflows and outputs a link to the execution result. It takes in a firehosturl, an access token, and a pipe-separated workflow id.
+
+command:  
+   python execute_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_ids="1234"
+   
+   This command executes workflow 1234 and outputs the link to the execution result
+  
+ 
+----------------------
+*************************************************
 '''
+
 
 def execute_workflow(fire_host,token,workflow_id):
     execute_workflow_api_url = fire_host + "/api/v1/create/workflowexecution/" + workflow_id
@@ -21,12 +32,14 @@ def execute_workflow(fire_host,token,workflow_id):
     }
     execute_workflow_api_url_response = requests.post(execute_workflow_api_url, json=data, headers=api_call_headers)
     if(execute_workflow_api_url_response.status_code == 200):
+        #If the connection was successful and the workflow execution was created the following lines are ran
         execution_id = execute_workflow_api_url_response.text
         print("LINK TO EXEUCTION RESULT IS:   " + fire_host + "/#/view-workflow-result/" + execute_workflow_api_url_response.text)
         print("THE RESULT OF THE EXECUTION IS SHOWN BELOW")
         get_execution_results(fire_host, token, execution_id)
 
 def get_execution_results(fire_host, token, execution_id):
+    #This method gets the execution result
     execution_results_url = fire_host + "/api/v1/execution-results/workflow-executions/" + execution_id + "/resultType/2"
     api_call_headers = {'token': token}
     execution_results_response = requests.get(execution_results_url, headers=api_call_headers)
