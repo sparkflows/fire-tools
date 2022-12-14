@@ -1,5 +1,4 @@
 import argparse
-from zipfile import ZipFile
 import requests
 import json
 

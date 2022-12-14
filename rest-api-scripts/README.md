@@ -78,7 +78,7 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
    
 **Example to update the details of users**: 
 
-   python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
+   ``python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"``
 
    
 Import Projects
@@ -110,7 +110,7 @@ The above script expects the below command line arguments:
 
 **Example to import as a new project**:
 
-python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+``python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"``
 
 Projects_133535.zip can have multiple project folders. Above command will create the new project with name analytics.
    
@@ -145,7 +145,7 @@ The above script expects the below command line arguments:
 
 **Example to export multiple projects**:  
 
-   python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+   ``python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"``
    
    Above command will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
 
@@ -157,7 +157,7 @@ Execute Workflow
 This script will execute pipe-separated workflows
 **Command**:
 
-`python export_project.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_ids="yyy|zzz"`
+`python execute_workflow.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_ids="yyy|zzz"`
 
 **Arguments**:
 
@@ -171,7 +171,7 @@ The above script expects the below command line arguments:
 
 **Example to export multiple projects**:  
 
-   python execute_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_ids="1|3"
+   ``python execute_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_ids="1|3"``
    
    The following command will execute the workflow with an id of 1 and the workflow with an id of 3 and then output the execution result for both
 
@@ -197,23 +197,39 @@ The above script expects the below command line arguments:
 
 **Example to export multiple projects**:  
 
-   python execute_pipeline.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --pipeline_ids="1|3"
+   ``python execute_pipeline.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --pipeline_ids="1|3"``
    
    The following command will execute the pipeline with an id of 1 and the pipeline with an id of 3 and then output the execution result for both
 
 Workflow Metric Reporter
 ----------------------
-Script: workflow_metric_reporter.py
-This script will export a csv file containing the latency and status of all execution of a specified project_id. The descriptive argument is a Boolean, if set to True additional metrics will be exported (longest_latency, status_count).
-command:  
+**Script Name**: `workflow_metric_reporter.py`
 
-   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1" --summary=True  
+This script will export a csv file containing desired information regarding a specified project_id.
+
+**Command**:
+
+`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`  
+
+The script above expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--project_id` : The Project ID whose executions you want to export
+
+`--summary` : An optional argument set to true if included. If included, 3 additional csv files will be exported: one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. If not included then only the one general csv file containing all executions will be exported. 
+
+
+   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
 
    The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
    
-   python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1" --summary=False
+   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
    
    The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
 
       
    
+
