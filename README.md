@@ -1,8 +1,8 @@
 # fire-tools
 
-This repository contains scripts for the following tools:
+This repository contains scripts for:
 
-* Docker file
+* Docker files
 * Scripts for automating CI/CD etc.
 
 
