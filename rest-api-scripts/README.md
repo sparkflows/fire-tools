@@ -78,7 +78,7 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
    
 **Example to update the details of users**: 
 
-   python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
+   ``python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"``
 
    
 Import Projects
@@ -110,7 +110,7 @@ The script above expects the below command line arguments:
 
 **Example to import as a new project**:
 
-python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+``python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"``
 
 Projects_133535.zip can have multiple project folders. The comand above will create the new project with name analytics.
    
@@ -141,13 +141,65 @@ The script above expects the below command line arguments:
 
 `--access_token` : The access token generated from the Administrative tab of Sparkflows.
 
-`--project_ids` : Pass the project ID's of the porjects that need to be Exported seperated by a Pipe operator
+`--project_ids` : Pass the project ID's of the project that need to be Exported seperated by a Pipe operator
 
 **Example to export multiple projects**:  
 
-   python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+   ``python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"``
    
    The command above will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
+
+Execute Workflow
+----------------------
+
+**Script Name**: `execute_workflow.py`
+
+This script will execute pipe-separated workflows
+**Command**:
+
+`python execute_workflow.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_ids="yyy|zzz"`
+
+**Arguments**:
+
+The above script expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--workflow_ids` : Pass the workflow_ids of the workflows that need to be executed, seperated by a Pipe operator
+
+**Example to export multiple projects**:  
+
+   ``python execute_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_ids="1|3"``
+   
+   The following command will execute the workflow with an id of 1 and the workflow with an id of 3 and then output the execution result for both
+
+Execute Pipeline
+---------------------
+
+**Script Name**: `execute_pipeline.py`
+
+This script will execute pipe-separated pipelines
+**Command**:
+
+`python execute_pipeline.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --pipeline_ids="yyy|zzz"`
+
+**Arguments**:
+
+The above script expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--pipeline_ids` : Pass the pipeline_ids of the pipeline that need to be executed, seperated by a Pipe operator
+
+**Example to export multiple projects**:  
+
+   ``python execute_pipeline.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --pipeline_ids="1|3"``
+   
+   The following command will execute the pipeline with an id of 1 and the pipeline with an id of 3 and then output the execution result for both
 
 Workflow Metric Reporter
 ----------------------
@@ -180,3 +232,4 @@ The script above expects the below command line arguments:
 
       
    
+
