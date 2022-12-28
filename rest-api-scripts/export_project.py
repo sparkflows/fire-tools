@@ -25,7 +25,7 @@ def export_project(fire_host, token, project_id_list):
     zipObj.close();
 
 def get_project_details(fire_host, token, project_id,zipObj):
-    project_details_api_url = fire_host + "/api/v1/projects/"+project_id
+    project_details_api_url = fire_host + "/api/v1/projects/" + project_id
 
     api_call_headers = {'token': token}
 

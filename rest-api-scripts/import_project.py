@@ -8,7 +8,7 @@ import argparse
 #**********COMMAND******************
 #python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
 #***********************************
-def import_project(token: str, fire_host: str, file_path: str, proj_id,project_name: str):
+def import_project(token: str, fire_host: str, file_path: str, proj_id ,project_name: str):
     import_project_api_url = fire_host + "/api/v1/projects/import"
 
 
@@ -81,7 +81,7 @@ if __name__ == '__main__':
             project = create_project(access_token, fire_host_url,selected_project_name)
             dict = json.loads(project)
             project_id = str(dict['id'])
-        import_project(access_token, fire_host_url, project_zip_path, project_id,selected_project_name)
+            import_project(access_token, fire_host_url, project_zip_path, project_id,selected_project_name)
     except Exception as e:
         if str(e).find("Connection refused") != -1 or str(e).lower().find("connection") != -1:
             print("Host Url is not valid. Please recheck and add proper host url.")
