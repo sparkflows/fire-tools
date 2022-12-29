@@ -4,7 +4,7 @@ import export_project
 import import_project
 
 '''
-************Workflow Metric Reporter************
+************Move_Project.py************
 ----------------------
 Script: move_project.py
 This script will move a project from one instance of fire to another instance of fire.
