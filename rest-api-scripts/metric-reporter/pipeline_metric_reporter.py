@@ -90,38 +90,42 @@ def get_execution_information(fire_url, token, pipeline_id):
         get_execution_information_text = requests.get(get_execution_information_url, headers=api_call_headers).text
         get_execution_information_dict = json.loads(get_execution_information_text)
         executionDataframe = pd.DataFrame()
-        if (get_execution_information_dict["endTime"] is not None):
-            execution_id = str(get_execution_information_dict["id"])
-            pipelineId = str(get_execution_information_dict["pipelineId"])
-            pipeline_name = get_execution_information_dict["name"]
+        execution_id = str(get_execution_information_dict["id"])
+        pipelineId = str(get_execution_information_dict["pipelineId"])
+        pipeline_name = get_execution_information_dict["name"]
+        if(get_execution_information_dict["endTime"] is not None):
             execution_time = get_execution_information_dict["endTime"] - get_execution_information_dict["startTime"]
             endTime = datetime.fromtimestamp(get_execution_information_dict["endTime"] / 1000)
-            if (get_execution_information_dict["status"] == 0):
-                status = "RUNNING"
-            elif (get_execution_information_dict["status"] == 1):
-                status = "STOPPED"
-            elif (get_execution_information_dict["status"] == 2):
-                status = "COMPLETED"
-            elif (get_execution_information_dict["status"] == 3):
-                status = "FAILED"
-            elif (get_execution_information_dict["status"] == 4):
-                status = "STARTING"
-            elif (get_execution_information_dict["status"] == 5):
-                status = "STOP"
-            elif (get_execution_information_dict["status"] == 6):
-                status = "KILLED"
-            else:
-                status = "INVALID STATUS"
-            # print(execution_time)
-            executionSeries = pd.DataFrame({
-                'execution_id': [execution_id],
-                'pipelineId': [pipelineId],
-                'pipeline_name': [pipeline_name],
-                'execution_time': [execution_time],
-                'status': [status],
-                'endTime': [endTime]
-            })
-            executionDataframe = pd.concat([executionDataframe, executionSeries], ignore_index=True)
+        else:
+            print(execution_id)
+            execution_time = time.time() - ( get_execution_information_dict["startTime"] / 1000)
+            endTime = datetime.fromtimestamp(time.time())
+        if (get_execution_information_dict["status"] == 0):
+            status = "RUNNING"
+        elif (get_execution_information_dict["status"] == 1):
+            status = "STOPPED"
+        elif (get_execution_information_dict["status"] == 2):
+            status = "COMPLETED"
+        elif (get_execution_information_dict["status"] == 3):
+            status = "FAILED"
+        elif (get_execution_information_dict["status"] == 4):
+            status = "STARTING"
+        elif (get_execution_information_dict["status"] == 5):
+            status = "STOP"
+        elif (get_execution_information_dict["status"] == 6):
+            status = "KILLED"
+        else:
+            status = "INVALID STATUS"
+        # print(execution_time)
+        executionSeries = pd.DataFrame({
+            'execution_id': [execution_id],
+            'pipelineId': [pipelineId],
+            'pipeline_name': [pipeline_name],
+            'execution_time': [execution_time],
+            'status': [status],
+            'endTime': [endTime]
+        })
+        executionDataframe = pd.concat([executionDataframe, executionSeries], ignore_index=True)
         return executionDataframe
 
 
