@@ -3,6 +3,10 @@
 
 Following Python scripts allow users to interact with Fire REST API's.
 
+In Fire Insights Swagger can be enabled. Details for enabling it are here : https://docs.sparkflows.io/en/latest/installation/monitoringandmetrics/rest-api.html
+
+From Swagger, we can see the various REST API's available in Fire Insights.
+
 Generating Access Token
 -------------------------
 
