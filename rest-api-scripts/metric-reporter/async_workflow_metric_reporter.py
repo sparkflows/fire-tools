@@ -1,5 +1,7 @@
 import argparse
 import pandas as pd
+import requests
+import json
 from datetime import datetime
 import asyncio
 import aiohttp
@@ -121,8 +123,8 @@ if __name__ == '__main__':
     args_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     args_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
     args_parser.add_argument('--project_id', help='ID of project', type=str, required=True)
-    args_parser.add_argument('--summary', help='True or False to get the summary metrics of project', type=bool,
-                             required=True)
+    args_parser.add_argument('--summary', help='Optional Parameter if included descriptive csv is returned as well', action='store_true',
+                             required=False)
     args = args_parser.parse_args()
     fire_host_url = args.fire_host_url
     access_token = args.access_token
