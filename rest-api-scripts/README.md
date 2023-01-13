@@ -3,6 +3,15 @@
 
 Following Python scripts allow users to interact with Fire REST API's.
 
+Prerequisites
+-------------
+
+Python 3.7+ is needed.
+
+The following libraries need to be installed:
+
+* pip install pandas
+
 Generating Access Token
 -------------------------
 
