@@ -10,7 +10,10 @@ Python 3.7+ is needed.
 
 The following libraries need to be installed:
 
-* pip install pandas
+* `pip install pandas`
+* `pip install requests`
+* `pip install aiohttp`
+
 
 Generating Access Token
 -------------------------
@@ -46,6 +49,7 @@ This script retrieves all active users and their groups. It then writes these de
 **Example**:
 
 `python active_users_and_groups.py http://localhost:8080 cacaksncaskjuuonn777-cdck`
+
 This will write a csv file containing all active users and groups of this url
 
 Display or hide Apps
@@ -163,7 +167,7 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
    
 **Example to update the details of users**: 
 
-   python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
+   `python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"`
 
    
 Import Projects
@@ -195,14 +199,14 @@ The script above expects the below command line arguments:
 
 **Example to import as a new project**:
 
-python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
+`python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"`
 
 Projects_133535.zip can have multiple project folders. The comand above will create the new project with name analytics.
    
    
 **Example to import into an existing project**: 
 
-import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"
+`import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"`
    
 The command above will update the existing project with id 42.
    
@@ -230,7 +234,7 @@ The script above expects the below command line arguments:
 
 **Example to export multiple projects**:  
 
-   python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
+   `python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"`
    
    The command above will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
 
