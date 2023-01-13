@@ -256,14 +256,14 @@ The script above expects the below command line arguments:
 
 `--project_id` : The Project ID whose executions you want to export
 
-`--summary` : A boolean value either `True` or `False`. If `True`, 3 additional csv files will be exported: one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. If set to `False` then only the one general csv file containing all executions will be exported. 
+`--summary` : Optional Parameter if included descriptive csv is returned as well. 
 
 
-   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`
+   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
 
    The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
    
-   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=False`
+   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
    
    The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
 
@@ -285,14 +285,14 @@ The script above expects the below command line arguments:
 
 `--project_id` : The Project ID whose executions you want to export
 
-`--summary` : A boolean value either `True` or `False`. If `True`, 3 additional csv files will be exported: one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. If set to `False` then only the one general csv file containing all executions will be exported. 
+`--summary` : Optional Parameter if included descriptive csv is returned as well. 
 
 
-   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`
+   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
 
    The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
    
-   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=False`
+   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
    
    The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
 
