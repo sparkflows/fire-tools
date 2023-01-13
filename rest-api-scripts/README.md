@@ -3,16 +3,19 @@
 
 Following Python scripts allow users to interact with Fire REST API's.
 
-In Fire Insights Swagger can be enabled. Details for enabling it are here : https://docs.sparkflows.io/en/latest/installation/monitoringandmetrics/rest-api.html
-
-From Swagger, we can see the various REST API's available in Fire Insights.
-
 Generating Access Token
 -------------------------
 
 For interacting with Fire REST API's access token is required. The steps to generate the same can be found in the page below:
 
 https://docs.sparkflows.io/en/latest/rest-api/rest-api-authentication/acquire-token-curl.html
+
+Swagger UI
+-------------------------
+
+For information on enabling and accessing SwaggerUI review the docs below:
+
+https://docs.sparkflows.io/en/latest/installation/monitoringandmetrics/rest-api.html
 
 Fetch All Active Users and Groups
 ---------------------------
@@ -21,6 +24,21 @@ Fetch All Active Users and Groups
 
 This script retrieves all active users and their groups. It then writes these details into a csv file.
 
+**Command**:
+
+`python active_users_and_groups.py <fire_host_url> <access_token>`
+
+**Arguments**:
+
+`fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+**Example**:
+
+`python active_users_and_groups.py http://localhost:8080 cacaksncaskjuuonn777-cdck`
+This will write a csv file containing all active users and groups of this url
+
 Display or hide Apps
 ----------------------
 
@@ -28,6 +46,21 @@ Display or hide Apps
 
 This script displays or hide apps based on the customer’s licensed use case. Ex: sales & marketing customers should only see apps that are Sales & Marketing related. It would be done via the usecase of each app.  If the usecase of the fire app matches the use case in yaml (ex: marketing or finance), that app will be displayed. Any usecase of app not matching the customer’s use case will be hidden.
 
+**Command**:
+
+`python display-hide-apps.py <fire_host_url> <access_token> <file_path>`
+
+**Arguments**:
+
+`fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`file_path` : The file path of the yaml file to get a list of apps
+
+**Example**:
+
+`python display-hide-apps.py http://localhost:8080 cacaksncaskjuuonn777-cdck config.yaml`
 
 Load Apps
 -------------
@@ -40,6 +73,24 @@ This script will read `project.json` file and get the Project Tag to fetch the p
    2. Create a new one if it does not exist. 
    3. Hide apps if doesn’t exist in zip file
 
+**Command**:
+`python load-app.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="/sah/trud/" --group_name="abc"`
+
+**Arguments**:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--project_zip_path` : The path to a json file that contains project information
+
+`--group_name` : The name of the group you wish to upload the project to
+
+**Example**
+
+`python load-app.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="/sah/trud/" --group_name="abc"`
+
+
 
 View, Create, Update and Delete User Details
 ---------------------------
@@ -48,7 +99,28 @@ View, Create, Update and Delete User Details
 
 This script will create/update/delete/list User Details based on added arguments.
 
+**Command**:
 
+This command takes in a variable amount of arguments depending on what needs to be done
+
+If you would like to list the user list of your host_url the command would be:
+
+`python user_create_automation.py <fire_host_url> <access token> user_list`
+
+If you would like to list the active user list of your host_url the command would be:
+
+`python user_create_automation.py <fire_host_url> <access token> active_users_and_groups`
+
+If you would like to delete a user the command would be:
+
+`python user_create_automation.py <fire_host_url> <access_token> <user_id>`
+
+If you would like to create or update a user:
+
+`python user_create_automation.py <fire_host_url> <access_token> <username> <password> <firstName> <lastName> <email> <roles> <groups> <userId>`
+
+
+The script above expects the below command line arguments:
 Create and Update List of Users
 ---------------------------
 
@@ -82,7 +154,7 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
    
 **Example to update the details of users**: 
 
-   ``python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"``
+   python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"
 
    
 Import Projects
@@ -114,7 +186,7 @@ The script above expects the below command line arguments:
 
 **Example to import as a new project**:
 
-``python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"``
+python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"
 
 Projects_133535.zip can have multiple project folders. The comand above will create the new project with name analytics.
    
@@ -145,75 +217,23 @@ The script above expects the below command line arguments:
 
 `--access_token` : The access token generated from the Administrative tab of Sparkflows.
 
-`--project_ids` : Pass the project ID's of the project that need to be Exported seperated by a Pipe operator
+`--project_ids` : Pass the project ID's of the porjects that need to be Exported seperated by a Pipe operator
 
 **Example to export multiple projects**:  
 
-   ``python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"``
+   python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"
    
    The command above will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
-
-Execute Workflow
-----------------------
-
-**Script Name**: `execute_workflow.py`
-
-This script will execute pipe-separated workflows
-**Command**:
-
-`python execute_workflow.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_ids="yyy|zzz"`
-
-**Arguments**:
-
-The above script expects the below command line arguments:
-
-`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
-
-`--access_token` : The access token generated from the Administrative tab of Sparkflows.
-
-`--workflow_ids` : Pass the workflow_ids of the workflows that need to be executed, seperated by a Pipe operator
-
-**Example to export multiple projects**:  
-
-   ``python execute_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_ids="1|3"``
-   
-   The following command will execute the workflow with an id of 1 and the workflow with an id of 3 and then output the execution result for both
-
-Execute Pipeline
----------------------
-
-**Script Name**: `execute_pipeline.py`
-
-This script will execute pipe-separated pipelines
-**Command**:
-
-`python execute_pipeline.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --pipeline_ids="yyy|zzz"`
-
-**Arguments**:
-
-The above script expects the below command line arguments:
-
-`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
-
-`--access_token` : The access token generated from the Administrative tab of Sparkflows.
-
-`--pipeline_ids` : Pass the pipeline_ids of the pipeline that need to be executed, seperated by a Pipe operator
-
-**Example to export multiple projects**:  
-
-   ``python execute_pipeline.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --pipeline_ids="1|3"``
-   
-   The following command will execute the pipeline with an id of 1 and the pipeline with an id of 3 and then output the execution result for both
 
 Workflow Metric Reporter
 ----------------------
 **Script Name**: `workflow_metric_reporter.py`
 
-This script will export a csv file containing desired information regarding a specified project_id.
+This script will export a csv file containing execution results regarding a specified project_id.
 
 **Command**:
 
-`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`  
+`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`  
 
 The script above expects the below command line arguments:
 
@@ -223,17 +243,45 @@ The script above expects the below command line arguments:
 
 `--project_id` : The Project ID whose executions you want to export
 
-`--summary` : An optional argument set to true if included. If included, 3 additional csv files will be exported: one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. If not included then only the one general csv file containing all executions will be exported. 
+`--summary` : A boolean value either `True` or `False`. If `True`, 3 additional csv files will be exported: one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. If set to `False` then only the one general csv file containing all executions will be exported. 
 
 
-   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
+   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`
 
    The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
    
-   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
+   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=False`
    
    The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
 
-      
-   
+Async Workflow Metric Reporter
+----------------------
+**Script Name**: `async_workflow_metric_reporter.py`
 
+This script will export a csv file containing execution results regarding a specified project_id. It works the same as workflow_metric_reporter just faster.
+
+**Command**:
+
+`python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`  
+
+The script above expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--project_id` : The Project ID whose executions you want to export
+
+`--summary` : A boolean value either `True` or `False`. If `True`, 3 additional csv files will be exported: one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. If set to `False` then only the one general csv file containing all executions will be exported. 
+
+
+   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`
+
+   The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
+   
+   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=False`
+   
+   The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
+
+
+   
