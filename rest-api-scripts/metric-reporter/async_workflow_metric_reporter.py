@@ -11,7 +11,7 @@ import time
 ************Async Workflow Metric Reporter************
 ----------------------
 Script: async_workflow_metric_reporter.py
-This script will export a csv file containing the latency and status of all workflow executions of a specified project_id. The summary argument is a Boolean, if set to True additional metrics will be exported (longest_latency, status_count, oldest executions).
+This script will export a csv file containing the latency and status of all execution of a specified project_id. The summary argument is an optional argument if included will generate descriptive csv files (longest_latency, status_count, oldest executions).
 command:  
    python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True  
 
