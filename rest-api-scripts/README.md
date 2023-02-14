@@ -110,7 +110,7 @@ View, Create, Update and Delete User Details
 
 **Script Name**: `user_create_automation.py`
 
-This script will create/update/delete/list User Details based on added arguments.
+- Create/update/delete/list User Details based on added arguments.
 
 **Command**:
 
@@ -133,13 +133,8 @@ If you would like to create or update a user:
 `python user_create_automation.py <fire_host_url> <access_token> <username> <password> <firstName> <lastName> <email> <roles> <groups> <userId>`
 
 
-The script above expects the below command line arguments:
-Create and Update List of Users
----------------------------
 
-**Script Name**: `users_create_automation.py`
-
-This script will create/update User details based on provided list of users in the file.
+- Create/update User details based on provided list of users in the file.
 
 **Command**: 
 
