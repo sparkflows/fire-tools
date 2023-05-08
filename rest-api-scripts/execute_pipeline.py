@@ -39,7 +39,7 @@ if __name__ == '__main__':
     args_parser.add_argument('--fire_host_url', help='Host URL is required', type=str, required=True)
     args_parser.add_argument('--access_token', help='Access Token is required', type=str, required=True)
     args_parser.add_argument('--pipeline_name', help='Pipeline name is required', type=str, required=True)
-    args_parser.add_argument('--project_id', help='Pipeline id is required', type=int, required=True)
+    args_parser.add_argument('--project_id', help='Project id is required', type=int, required=True)
     args = args_parser.parse_args()
 
     fire_host_url = args.fire_host_url
