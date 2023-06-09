@@ -1,0 +1,61 @@
+{
+  "name": "TestShell",
+  "uuid": "7e98a8c5-a593-4c96-81b0-7ee339dbaff0",
+  "category": "-",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Unix Shell Commands",
+      "description": "This node execute shell command",
+      "type": "shellcommand",
+      "nodeClass": "fire.nodes.etl.NodeShellCommand",
+      "x": "323px",
+      "y": "291px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "shellCommand",
+          "value": "aws s3 cp s3://assume-role-bucket1/example.sh /usr/loal/example.sh;\nls -lrt /usr/loal/;\nchmod o+rx /usr/loal/example.sh;\n./usr/loal/example.sh;",
+          "widget": "textarea_medium",
+          "title": "shell Command",
+          "description": "Unix Shell Command",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    }
+  ],
+  "edges": [],
+  "dataSetDetails": [],
+  "engine": "scala"
+}
