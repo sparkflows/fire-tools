@@ -1,0 +1,18 @@
+{
+  "id": 121,
+  "userId": 1,
+  "uuid": "TEST-GIT-PROJECT",
+  "name": "Test-git-project",
+  "description": "",
+  "usersApplication": 0,
+  "gitBranch": "git-branch",
+  "gitRootFolder": "/example-project",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "TEST-GIT-PROJECT_121",
+  "gitRepoUrl": "https://github.com/sparkflows/fire-tools.git",
+  "credentialStores": [],
+  "createdBy": "admin",
+  "dateCreated": "Jun 9, 2023 3:18:43 PM",
+  "updatedBy": "admin",
+  "dateLastUpdated": "Jun 9, 2023 3:19:28 PM"
+}
