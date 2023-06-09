@@ -1,0 +1,18 @@
+{
+  "id": 122,
+  "userId": 1,
+  "uuid": "CLAIMS_DATA_PROCESSING_SNOWFLAKE",
+  "name": "Claims_Data_Processing_SNOWFLAKE",
+  "description": "Claims_Data_Processing Project",
+  "usersApplication": 0,
+  "gitBranch": "test",
+  "gitRootFolder": "/example-project",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "CLAIMS_DATA_PROCESSING_122",
+  "gitRepoUrl": "https://github.com/sparkflows/fire-tools.git",
+  "credentialStores": [],
+  "createdBy": "admin",
+  "dateCreated": "Jun 9, 2023 3:26:06 PM",
+  "updatedBy": "admin",
+  "dateLastUpdated": "Jun 9, 2023 8:07:32 PM"
+}

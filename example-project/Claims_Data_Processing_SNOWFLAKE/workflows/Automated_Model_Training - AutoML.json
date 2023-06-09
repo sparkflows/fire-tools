@@ -1,0 +1,733 @@
+{
+  "name": "Automated_Model_Training - AutoML",
+  "uuid": "8178562d-bdaf-48de-aad2-a1f7e04b48a6",
+  "category": "AutoML",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/home/sparkflows/fire-data/healthcare_claims/Claim_Merged",
+      "name": "DatasetStructured",
+      "description": "This Node creates a DataFrame by reading data from HDFS, HIVE etc. The dataset has been defined earlier in Fire by using the Dataset Feature. As a user, you just have to select the Dataset of your interest.",
+      "details": "This Node creates a DataFrame by reading data from HDFS, HIVE etc.\u003cbr\u003e\n\u003cbr\u003e\nThe data has been defined earlier in Fire by using the Dataset Feature. As a user, you just have to select the Dataset of your interest.\u003cbr\u003e",
+      "examples": "",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetStructured",
+      "x": "50px",
+      "y": "325px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "dataset",
+          "value": "db3489f5-8d6e-4e15-9253-5d229c117a6f",
+          "widget": "dataset",
+          "title": "Dataset",
+          "description": "Selected Dataset",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "2",
+      "name": "H2O Auto ML",
+      "description": "H2O AutoML",
+      "details": "H2O AutoML(for Regression and Classification) The H2O AutoML interface is designed to have as few parameters as possible so that all the user needs to do is point to their dataset, identify the response column and optionally specify a time constraint or limit on the number of total models trained.\u003cbr\u003e\n\u003cbr\u003e\nMore details are available at : \u003ca href\u003d\"http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html#automl-automatic-machine-learning\" target\u003d\"_blank\"\u003edocs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html#automl-automatic-machine-learning\u003c/a\u003e\u003cbr\u003e",
+      "examples": "",
+      "type": "ml-estimator",
+      "nodeClass": "fire.nodes.h2o.NodeH2OAutoML",
+      "x": "357px",
+      "y": "268px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "isResponseIsCategorical",
+          "value": "true",
+          "widget": "array",
+          "title": "Is Response Column Categorical",
+          "description": "Specify a response column type(numeric or categorical). Separates the Classification and Regression",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "labelCol",
+          "value": "Fraud_Flag",
+          "widget": "variable",
+          "title": "Label Column",
+          "description": "Response variable column.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "featuresCols",
+          "value": "[\"GENDER\",\"CITY\",\"STATE\",\"ENCOUNTERS\",\"Duration\",\"PROCEDURES\"]",
+          "widget": "variables",
+          "title": "Feature Columns",
+          "description": "Features to be used for Modelling",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "columnsToCategorical",
+          "value": "[]",
+          "widget": "variables",
+          "title": "Columns to Categorical",
+          "description": "Columns to be Categorical encoded",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "path",
+          "value": "/home/sparkflows/fire-data/healthcare_claims/Model/",
+          "widget": "textfield",
+          "title": "Path to save models",
+          "description": "Model Save Path.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "seed",
+          "value": "5",
+          "widget": "textfield",
+          "title": "Seed",
+          "description": "Seed for random number generator; set to a value other than -1 for reproducibility.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "balanceClasses",
+          "value": "",
+          "widget": "array",
+          "title": "Balance Classes",
+          "description": "Balance training data class counts via over/under-sampling (for imbalanced data).",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "nfolds",
+          "value": "5",
+          "widget": "textfield",
+          "title": "NFolds",
+          "description": "Number of folds for k-fold cross-validation (defaults to -1 (AUTO), otherwise it must be \u003e\u003d2 or use 0 to disable).",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxModels",
+          "value": "2",
+          "widget": "textfield",
+          "title": "Max Models",
+          "description": "Maximum number of models to build (optional). Always set this parameter to ensure AutoML reproducibility: all models are then trained until convergence and none is constrained by a time budget.",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "includeAlgos",
+          "value": "DRF,GBM",
+          "widget": "textfield",
+          "title": "Include Algos",
+          "description": "A list of algorithms to restrict to during the model-building phase.Default all Algos is included",
+          "optionsArray": [
+            "GLM",
+            "DRF",
+            "GBM",
+            "DeepLearning",
+            "StackedEnsemble",
+            "XGBoost"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxRuntimeSecs",
+          "value": "60.0",
+          "widget": "textfield",
+          "title": "Max Runtime Secs",
+          "description": "his argument specifies the maximum time that the AutoML process will run for. If both max_runtime_secs and max_models are specified, then the AutoML run will stop as soon as it hits either of these limits. If neither max_runtime_secs nor max_models are specified, then max_runtime_secs defaults to 3600 seconds (1 hour).",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "stoppingRounds",
+          "value": "3",
+          "widget": "textfield",
+          "title": "Stopping Rounds",
+          "description": "Early stopping based on convergence of stopping_metric. Stop if simple moving average of length k of the stopping_metric does not improve for k:\u003dstopping_rounds scoring events (0 to disable).",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "stoppingMetric",
+          "value": "AUTO",
+          "widget": "array",
+          "title": "StoppingMetric",
+          "description": "Metric to use for early stopping (AUTO: logloss for classification, deviance for regression)",
+          "optionsArray": [
+            "AUTO",
+            "deviance",
+            "logloss",
+            "MSE",
+            "RMSE",
+            "MAE",
+            "RMSLE",
+            "AUC",
+            "AUCPR",
+            "lift_top_group",
+            "misclassification",
+            "mean_per_class_error",
+            "anomaly_score",
+            "custom",
+            "custom_increasing"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "stoppingTolerance",
+          "value": "0.001",
+          "widget": "textfield",
+          "title": "StoppingTolerance",
+          "description": "Relative tolerance for metric-based stopping criterion (stop if relative improvement is not at least this much)",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "withContributions",
+          "value": "",
+          "widget": "array",
+          "title": "With Contributions",
+          "description": "Enables or disables generating a sub-column of detailedPredictionCol containing Shapley values.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "advanced",
+          "value": "",
+          "widget": "tab",
+          "title": "Advanced",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "convertUnknownCategoricalLevelsToNa",
+          "value": "true",
+          "widget": "array",
+          "title": "Convert Unknown Categorical Levels to NA",
+          "description": "If set to ???true???, the model converts unknown categorical levels to NA during making predictions.",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sortMetric",
+          "value": "AUTO",
+          "widget": "array",
+          "title": "Sort Metric",
+          "description": "Metric to sort the leaderboard by. Defaults to AUTO",
+          "optionsArray": [
+            "AUTO",
+            "deviance",
+            "logloss",
+            "MSE",
+            "RMSE",
+            "MAE",
+            "RMSLE",
+            "AUC",
+            "mean_per_class_error"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxRuntimeSecsPerModel",
+          "value": "0.0",
+          "widget": "textfield",
+          "title": "Max Runtime in Seconds per Model",
+          "description": "Maximum time to spend on each individual model (optional). Note that models constrained by a time budget are not guaranteed reproducible.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "predictionCol",
+          "value": "prediction",
+          "widget": "textfield",
+          "title": "Prediction Column",
+          "description": "Prediction column name",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "detailedPredictionCol",
+          "value": "detailed_prediction",
+          "widget": "textfield",
+          "title": "Detailed Prediction column",
+          "description": "Column containing additional prediction details, its content depends on the model type",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "withLeafNodeAssignments",
+          "value": "",
+          "widget": "array",
+          "title": "With Node Assignments",
+          "description": "Enables or disables computation of leaf node assignments.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "withStageResults",
+          "value": "",
+          "widget": "array",
+          "title": "With Stage Results",
+          "description": "Enables or disables computation of stage results.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxAfterBalanceSize",
+          "value": "5.0",
+          "widget": "textfield",
+          "title": "Max After Balance Size",
+          "description": "Maximum relative size of the training data after balancing class counts (defaults to 5.0 and can be less than 1.0). Requires balance_classes.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "keepCrossValidationPredictions",
+          "value": "false",
+          "widget": "array",
+          "title": "Keep Cross Validation Predictions",
+          "description": "Whether to keep the predictions of the cross-validation predictions. This needs to be set to TRUE if running the same AutoML object for repeated runs because CV predictions are required to build additional Stacked Ensemble models in AutoML.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "keepCrossValidationModels",
+          "value": "true",
+          "widget": "array",
+          "title": "Keep Cross Validation Models",
+          "description": "Whether to keep the cross-validated models. Keeping cross-validation models may consume significantly more memory in the H2O cluster.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "keepCrossValidationFoldAssignment",
+          "value": "false",
+          "widget": "array",
+          "title": "Keep Cross Validation Fold Assignment",
+          "description": "Whether to keep cross-validation assignments.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "distribution",
+          "value": "AUTO",
+          "widget": "array",
+          "title": "Distribution",
+          "description": "Distribution function used by algorithms that support it; other algorithms use their defaults.",
+          "optionsArray": [
+            "AUTO",
+            "bernoulli",
+            "quasibinomial",
+            "modified_huber",
+            "multinomial",
+            "ordinal",
+            "gaussian",
+            "poisson",
+            "gamma",
+            "tweedie",
+            "huber",
+            "laplace",
+            "quantile",
+            "fractionalbinomial",
+            "negativebinomial",
+            "custom"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "tweediePower",
+          "value": "1.5",
+          "widget": "textfield",
+          "title": "Tweedie Power",
+          "description": "Tweedie power for Tweedie regression, must be between 1 and 2.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "quantileAlpha",
+          "value": "0.5",
+          "widget": "textfield",
+          "title": "Quantile Alpha",
+          "description": "Desired quantile for Quantile regression, must be between 0 and 1.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "huberAlpha",
+          "value": "0.9",
+          "widget": "textfield",
+          "title": "Huber Alpha",
+          "description": "Desired quantile for Huber/M-regression (threshold between quadratic and linear loss, must be between 0 and 1).",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "exploitationRatio",
+          "value": "-1.0",
+          "widget": "textfield",
+          "title": "Exploitation Ratio",
+          "description": "The budget ratio (between 0 and 1) dedicated to the exploitation (vs exploration) phase.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "foldCol",
+          "value": "",
+          "widget": "variable",
+          "title": "Fold Column",
+          "description": "Column with cross-validation fold index assignment per observation.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "weightCol",
+          "value": "",
+          "widget": "variable",
+          "title": "Weight Column",
+          "description": "Column with observation weights. Giving some observation a weight of zero is equivalent to excluding it from the dataset; giving an observation a relative weight of 2 is equivalent to repeating that row twice. Negative weights are not allowed. Note: Weights are per-row observation weights and do not increase the size of the data frame. This is typically the number of times a row is repeated, but non-integer values are supported as well. During training, rows with higher weights matter more, due to the larger loss function pre-factor. If you set weight \u003d 0 for a row, the returned prediction frame at that row is zero and this is incorrect. To get an accurate prediction, remove all rows with weight \u003d\u003d 0.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "3",
+      "name": "PrintFirstNRows",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "564px",
+      "y": "263px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Row Values",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "5",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    },
+    {
+      "source": "2",
+      "target": "3",
+      "id": 2
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "pyspark",
+  "workflowType": "AutoML"
+}

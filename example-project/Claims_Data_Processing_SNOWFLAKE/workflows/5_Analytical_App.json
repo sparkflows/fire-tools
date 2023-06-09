@@ -1,0 +1,1813 @@
+{
+  "name": "5_Analytical_App",
+  "uuid": "9fcc8a45-ba69-4515-8d5b-d2f051a2594a",
+  "category": "-",
+  "parameters": " --var type\u003d\u0027PAYMENT\u0027 --var organization\u003d\u002789171335-b9c0-3326-98d6-a837d432b9fd\u0027,\u00270fedae9f-701f-3317-9b2f-69aea2202cdc\u0027,\u00279d0e702d-50a0-3f4c-9126-0951d560fd4b\u0027,\u00276e290541-eba3-37fc-a3e2-e58f77e84c7e\u0027,\u0027bce5b907-584b-345d-bbcf-912cf56cb6c3\u0027,\u00272936ca90-6594-357d-be14-53fe0ab84dd1\u0027,\u0027ea8d287f-b3a9-3800-8798-788e334ee406\u0027,\u002762b55e5b-b58f-354d-8f2d-f2a330bc619e\u0027,\u00275862e05c-9533-3f7a-8f73-215d50f5ee2f\u0027,\u00270e9d0119-1157-35a0-8bb5-7e0aa3041928\u0027,\u0027c9aabcbd-d4e0-391f-8980-d0be6934ea82\u0027,\u002788975fd9-b47e-3af6-af78-c58e1ecf0d5e\u0027,\u002783769f98-fff3-3535-8781-6ace5957136f\u0027,\u0027069b90f9-309b-35e4-b990-d1dbacb962cc\u0027,\u00278bf5325a-c11b-35c4-b07d-17a5aeba8353\u0027,\u00274846e68f-845b-38e6-aa40-48196bf9ff0e\u0027,\u002737111f41-8bc5-35d3-9cd9-5b447a11ffd1\u0027,\u002777645e49-3f69-3d1d-bb93-dc65210e2fac\u0027,\u00275d1b509e-a048-357f-807e-6b863006e337\u0027,\u0027f539dc91-4c3b-3c46-be61-7f10b6eb8471\u0027 --var gender\u003d\u0027M\u0027 --var providerId\u003d\u0027898a1b84-ff2f-3305-a84c-0694f2c1a448\u0027,\u0027446c3907-01c8-3927-984b-55a1a4285ea3\u0027,\u0027f1e789d6-052d-3312-a387-62d27f40f51a\u0027,\u0027ef2da936-c50b-33b1-b4dd-fa34db6f6f43\u0027,\u0027407959d1-5d35-323f-9e28-4b76fc585e91\u0027,\u0027a5de2323-cfd6-35a5-920a-dde4e86585e0\u0027,\u002788fb5f89-a970-3990-8cbd-7eddb8b67b3b\u0027,\u00270f40a563-6754-3c34-891a-527b0013651a\u0027,\u0027c87b59f0-24ea-31da-a720-33a42d493aad\u0027,\u00270e2d9ffd-eba9-3b13-afda-74b69abb7c1c\u0027,\u00276ab219cc-4755-3c20-ab53-f0c1eefdd82b\u0027,\u00272f239085-bfcb-399d-86aa-c084a803e3b9\u0027,\u0027053c9f0b-3086-342c-ba48-8cc44fb113f2\u0027,\u0027ddd5eafa-56be-3328-bbfe-8e16fb55cbc5\u0027,\u0027e1474eb9-36ac-3b54-919d-4466ecf32e76\u0027,\u0027a84bd975-481b-3413-8d6a-0ddff14c9864\u0027,\u0027c9e53a55-a73d-3abd-a211-0a4a789e8ad3\u0027,\u0027138c0d55-802b-37e7-b427-05a37e4c8973\u0027,\u0027d7b84dc4-b867-3203-81e4-3767b2576ea2\u0027,\u0027843117b9-ae45-33c1-9c8f-a8652839c972\u0027",
+  "nodes": [
+    {
+      "id": "2",
+      "name": "Group By",
+      "description": "Group By Node",
+      "details": "\u003ch2\u003eGroup By Details\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch3\u003eAggregation Settings\u003c/h3\u003e\nThis node groups row values based on categorical columns selected by the user and then calculates aggregate statistics of the grouped columns. \u003cbr\u003e\nThe Grouping Columns allows the user to select which columns to group rows by, and the Variables List allows the user to select which aggregate statistics will be generated. \u003cbr\u003e\n\u003cbr\u003e\n\u003ch3\u003eFilter Settings\u003c/h3\u003e\nThe Filter Settings allow the user to provide additional clauses before and after the data is aggregated.\u003cbr\u003e\nThe Where Clause allows the user to filter the data before it is aggregated, and the Having Clause allows the user to filter the data after it has been aggregated. \u003cbr\u003e\nBoth the Where and Having Clauses are similar in use to those that exist in many forms of SQL.\u003cbr\u003e",
+      "examples": "Incoming Dataframe has following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |    LOCATION    |    DEPT         |    SALARY\u003cbr\u003e\n-----------------------------------------------------------------------------\u003cbr\u003e\nE01       |    DAVID       |    NEW YORK    |    HR           |    10000\u003cbr\u003e\nE02       |    JOHN        |    NEW JERSEY  |    SALES        |    11000\u003cbr\u003e\nE03       |    MARTIN      |    NEW YORK    |    MARKETING    |    12000\u003cbr\u003e\nE04       |    TONY        |    NEW JERSEY  |    MARKETING    |    13000\u003cbr\u003e\nE05       |    ROSS        |    NEW YORK    |    FRONT DESK   |    10000\u003cbr\u003e\nE06       |    LISA        |    NEW JERSEY  |    FRONT DESK   |    11000\u003cbr\u003e\nE07       |    PAUL        |    NEW YORK    |    MAINTENANCE  |    12000\u003cbr\u003e\nE08       |    MARK        |    NEW JERSEY  |    MAINTENANCE  |    13000\u003cbr\u003e\n\u003cbr\u003e\nif GroupBy node is configured as below:\u003cbr\u003e\n\u003cbr\u003e\nGROUPING COLUMNS      :    DEPT\u003cbr\u003e\n\u003cbr\u003e\nAGGREGATE COLUMNS    |    AGGREGATE OPERATION\u003cbr\u003e\n-------------------------------------------------\u003cbr\u003e\nEMP_CD               |    COUNT\u003cbr\u003e\nSALARY               |    SUM\u003cbr\u003e\n\u003cbr\u003e\nthen outgoing Dataframe would be created as below after performing specified aggregation\u003cbr\u003e\nCount of Employees and Summation of Salary all Employees is computed for each [DEPT]:\u003cbr\u003e\n\u003cbr\u003e\nDEPT           |    count_emp_cd    |    sum_salary\u003cbr\u003e\n----------------------------------------------------------\u003cbr\u003e\nFRONT DESK     |    2               |    21000\u003cbr\u003e\nMARKETING      |    2               |    25000\u003cbr\u003e\nHR             |    1               |    10000\u003cbr\u003e\nSALES          |    1               |    11000\u003cbr\u003e\nMAINTENANCE    |    2               |    25000\u003cbr\u003e\n\u003cbr\u003e\nif [WHERE CLAUSE] is entered as [DEPT \u003d \u0027HR\u0027] then outgoing Dataframe would consists of data only from HR department.\u003cbr\u003e\n\u003cbr\u003e\nif [HAVING CLAUSE] is entered as [COUNT(*) \u003e 1] then outgoing Dataframe would consists of data for Department where count of Employees is more than 1.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeGroupBy",
+      "x": "391.8px",
+      "y": "188.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Aggregation Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Aggregation Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "groupingCols",
+          "value": "[\"PATIENT_ID\"]",
+          "widget": "variables",
+          "title": "Grouping Columns",
+          "description": "Grouping Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateCols",
+          "value": "[\"PAYMENTS\",\"CLAIMID\"]",
+          "widget": "variables_list_select",
+          "title": "Aggregate Columns",
+          "description": "Aggregate Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateOperations",
+          "value": "[\"sum\",\"count_distinct\"]",
+          "widget": "variables_list_array",
+          "title": "Aggregate Operation",
+          "description": "Aggregate Operation",
+          "optionsArray": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count",
+            "count_distinct"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"claim_amount\",\"claim_count\"]",
+          "widget": "variables_list_textfield",
+          "title": "Output Column Names",
+          "description": "Output Column Names, default value is aggregateOperation_aggregateCol.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Filter Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Filter Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "whereClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Where Clause",
+          "description": "where condition before group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "havingClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Having Clause",
+          "description": "having condition after group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "3",
+      "name": "Claims Amounts Chart",
+      "details": "\u003ch2\u003eGraph Values Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node represents variation between data of various data series in Graphical format.\u003cbr\u003e\n\u003cbr\u003e\nMultiple numeric columns can be plotted along Y-Coordinate. Only one can be selected along X-Coordinate.\u003cbr\u003e\n\u003cbr\u003e\nVariation between dataseries is plotted as graph of the selected type such as Line-Chart, Bar-Chart or so on.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   TITLE :- The title of a graph can be set here.\u003c/li\u003e\n\u003cli\u003e   X LABEL :- X-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   Y LABEL :- Y-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   MAX VALUES TO DISPLAY :- The total number of the data points can be selected here.\u003c/li\u003e\n\u003cli\u003e   CHART TYPE :- The desired chart can be selected from the drop-down list(Line Chart,Side By Side Bar Chart,Pie Chart,Scatter Chart)                                                 \u003c/li\u003e\n\u003cli\u003e   CHART COLORS :- The different types of color can be selected for better visualization.\u003c/li\u003e\n\u003cli\u003e   IS STREAMING? :- If the graph is stream graph set the option as true else false(by default it is false). \u003c/li\u003e\n\u003cli\u003e   X COLUMN :- Select the column for X-axis.\u003c/li\u003e\n\u003cli\u003e   Y COLUMNS :- Select the colum for Y-axis.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   It will plot a graph and will represent the trends between mentioned columns.\u003c/li\u003e\n\u003cli\u003e   The different types of a graph can be plotted between specified columns to check the trends.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eTypes Of Chart\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   Line Chart\u003c/li\u003e\n\u003cli\u003e   Side By Side Bar Chart\u003c/li\u003e\n\u003cli\u003e   Stack Bar Chart\u003c/li\u003e\n\u003cli\u003e   Pie Chart\u003c/li\u003e\n\u003cli\u003e   Scatter Chart\u003c/li\u003e\n\u003cli\u003e   Dual Line Chart\u003c/li\u003e\n\u003cli\u003e   Area Chart\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eExample\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   A line chart allows us to track the development of several variables at the same time.\u003c/li\u003e\n\u003cli\u003e   Scatter plots are used to determine whether or not two variables have a relationship or correlation.\u003c/li\u003e\n\u003cli\u003e   The main motive of a stacked bar chart is to compare numeric values between levels of a categorical variable.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.graph.NodeGraphValues",
+      "x": "667.125px",
+      "y": "189.125px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Graph",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xlabel",
+          "value": "Patient Id",
+          "widget": "textfield",
+          "title": "X Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ylabel",
+          "value": "Claims",
+          "widget": "textfield",
+          "title": "Y Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxValuesToDisplay",
+          "value": "20",
+          "widget": "textfield",
+          "title": "Max Values To Display",
+          "description": "Maximum number of values to display in result.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "graphType",
+          "value": "COLUMNCHART",
+          "widget": "enum",
+          "title": "Chart Type",
+          "optionsMap": {
+            "LINECHART": "Line Chart",
+            "COLUMNCHART": "Column Chart",
+            "BARCHART": "Bar Chart",
+            "PIE": "Pie Chart",
+            "SCATTERCHART": "Scatter Chart",
+            "DUALLINECHART": "Dual Line Chart",
+            "AREACHART": "Area Chart"
+          },
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "chartColors",
+          "value": "#BFBF3E,#387Fa3,#F3B25C,#66B4c1,#D9A6A7,#E0786C",
+          "widget": "colors",
+          "title": "Chart Colors",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "isStreaming",
+          "value": "false",
+          "widget": "array",
+          "title": "Is Streaming?",
+          "description": "Whether the Graph is a Streaming Graph or not",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xCol",
+          "value": "PATIENT_ID",
+          "widget": "variable",
+          "title": "X Column",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "yCols",
+          "value": "[\"claim_amount\"]",
+          "widget": "variables",
+          "title": "Y Columns",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ySortCol",
+          "value": "claim_amount",
+          "widget": "variable",
+          "title": "Y Sort Column",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "reNameYColumns",
+          "value": "[\"claim_amount:Claim Amount\"]",
+          "widget": "variables_selected",
+          "title": "Rename Y Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "4",
+      "name": "Group By",
+      "description": "Group By Node",
+      "details": "\u003ch2\u003eGroup By Details\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch3\u003eAggregation Settings\u003c/h3\u003e\nThis node groups row values based on categorical columns selected by the user and then calculates aggregate statistics of the grouped columns. \u003cbr\u003e\nThe Grouping Columns allows the user to select which columns to group rows by, and the Variables List allows the user to select which aggregate statistics will be generated. \u003cbr\u003e\n\u003cbr\u003e\n\u003ch3\u003eFilter Settings\u003c/h3\u003e\nThe Filter Settings allow the user to provide additional clauses before and after the data is aggregated.\u003cbr\u003e\nThe Where Clause allows the user to filter the data before it is aggregated, and the Having Clause allows the user to filter the data after it has been aggregated. \u003cbr\u003e\nBoth the Where and Having Clauses are similar in use to those that exist in many forms of SQL.\u003cbr\u003e",
+      "examples": "Incoming Dataframe has following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |    LOCATION    |    DEPT         |    SALARY\u003cbr\u003e\n-----------------------------------------------------------------------------\u003cbr\u003e\nE01       |    DAVID       |    NEW YORK    |    HR           |    10000\u003cbr\u003e\nE02       |    JOHN        |    NEW JERSEY  |    SALES        |    11000\u003cbr\u003e\nE03       |    MARTIN      |    NEW YORK    |    MARKETING    |    12000\u003cbr\u003e\nE04       |    TONY        |    NEW JERSEY  |    MARKETING    |    13000\u003cbr\u003e\nE05       |    ROSS        |    NEW YORK    |    FRONT DESK   |    10000\u003cbr\u003e\nE06       |    LISA        |    NEW JERSEY  |    FRONT DESK   |    11000\u003cbr\u003e\nE07       |    PAUL        |    NEW YORK    |    MAINTENANCE  |    12000\u003cbr\u003e\nE08       |    MARK        |    NEW JERSEY  |    MAINTENANCE  |    13000\u003cbr\u003e\n\u003cbr\u003e\nif GroupBy node is configured as below:\u003cbr\u003e\n\u003cbr\u003e\nGROUPING COLUMNS      :    DEPT\u003cbr\u003e\n\u003cbr\u003e\nAGGREGATE COLUMNS    |    AGGREGATE OPERATION\u003cbr\u003e\n-------------------------------------------------\u003cbr\u003e\nEMP_CD               |    COUNT\u003cbr\u003e\nSALARY               |    SUM\u003cbr\u003e\n\u003cbr\u003e\nthen outgoing Dataframe would be created as below after performing specified aggregation\u003cbr\u003e\nCount of Employees and Summation of Salary all Employees is computed for each [DEPT]:\u003cbr\u003e\n\u003cbr\u003e\nDEPT           |    count_emp_cd    |    sum_salary\u003cbr\u003e\n----------------------------------------------------------\u003cbr\u003e\nFRONT DESK     |    2               |    21000\u003cbr\u003e\nMARKETING      |    2               |    25000\u003cbr\u003e\nHR             |    1               |    10000\u003cbr\u003e\nSALES          |    1               |    11000\u003cbr\u003e\nMAINTENANCE    |    2               |    25000\u003cbr\u003e\n\u003cbr\u003e\nif [WHERE CLAUSE] is entered as [DEPT \u003d \u0027HR\u0027] then outgoing Dataframe would consists of data only from HR department.\u003cbr\u003e\n\u003cbr\u003e\nif [HAVING CLAUSE] is entered as [COUNT(*) \u003e 1] then outgoing Dataframe would consists of data for Department where count of Employees is more than 1.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeGroupBy",
+      "x": "381.136px",
+      "y": "342.125px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Aggregation Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Aggregation Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "groupingCols",
+          "value": "[\"NAME\"]",
+          "widget": "variables",
+          "title": "Grouping Columns",
+          "description": "Grouping Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateCols",
+          "value": "[\"PAYMENTS\",\"CLAIMID\"]",
+          "widget": "variables_list_select",
+          "title": "Aggregate Columns",
+          "description": "Aggregate Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateOperations",
+          "value": "[\"sum\",\"count_distinct\"]",
+          "widget": "variables_list_array",
+          "title": "Aggregate Operation",
+          "description": "Aggregate Operation",
+          "optionsArray": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count",
+            "count_distinct"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"claim_amount\",\"claim_count\"]",
+          "widget": "variables_list_textfield",
+          "title": "Output Column Names",
+          "description": "Output Column Names, default value is aggregateOperation_aggregateCol.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Filter Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Filter Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "whereClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Where Clause",
+          "description": "where condition before group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "havingClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Having Clause",
+          "description": "having condition after group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "6",
+      "name": "Claims distribution by Providers",
+      "details": "\u003ch2\u003eGraph Values Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node represents variation between data of various data series in Graphical format.\u003cbr\u003e\n\u003cbr\u003e\nMultiple numeric columns can be plotted along Y-Coordinate. Only one can be selected along X-Coordinate.\u003cbr\u003e\n\u003cbr\u003e\nVariation between dataseries is plotted as graph of the selected type such as Line-Chart, Bar-Chart or so on.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   TITLE :- The title of a graph can be set here.\u003c/li\u003e\n\u003cli\u003e   X LABEL :- X-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   Y LABEL :- Y-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   MAX VALUES TO DISPLAY :- The total number of the data points can be selected here.\u003c/li\u003e\n\u003cli\u003e   CHART TYPE :- The desired chart can be selected from the drop-down list(Line Chart,Side By Side Bar Chart,Pie Chart,Scatter Chart)                                                 \u003c/li\u003e\n\u003cli\u003e   CHART COLORS :- The different types of color can be selected for better visualization.\u003c/li\u003e\n\u003cli\u003e   IS STREAMING? :- If the graph is stream graph set the option as true else false(by default it is false). \u003c/li\u003e\n\u003cli\u003e   X COLUMN :- Select the column for X-axis.\u003c/li\u003e\n\u003cli\u003e   Y COLUMNS :- Select the colum for Y-axis.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   It will plot a graph and will represent the trends between mentioned columns.\u003c/li\u003e\n\u003cli\u003e   The different types of a graph can be plotted between specified columns to check the trends.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eTypes Of Chart\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   Line Chart\u003c/li\u003e\n\u003cli\u003e   Side By Side Bar Chart\u003c/li\u003e\n\u003cli\u003e   Stack Bar Chart\u003c/li\u003e\n\u003cli\u003e   Pie Chart\u003c/li\u003e\n\u003cli\u003e   Scatter Chart\u003c/li\u003e\n\u003cli\u003e   Dual Line Chart\u003c/li\u003e\n\u003cli\u003e   Area Chart\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eExample\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   A line chart allows us to track the development of several variables at the same time.\u003c/li\u003e\n\u003cli\u003e   Scatter plots are used to determine whether or not two variables have a relationship or correlation.\u003c/li\u003e\n\u003cli\u003e   The main motive of a stacked bar chart is to compare numeric values between levels of a categorical variable.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.graph.NodeGraphValues",
+      "x": "678.763px",
+      "y": "341.775px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Claims distribution by Providers",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xlabel",
+          "value": "Provider Name",
+          "widget": "textfield",
+          "title": "X Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ylabel",
+          "value": "Claims",
+          "widget": "textfield",
+          "title": "Y Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxValuesToDisplay",
+          "value": "20",
+          "widget": "textfield",
+          "title": "Max Values To Display",
+          "description": "Maximum number of values to display in result.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "graphType",
+          "value": "PIE",
+          "widget": "enum",
+          "title": "Chart Type",
+          "optionsMap": {
+            "LINECHART": "Line Chart",
+            "COLUMNCHART": "Column Chart",
+            "BARCHART": "Bar Chart",
+            "PIE": "Pie Chart",
+            "SCATTERCHART": "Scatter Chart",
+            "DUALLINECHART": "Dual Line Chart",
+            "AREACHART": "Area Chart"
+          },
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "chartColors",
+          "value": "#9f86c0,#ff758f,#5390d9,#f9c74f,#99d98c",
+          "widget": "colors",
+          "title": "Chart Colors",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "isStreaming",
+          "value": "false",
+          "widget": "array",
+          "title": "Is Streaming?",
+          "description": "Whether the Graph is a Streaming Graph or not",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xCol",
+          "value": "NAME",
+          "widget": "variable",
+          "title": "X Column",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "yCols",
+          "value": "[\"claim_amount\"]",
+          "widget": "variables",
+          "title": "Y Columns",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ySortCol",
+          "value": "claim_amount",
+          "widget": "variable",
+          "title": "Y Sort Column",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "reNameYColumns",
+          "value": "[\"claim_amount:Claim Amount\"]",
+          "widget": "variables_selected",
+          "title": "Rename Y Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "9",
+      "name": "Claims distribution by Organization",
+      "details": "\u003ch2\u003eGraph Values Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node represents variation between data of various data series in Graphical format.\u003cbr\u003e\n\u003cbr\u003e\nMultiple numeric columns can be plotted along Y-Coordinate. Only one can be selected along X-Coordinate.\u003cbr\u003e\n\u003cbr\u003e\nVariation between dataseries is plotted as graph of the selected type such as Line-Chart, Bar-Chart or so on.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   TITLE :- The title of a graph can be set here.\u003c/li\u003e\n\u003cli\u003e   X LABEL :- X-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   Y LABEL :- Y-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   MAX VALUES TO DISPLAY :- The total number of the data points can be selected here.\u003c/li\u003e\n\u003cli\u003e   CHART TYPE :- The desired chart can be selected from the drop-down list(Line Chart,Side By Side Bar Chart,Pie Chart,Scatter Chart)                                                 \u003c/li\u003e\n\u003cli\u003e   CHART COLORS :- The different types of color can be selected for better visualization.\u003c/li\u003e\n\u003cli\u003e   IS STREAMING? :- If the graph is stream graph set the option as true else false(by default it is false). \u003c/li\u003e\n\u003cli\u003e   X COLUMN :- Select the column for X-axis.\u003c/li\u003e\n\u003cli\u003e   Y COLUMNS :- Select the colum for Y-axis.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   It will plot a graph and will represent the trends between mentioned columns.\u003c/li\u003e\n\u003cli\u003e   The different types of a graph can be plotted between specified columns to check the trends.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eTypes Of Chart\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   Line Chart\u003c/li\u003e\n\u003cli\u003e   Side By Side Bar Chart\u003c/li\u003e\n\u003cli\u003e   Stack Bar Chart\u003c/li\u003e\n\u003cli\u003e   Pie Chart\u003c/li\u003e\n\u003cli\u003e   Scatter Chart\u003c/li\u003e\n\u003cli\u003e   Dual Line Chart\u003c/li\u003e\n\u003cli\u003e   Area Chart\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eExample\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   A line chart allows us to track the development of several variables at the same time.\u003c/li\u003e\n\u003cli\u003e   Scatter plots are used to determine whether or not two variables have a relationship or correlation.\u003c/li\u003e\n\u003cli\u003e   The main motive of a stacked bar chart is to compare numeric values between levels of a categorical variable.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.graph.NodeGraphValues",
+      "x": "672.125px",
+      "y": "48.1375px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Claims distribution by Organization",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xlabel",
+          "value": "Organization",
+          "widget": "textfield",
+          "title": "X Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ylabel",
+          "value": "Claims",
+          "widget": "textfield",
+          "title": "Y Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxValuesToDisplay",
+          "value": "20",
+          "widget": "textfield",
+          "title": "Max Values To Display",
+          "description": "Maximum number of values to display in result.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "graphType",
+          "value": "BARCHART",
+          "widget": "enum",
+          "title": "Chart Type",
+          "optionsMap": {
+            "LINECHART": "Line Chart",
+            "COLUMNCHART": "Column Chart",
+            "BARCHART": "Bar Chart",
+            "PIE": "Pie Chart",
+            "SCATTERCHART": "Scatter Chart",
+            "DUALLINECHART": "Dual Line Chart",
+            "AREACHART": "Area Chart"
+          },
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "chartColors",
+          "value": "#BFBF3E,#387Fa3,#F3B25C,#66B4c1,#D9A6A7,#E0786C",
+          "widget": "colors",
+          "title": "Chart Colors",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "isStreaming",
+          "value": "false",
+          "widget": "array",
+          "title": "Is Streaming?",
+          "description": "Whether the Graph is a Streaming Graph or not",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xCol",
+          "value": "ORGANIZATION",
+          "widget": "variable",
+          "title": "X Column",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "yCols",
+          "value": "[\"claim_amount\"]",
+          "widget": "variables",
+          "title": "Y Columns",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ySortCol",
+          "value": "claim_amount",
+          "widget": "variable",
+          "title": "Y Sort Column",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "reNameYColumns",
+          "value": "[\"claim_amount:Claim Amount\"]",
+          "widget": "variables_selected",
+          "title": "Rename Y Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "10",
+      "name": "Group By",
+      "description": "Group By Node",
+      "details": "\u003ch2\u003eGroup By Details\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch3\u003eAggregation Settings\u003c/h3\u003e\nThis node groups row values based on categorical columns selected by the user and then calculates aggregate statistics of the grouped columns. \u003cbr\u003e\nThe Grouping Columns allows the user to select which columns to group rows by, and the Variables List allows the user to select which aggregate statistics will be generated. \u003cbr\u003e\n\u003cbr\u003e\n\u003ch3\u003eFilter Settings\u003c/h3\u003e\nThe Filter Settings allow the user to provide additional clauses before and after the data is aggregated.\u003cbr\u003e\nThe Where Clause allows the user to filter the data before it is aggregated, and the Having Clause allows the user to filter the data after it has been aggregated. \u003cbr\u003e\nBoth the Where and Having Clauses are similar in use to those that exist in many forms of SQL.\u003cbr\u003e",
+      "examples": "Incoming Dataframe has following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |    LOCATION    |    DEPT         |    SALARY\u003cbr\u003e\n-----------------------------------------------------------------------------\u003cbr\u003e\nE01       |    DAVID       |    NEW YORK    |    HR           |    10000\u003cbr\u003e\nE02       |    JOHN        |    NEW JERSEY  |    SALES        |    11000\u003cbr\u003e\nE03       |    MARTIN      |    NEW YORK    |    MARKETING    |    12000\u003cbr\u003e\nE04       |    TONY        |    NEW JERSEY  |    MARKETING    |    13000\u003cbr\u003e\nE05       |    ROSS        |    NEW YORK    |    FRONT DESK   |    10000\u003cbr\u003e\nE06       |    LISA        |    NEW JERSEY  |    FRONT DESK   |    11000\u003cbr\u003e\nE07       |    PAUL        |    NEW YORK    |    MAINTENANCE  |    12000\u003cbr\u003e\nE08       |    MARK        |    NEW JERSEY  |    MAINTENANCE  |    13000\u003cbr\u003e\n\u003cbr\u003e\nif GroupBy node is configured as below:\u003cbr\u003e\n\u003cbr\u003e\nGROUPING COLUMNS      :    DEPT\u003cbr\u003e\n\u003cbr\u003e\nAGGREGATE COLUMNS    |    AGGREGATE OPERATION\u003cbr\u003e\n-------------------------------------------------\u003cbr\u003e\nEMP_CD               |    COUNT\u003cbr\u003e\nSALARY               |    SUM\u003cbr\u003e\n\u003cbr\u003e\nthen outgoing Dataframe would be created as below after performing specified aggregation\u003cbr\u003e\nCount of Employees and Summation of Salary all Employees is computed for each [DEPT]:\u003cbr\u003e\n\u003cbr\u003e\nDEPT           |    count_emp_cd    |    sum_salary\u003cbr\u003e\n----------------------------------------------------------\u003cbr\u003e\nFRONT DESK     |    2               |    21000\u003cbr\u003e\nMARKETING      |    2               |    25000\u003cbr\u003e\nHR             |    1               |    10000\u003cbr\u003e\nSALES          |    1               |    11000\u003cbr\u003e\nMAINTENANCE    |    2               |    25000\u003cbr\u003e\n\u003cbr\u003e\nif [WHERE CLAUSE] is entered as [DEPT \u003d \u0027HR\u0027] then outgoing Dataframe would consists of data only from HR department.\u003cbr\u003e\n\u003cbr\u003e\nif [HAVING CLAUSE] is entered as [COUNT(*) \u003e 1] then outgoing Dataframe would consists of data for Department where count of Employees is more than 1.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeGroupBy",
+      "x": "387.342px",
+      "y": "54.3382px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Aggregation Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Aggregation Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "groupingCols",
+          "value": "[\"ORGANIZATION\"]",
+          "widget": "variables",
+          "title": "Grouping Columns",
+          "description": "Grouping Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateCols",
+          "value": "[\"PAYMENTS\",\"CLAIMID\"]",
+          "widget": "variables_list_select",
+          "title": "Aggregate Columns",
+          "description": "Aggregate Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateOperations",
+          "value": "[\"sum\",\"count_distinct\"]",
+          "widget": "variables_list_array",
+          "title": "Aggregate Operation",
+          "description": "Aggregate Operation",
+          "optionsArray": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count",
+            "count_distinct"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"claim_amount\",\"claim_count\"]",
+          "widget": "variables_list_textfield",
+          "title": "Output Column Names",
+          "description": "Output Column Names, default value is aggregateOperation_aggregateCol.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Filter Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Filter Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "whereClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Where Clause",
+          "description": "where condition before group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "havingClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Having Clause",
+          "description": "having condition after group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "11",
+      "name": "Read From Snowflake",
+      "description": "This node reads a table from Snowflake",
+      "details": "\u003ch2\u003e Read From Snowflake Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node reads a table from Snowflake and creates the Dataframe which contains the schema and data of the specified table.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003e Parameters to be set:\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e CONNECTION : Select the desired snowflake connection to be used.\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE WAREHOUSE : Specify the virtual warehouse to use for the connection.\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE DATABASE : Specify the database to use once connected.\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE SCHEMA : Specify the schema to use for the specified database once connected.\u003c/li\u003e\n\u003cli\u003e Snowflake TABLE/VIEW : Specify the table/view from which data is to be read.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "\u003ch2\u003e Read From Snowflake Node Examples\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch4\u003e Example of Connection Values\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e CONNECTION : SNOWFLAKE_DEV_ENV_NCUS\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE WAREHOUSE : SNOWFLAKE_BI_VWH\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE DATABASE : CUSTOMER_SALES_NCUS\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE SCHEMA : INT_NA_CUSTSALES\u003c/li\u003e\n\u003cli\u003e Snowflake TABLE/VIEW : CUST_BASIC\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.snowflake.NodeReadFromSnowFlake",
+      "x": "76.3875px",
+      "y": "224.4px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "connection",
+          "value": "73",
+          "widget": "object_array",
+          "title": "Connection",
+          "description": "The Snowflake connection to connect",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sfWarehouse",
+          "value": "COMPUTE_WH",
+          "widget": "textfield",
+          "title": "Snowflake Warehouse",
+          "description": "Warehouse for connecting to the Snowflake",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sfDatabase",
+          "value": "HEALTHCARE_CLAIMS",
+          "widget": "textfield",
+          "title": "Snowflake Database",
+          "description": "Database for connecting to the Snowflake",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sfSchema",
+          "value": "PUBLIC",
+          "widget": "textfield",
+          "title": "Snowflake Schema",
+          "description": "Schema for connecting to the Snowflake",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "dbtable",
+          "value": "CLAIMS_WAREHOUSE",
+          "widget": "textfield",
+          "title": "Snowflake Table/View",
+          "description": "Snowflake Table/View from which to read the data",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "schema",
+          "value": "",
+          "widget": "tab",
+          "title": "Schema",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\",\"PROVIDER_ID\",\"ORGANIZATION\",\"NAME\",\"GENDER\",\"SPECIALITY\",\"ADDRESS\",\"CITY\",\"STATE\",\"ZIP\",\"LAT\",\"LON\",\"ENCOUNTERS\",\"PROCEDURES\",\"TYPE\",\"AMOUNT\",\"METHOD\",\"FROMDATE\",\"TODATE\",\"PLACEOFSERVICE\",\"PAYMENTS\",\"TRANSFERS\",\"OUTSTANDING\"]",
+          "widget": "schema_col_names",
+          "title": "Output Column Names",
+          "description": "Name of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"LONG\",\"DOUBLE\",\"DOUBLE\",\"LONG\",\"LONG\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"DOUBLE\",\"STRING\",\"DOUBLE\"]",
+          "widget": "schema_col_types",
+          "title": "Output Column Types",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Output Column Formats",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "12",
+      "name": "Cast To Single Type",
+      "description": "This node creates a new DataFrame by casting the specified input columns to a new data type",
+      "details": "This node creates a new DataFrame by casting the specified input columns to a new data type. All the selected columns would be cast to the specified data type.\u003cbr\u003e\n\u003cbr\u003e\nThe boolean field Replace Existing Columns indicates whether the existing column should be replaced or a new column should be created.\u003cbr\u003e",
+      "examples": "If incoming Dataframe has following columns with below specified datatype:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e CUST_ID : Integer\u003c/li\u003e\n\u003cli\u003e CUST_NAME : String\u003c/li\u003e\n\u003cli\u003e DOB : Datetime\u003c/li\u003e\n\u003cli\u003e AGE : Integer\u003c/li\u003e\n\u003c/ul\u003e\nand [DOB] and [AGE] are selected for casting to [STRING] datatype then outgoing Dataframe would have below datatypes:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e CUST_ID : Integer\u003c/li\u003e\n\u003cli\u003e CUST_NAME : String\u003c/li\u003e\n\u003cli\u003e DOB : String\u003c/li\u003e\n\u003cli\u003e AGE : String\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeCastColumnType",
+      "x": "532.6px",
+      "y": "53.6px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputCols",
+          "value": "[\"claim_count\"]",
+          "widget": "variables",
+          "title": "Columns",
+          "description": "Columns to be cast to new data type",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColType",
+          "value": "LONG",
+          "widget": "array",
+          "title": "New Data Type",
+          "description": "New data type for the selected columns (INTEGER, DOUBLE, STRING, LONG, SHORT)",
+          "optionsArray": [
+            "BOOLEAN",
+            "BYTE",
+            "DATE",
+            "DECIMAL",
+            "DOUBLE",
+            "FLOAT",
+            "INTEGER",
+            "LONG",
+            "SHORT",
+            "STRING",
+            "TIMESTAMP"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "replaceExistingCols",
+          "value": "true",
+          "widget": "array",
+          "title": "Replace Existing Cols?",
+          "description": "Whether to replace existing columns or create new ones?",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "13",
+      "name": "Cast To Single Type",
+      "description": "This node creates a new DataFrame by casting the specified input columns to a new data type",
+      "details": "This node creates a new DataFrame by casting the specified input columns to a new data type. All the selected columns would be cast to the specified data type.\u003cbr\u003e\n\u003cbr\u003e\nThe boolean field Replace Existing Columns indicates whether the existing column should be replaced or a new column should be created.\u003cbr\u003e",
+      "examples": "If incoming Dataframe has following columns with below specified datatype:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e CUST_ID : Integer\u003c/li\u003e\n\u003cli\u003e CUST_NAME : String\u003c/li\u003e\n\u003cli\u003e DOB : Datetime\u003c/li\u003e\n\u003cli\u003e AGE : Integer\u003c/li\u003e\n\u003c/ul\u003e\nand [DOB] and [AGE] are selected for casting to [STRING] datatype then outgoing Dataframe would have below datatypes:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e CUST_ID : Integer\u003c/li\u003e\n\u003cli\u003e CUST_NAME : String\u003c/li\u003e\n\u003cli\u003e DOB : String\u003c/li\u003e\n\u003cli\u003e AGE : String\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeCastColumnType",
+      "x": "520.6px",
+      "y": "197.6px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputCols",
+          "value": "[\"claim_count\"]",
+          "widget": "variables",
+          "title": "Columns",
+          "description": "Columns to be cast to new data type",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColType",
+          "value": "LONG",
+          "widget": "array",
+          "title": "New Data Type",
+          "description": "New data type for the selected columns (INTEGER, DOUBLE, STRING, LONG, SHORT)",
+          "optionsArray": [
+            "BOOLEAN",
+            "BYTE",
+            "DATE",
+            "DECIMAL",
+            "DOUBLE",
+            "FLOAT",
+            "INTEGER",
+            "LONG",
+            "SHORT",
+            "STRING",
+            "TIMESTAMP"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "replaceExistingCols",
+          "value": "true",
+          "widget": "array",
+          "title": "Replace Existing Cols?",
+          "description": "Whether to replace existing columns or create new ones?",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "14",
+      "name": "Cast To Single Type",
+      "description": "This node creates a new DataFrame by casting the specified input columns to a new data type",
+      "details": "This node creates a new DataFrame by casting the specified input columns to a new data type. All the selected columns would be cast to the specified data type.\u003cbr\u003e\n\u003cbr\u003e\nThe boolean field Replace Existing Columns indicates whether the existing column should be replaced or a new column should be created.\u003cbr\u003e",
+      "examples": "If incoming Dataframe has following columns with below specified datatype:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e CUST_ID : Integer\u003c/li\u003e\n\u003cli\u003e CUST_NAME : String\u003c/li\u003e\n\u003cli\u003e DOB : Datetime\u003c/li\u003e\n\u003cli\u003e AGE : Integer\u003c/li\u003e\n\u003c/ul\u003e\nand [DOB] and [AGE] are selected for casting to [STRING] datatype then outgoing Dataframe would have below datatypes:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e CUST_ID : Integer\u003c/li\u003e\n\u003cli\u003e CUST_NAME : String\u003c/li\u003e\n\u003cli\u003e DOB : String\u003c/li\u003e\n\u003cli\u003e AGE : String\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeCastColumnType",
+      "x": "522.6px",
+      "y": "342.6px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputCols",
+          "value": "[\"claim_count\"]",
+          "widget": "variables",
+          "title": "Columns",
+          "description": "Columns to be cast to new data type",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColType",
+          "value": "LONG",
+          "widget": "array",
+          "title": "New Data Type",
+          "description": "New data type for the selected columns (INTEGER, DOUBLE, STRING, LONG, SHORT)",
+          "optionsArray": [
+            "BOOLEAN",
+            "BYTE",
+            "DATE",
+            "DECIMAL",
+            "DOUBLE",
+            "FLOAT",
+            "INTEGER",
+            "LONG",
+            "SHORT",
+            "STRING",
+            "TIMESTAMP"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "replaceExistingCols",
+          "value": "true",
+          "widget": "array",
+          "title": "Replace Existing Cols?",
+          "description": "Whether to replace existing columns or create new ones?",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "16",
+      "name": "Geographic Distribution of Claims",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.graph.NodeHierarchyChart",
+      "x": "534.368px",
+      "y": "523.952px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Geographic Distribution of Claims",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xlabel",
+          "value": "Claim",
+          "widget": "textfield",
+          "title": "X Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxValuesToDisplay",
+          "value": "50",
+          "widget": "textfield",
+          "title": "Max Values To Display",
+          "description": "Maximum number of values to display in result.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "chartColors",
+          "value": "#BFBF3E,#387Fa3,#F3B25C,#66B4c1,#D9A6A7,#E0786C",
+          "widget": "colors",
+          "title": "Chart Colors",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xCol",
+          "value": "Claim_Amount",
+          "widget": "variable",
+          "title": "X Column",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "yCols",
+          "value": "[\"STATE\",\"CITY\"]",
+          "widget": "variables",
+          "title": "Hierarchy Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "17",
+      "name": "Group By",
+      "description": "Group By Node",
+      "details": "\u003ch2\u003eGroup By Details\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch3\u003eAggregation Settings\u003c/h3\u003e\nThis node groups row values based on categorical columns selected by the user and then calculates aggregate statistics of the grouped columns. \u003cbr\u003e\nThe Grouping Columns allows the user to select which columns to group rows by, and the Variables List allows the user to select which aggregate statistics will be generated. \u003cbr\u003e\n\u003cbr\u003e\n\u003ch3\u003eFilter Settings\u003c/h3\u003e\nThe Filter Settings allow the user to provide additional clauses before and after the data is aggregated.\u003cbr\u003e\nThe Where Clause allows the user to filter the data before it is aggregated, and the Having Clause allows the user to filter the data after it has been aggregated. \u003cbr\u003e\nBoth the Where and Having Clauses are similar in use to those that exist in many forms of SQL.\u003cbr\u003e",
+      "examples": "Incoming Dataframe has following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |    LOCATION    |    DEPT         |    SALARY\u003cbr\u003e\n-----------------------------------------------------------------------------\u003cbr\u003e\nE01       |    DAVID       |    NEW YORK    |    HR           |    10000\u003cbr\u003e\nE02       |    JOHN        |    NEW JERSEY  |    SALES        |    11000\u003cbr\u003e\nE03       |    MARTIN      |    NEW YORK    |    MARKETING    |    12000\u003cbr\u003e\nE04       |    TONY        |    NEW JERSEY  |    MARKETING    |    13000\u003cbr\u003e\nE05       |    ROSS        |    NEW YORK    |    FRONT DESK   |    10000\u003cbr\u003e\nE06       |    LISA        |    NEW JERSEY  |    FRONT DESK   |    11000\u003cbr\u003e\nE07       |    PAUL        |    NEW YORK    |    MAINTENANCE  |    12000\u003cbr\u003e\nE08       |    MARK        |    NEW JERSEY  |    MAINTENANCE  |    13000\u003cbr\u003e\n\u003cbr\u003e\nif GroupBy node is configured as below:\u003cbr\u003e\n\u003cbr\u003e\nGROUPING COLUMNS      :    DEPT\u003cbr\u003e\n\u003cbr\u003e\nAGGREGATE COLUMNS    |    AGGREGATE OPERATION\u003cbr\u003e\n-------------------------------------------------\u003cbr\u003e\nEMP_CD               |    COUNT\u003cbr\u003e\nSALARY               |    SUM\u003cbr\u003e\n\u003cbr\u003e\nthen outgoing Dataframe would be created as below after performing specified aggregation\u003cbr\u003e\nCount of Employees and Summation of Salary all Employees is computed for each [DEPT]:\u003cbr\u003e\n\u003cbr\u003e\nDEPT           |    count_emp_cd    |    sum_salary\u003cbr\u003e\n----------------------------------------------------------\u003cbr\u003e\nFRONT DESK     |    2               |    21000\u003cbr\u003e\nMARKETING      |    2               |    25000\u003cbr\u003e\nHR             |    1               |    10000\u003cbr\u003e\nSALES          |    1               |    11000\u003cbr\u003e\nMAINTENANCE    |    2               |    25000\u003cbr\u003e\n\u003cbr\u003e\nif [WHERE CLAUSE] is entered as [DEPT \u003d \u0027HR\u0027] then outgoing Dataframe would consists of data only from HR department.\u003cbr\u003e\n\u003cbr\u003e\nif [HAVING CLAUSE] is entered as [COUNT(*) \u003e 1] then outgoing Dataframe would consists of data for Department where count of Employees is more than 1.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeGroupBy",
+      "x": "369.112px",
+      "y": "484.138px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Aggregation Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Aggregation Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "groupingCols",
+          "value": "[\"STATE\",\"CITY\"]",
+          "widget": "variables",
+          "title": "Grouping Columns",
+          "description": "Grouping Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateCols",
+          "value": "[\"AMOUNT\"]",
+          "widget": "variables_list_select",
+          "title": "Aggregate Columns",
+          "description": "Aggregate Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateOperations",
+          "value": "[\"sum\"]",
+          "widget": "variables_list_array",
+          "title": "Aggregate Operation",
+          "description": "Aggregate Operation",
+          "optionsArray": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count",
+            "count_distinct"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"Claim_Amount\"]",
+          "widget": "variables_list_textfield",
+          "title": "Output Column Names",
+          "description": "Output Column Names, default value is aggregateOperation_aggregateCol.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Filter Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Filter Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "whereClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Where Clause",
+          "description": "where condition before group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "havingClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Having Clause",
+          "description": "having condition after group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "20",
+      "name": "Row Filter",
+      "description": "This node creates a new DataFrame containing the rows that satisfy the given condition",
+      "details": "\u003ch2\u003eDetails\u003c/h2\u003e\n\u003cbr\u003e\nRow filter allows the user to filter out rows that do not meet a set condition. Rows that meet the condition are passed on to the next node in a new dataframe.\u003cbr\u003e",
+      "examples": "\u003ch2\u003eExamples of Conditional Expression\u003c/h2\u003e\n\u003cbr\u003e\nBelow are some examples of the Conditions Expression which can be used.\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e col1 \u003e 5 AND col2 \u003e 3\u003c/li\u003e\n\u003c/ul\u003e\n\u003cul\u003e\n\u003cli\u003e name is not NULL\u003c/li\u003e\n\u003c/ul\u003e\n\u003cul\u003e\n\u003cli\u003e name is NULL\u003c/li\u003e\n\u003c/ul\u003e\n\u003cul\u003e\n\u003cli\u003e usd_pledged_real \u003e 0 and (category \u003d \"Narrative Film\" or category \u003d\u003d \"Music\") and goal \u003e 100\u003c/li\u003e\n\u003c/ul\u003e\n\u003cul\u003e\n\u003cli\u003e dt \u003e \u00272021-09-03\u0027  (dt column is of type date)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cul\u003e\n\u003cli\u003e datetime \u003e \u00272011-01-01 00:00:00.0\u0027     (datetime column is of type timestamp)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cul\u003e\n\u003cli\u003e datetime \u003e \u00272011-01-01 00:00:00.0\u0027 and datetime \u003c \u00272016-01-01 00:00:00.0\u0027\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeRowFilter",
+      "x": "200.388px",
+      "y": "218.4px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "conditionExpr",
+          "value": "PROVIDER_ID in(${providerId})\nAND\nORGANIZATION in(${organization})\nAND\nTYPE in(${type})\nAND\nGENDER in(${gender})",
+          "widget": "textarea_small",
+          "title": "Conditional Expression",
+          "description": "The filtering condition. Rows not satisfying given condition will be excluded from output DataFrame. eg: usd_pledged_real \u003e 0 and (category \u003d 1 or category \u003d\u003d 2) and goal \u003e 100",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    }
+  ],
+  "edges": [
+    {
+      "source": "10",
+      "target": "12",
+      "id": 1
+    },
+    {
+      "source": "12",
+      "target": "9",
+      "id": 2
+    },
+    {
+      "source": "2",
+      "target": "13",
+      "id": 3
+    },
+    {
+      "source": "13",
+      "target": "3",
+      "id": 4
+    },
+    {
+      "source": "4",
+      "target": "14",
+      "id": 5
+    },
+    {
+      "source": "14",
+      "target": "6",
+      "id": 6
+    },
+    {
+      "source": "17",
+      "target": "16",
+      "id": 7
+    },
+    {
+      "source": "11",
+      "target": "20",
+      "id": 8
+    },
+    {
+      "source": "20",
+      "target": "10",
+      "id": 9
+    },
+    {
+      "source": "20",
+      "target": "2",
+      "id": 10
+    },
+    {
+      "source": "20",
+      "target": "4",
+      "id": 11
+    },
+    {
+      "source": "20",
+      "target": "17",
+      "id": 12
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "scala"
+}

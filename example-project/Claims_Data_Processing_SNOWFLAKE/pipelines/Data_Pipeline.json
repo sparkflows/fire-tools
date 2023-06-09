@@ -1,0 +1,92 @@
+{
+  "name": "Data_Pipeline",
+  "uuid": "afac6a06-0db4-46f0-a5ec-7176eb23ca49",
+  "category": "",
+  "description": "",
+  "parameters": "",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/08-Workflow/",
+      "name": "1_Claims_Data_Migration_Workflow",
+      "description": "This node allows user to select the list of workflows in the project to create a pipeline.",
+      "details": "\u003ch2\u003eWorkflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node allows user to select the list of workflows in the project to create a pipeline.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.Workflow",
+      "x": "200.1617431640625px",
+      "y": "170.17645263671875px",
+      "fields": [
+        {
+          "name": "workflowUUID",
+          "value": "dde4f29d-81da-4878-954d-6833245a7a80",
+          "widget": "workflow",
+          "title": "Workflow",
+          "description": "List of Workflows",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "notes",
+          "value": "Data Processing and ETL Workflow",
+          "widget": "textfield",
+          "title": "Notes",
+          "description": "Notes",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "path": "/08-Workflow/",
+      "name": "Data_Warehouse_Analytics",
+      "description": "This node allows user to select the list of workflows in the project to create a pipeline.",
+      "details": "\u003ch2\u003eWorkflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node allows user to select the list of workflows in the project to create a pipeline.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.Workflow",
+      "x": "486.1654052734375px",
+      "y": "174.17645263671875px",
+      "fields": [
+        {
+          "name": "workflowUUID",
+          "value": "f23b0a6a-fb96-408c-9e02-c3475f006f0c",
+          "widget": "workflow",
+          "title": "Workflow",
+          "description": "List of Workflows",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "notes",
+          "value": "Analyze Data stored in Warehouse",
+          "widget": "textfield",
+          "title": "Notes",
+          "description": "Notes",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "responseId": 0,
+  "createdBy": 0,
+  "updatedBy": 0,
+  "dateLastUpdated": "Jun 9, 2023 8:07:32 PM",
+  "projectName": "Claims_Data_Processing_SNOWFLAKE",
+  "appPermission": {
+    "appsView": true,
+    "appsModify": true,
+    "appsExecute": true
+  },
+  "id": 39,
+  "name": "PROVIDER_CLAIMS_ANALYSIS",
+  "status": "ACTIVE",
+  "category": "Claims Analysis",
+  "description": "",
+  "appStages": [],
+  "executionType": "Workflow",
+  "projectId": 122,
+  "executionId": 5201,
+  "jobName": "",
+  "notebookPath": "",
+  "uuid": "PROVIDER_CLAIMS_ANALYSIS_413",
+  "syncedWithGithub": false
+}

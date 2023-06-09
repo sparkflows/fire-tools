@@ -1,0 +1,1682 @@
+{
+  "name": "6_Claim_Data_Clustering",
+  "uuid": "84aa3485-9d8c-4c3e-a742-b4acd4e9741f",
+  "category": "-",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Read From Snowflake",
+      "description": "This node reads a table from Snowflake",
+      "details": "\u003ch2\u003e Read From Snowflake Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node reads a table from Snowflake and creates the Dataframe which contains the schema and data of the specified table.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003e Parameters to be set:\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e CONNECTION : Select the desired snowflake connection to be used.\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE WAREHOUSE : Specify the virtual warehouse to use for the connection.\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE DATABASE : Specify the database to use once connected.\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE SCHEMA : Specify the schema to use for the specified database once connected.\u003c/li\u003e\n\u003cli\u003e Snowflake TABLE/VIEW : Specify the table/view from which data is to be read.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "\u003ch2\u003e Read From Snowflake Node Examples\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch4\u003e Example of Connection Values\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e CONNECTION : SNOWFLAKE_DEV_ENV_NCUS\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE WAREHOUSE : SNOWFLAKE_BI_VWH\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE DATABASE : CUSTOMER_SALES_NCUS\u003c/li\u003e\n\u003cli\u003e SNOWFLAKE SCHEMA : INT_NA_CUSTSALES\u003c/li\u003e\n\u003cli\u003e Snowflake TABLE/VIEW : CUST_BASIC\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.snowflake.NodeReadFromSnowFlake",
+      "x": "57.9875px",
+      "y": "224px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "connection",
+          "value": "73",
+          "widget": "object_array",
+          "title": "Connection",
+          "description": "The Snowflake connection to connect",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sfWarehouse",
+          "value": "COMPUTE_WH",
+          "widget": "textfield",
+          "title": "Snowflake Warehouse",
+          "description": "Warehouse for connecting to the Snowflake",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sfDatabase",
+          "value": "HEALTHCARE_CLAIMS",
+          "widget": "textfield",
+          "title": "Snowflake Database",
+          "description": "Database for connecting to the Snowflake",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sfSchema",
+          "value": "PUBLIC",
+          "widget": "textfield",
+          "title": "Snowflake Schema",
+          "description": "Schema for connecting to the Snowflake",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "dbtable",
+          "value": "CLAIMS_WAREHOUSE",
+          "widget": "textfield",
+          "title": "Snowflake Table/View",
+          "description": "Snowflake Table/View from which to read the data",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "schema",
+          "value": "",
+          "widget": "tab",
+          "title": "Schema",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\",\"PROVIDER_ID\",\"ORGANIZATION\",\"NAME\",\"GENDER\",\"SPECIALITY\",\"ADDRESS\",\"CITY\",\"STATE\",\"ZIP\",\"LAT\",\"LON\",\"ENCOUNTERS\",\"PROCEDURES\",\"TYPE\",\"AMOUNT\",\"METHOD\",\"FROMDATE\",\"TODATE\",\"PLACEOFSERVICE\",\"PAYMENTS\",\"TRANSFERS\",\"OUTSTANDING\"]",
+          "widget": "schema_col_names",
+          "title": "Output Column Names",
+          "description": "Name of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"LONG\",\"DOUBLE\",\"DOUBLE\",\"LONG\",\"LONG\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"DOUBLE\",\"STRING\",\"DOUBLE\"]",
+          "widget": "schema_col_types",
+          "title": "Output Column Types",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Output Column Formats",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "3",
+      "name": "String To Date",
+      "description": "This node converts string columns to date using the specified date/time format",
+      "details": "\u003ch2\u003eString To Date Multi Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node converts a string column to a date or timestamp datatype column. This node can be used to convert multiple string columns to new Date or Timestmp columns. \u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   COLUMNS :- Select the String field(s) which needs to be converted.\u003c/li\u003e\n\u003cli\u003e   INPUT COLUMN FORMATS :-The format of the input column is specified here.\u003c/li\u003e\n\u003cli\u003e   OUTPUT COLUMN NAMES :- Specify the output column name for the converted value. \u003c/li\u003e\n\u003cli\u003e   NEW DATA TYPES :- Select the output type as either of DATE or TIMESTAMP datatype.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   It will convert all the specified columns into the specified  datatype.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eExample\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   Input : 04/13/2019\u003c/li\u003e\n\u003cli\u003e   Format : MM/dd/yyyy\u003c/li\u003e\n\u003cli\u003e   NEW DATA TYPES : DATE\u003c/li\u003e\n\u003c/ul\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e   Input : 04/13/2019\u003c/li\u003e\n\u003cli\u003e   Format : MM/dd/yyyy\u003c/li\u003e\n\u003cli\u003e   NEW DATA TYPES : TIMESTAMP\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "\u003ch2\u003eFormat Examples\u003c/h2\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e dd-MM-yy : 31-01-12\u003c/li\u003e\n\u003cli\u003e dd-MM-yyyy : 31-01-2012\u003c/li\u003e\n\u003cli\u003e MM-dd-yyyy : 01-31-2012\u003c/li\u003e\n\u003cli\u003e yyyy-MM-dd : 2012-01-31\u003c/li\u003e\n\u003cli\u003e yyyy-MM-dd HH:mm:ss : 2012-01-31 23:59:59\u003c/li\u003e\n\u003cli\u003e yyyy-MM-dd HH:mm:ss.SSS : 2012-01-31 23:59:59.999\u003c/li\u003e\n\u003cli\u003e yyyy-MM-dd HH:mm:ss.SSSZ : 2012-01-31 23:59:59.999+0100\u003c/li\u003e\n\u003cli\u003e EEEEE MMMMM yyyy HH:mm:ss.SSSZ : Saturday November 2012 10:45:42.720+0100\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeMultiStringToDate",
+      "x": "310px",
+      "y": "218.988px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputColNames",
+          "value": "[\"ToDate\",\"FromDate\"]",
+          "widget": "variables_list_select",
+          "title": "Columns",
+          "description": "Columns",
+          "datatypes": [
+            "string"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputColFormats",
+          "value": "[\"yyyy-MM-dd HH:mm:ss\",\"yyyy-MM-dd HH:mm:ss\"]",
+          "widget": "variables_list_textfield",
+          "title": "Input Column Formats",
+          "description": "Input Column Formats. eg: yyyy-MM-dd yyyy-MM-dd HH:mm:ss",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"To_Date\",\"From_Date\"]",
+          "widget": "variables_list_textfield",
+          "title": "Output Column Names",
+          "description": "Output Column Names",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"TIMESTAMP\",\"TIMESTAMP\"]",
+          "widget": "variables_list_array",
+          "title": "New Data Types",
+          "description": "New data types (DATE, TIMESTAMP)",
+          "optionsArray": [
+            "DATE",
+            "TIMESTAMP"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "5",
+      "name": "Expressions",
+      "description": "This node creates a new DataFrame by adding new columns to the incoming Dataframe as per the Expression computation",
+      "details": "\u003ch2\u003eExpressions Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node creates a new DataFrame by adding new columns to the incoming Dataframe as per the expressions computated.\u003cbr\u003e\n\u003cbr\u003e\nIt computes expressions to calculate the value of a metric column based on mathematical or logical operations performed on other metric columns.\u003cbr\u003e\n\u003cbr\u003e\nNew column can also be computed using existing columns in the Dataframe.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch3\u003eFollowing functions can be used in Expressions:\u003c/h3\u003e\n\u003cbr\u003e\n\u003ch3\u003e Mathematical Computations\u003c/h3\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e\tMaths Operations -\u003e Example : LIST_PRICE + TAX_AMT - DISCOUNT\u003c/li\u003e\n\u003cli\u003e\tMaths Operations -\u003e Example : DISCOUNT / LIST_PRICE\u003c/li\u003e\n\u003cli\u003e\tMaths Operations -\u003e Example : (DISCOUNT / LIST_PRICE) * 100\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003eString Functions\u003c/h3\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e\tConcatenation     -\u003e Example : CONCAT(PRD_CD,\u0027:\u0027,PRD_NAME)\u003c/li\u003e\n\u003cli\u003e\tSubstring     -\u003e Example : SUBSTR(PRD_NAME,1,3)\u003c/li\u003e\n\u003cli\u003e\tReplace\t\t \t-\u003e Example : REPLACE(PRD_NAME,\u0027M\u0027,\u0027$\u0027)\u003c/li\u003e\n\u003cli\u003e\tRight\t\t \t-\u003e Example : RIGHT(PRD_NAME, 5)\u003c/li\u003e\n\u003cli\u003e\tLeft\t\t \t-\u003e Example : LEFT(PRD_NAME, 5)\u003c/li\u003e\n\u003cli\u003e\tRight Trim\t \t-\u003e Example : RTRIM(PRD_NAME)\u003c/li\u003e\n\u003cli\u003e\tIntial Caps\t \t-\u003e Example : INITCAP(LOWER(PRD_NAME))\u003c/li\u003e\n\u003cli\u003e\tLength\t\t \t-\u003e Example : LENGTH(PRD_NAME)\u003c/li\u003e\n\u003cli\u003e\tSplit\t\t \t-\u003e Example : SPLIT(PRD_NAME, \u0027 \u0027)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003eNumber Format Functions\u003c/h3\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e\tFormat Number\t-\u003e Example : FORMAT_NUMBER(LIST_PRICE, \u0027#,###,###,###.00\u0027)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003eDate and Timestamp Functions\u003c/h3\u003e\n\u003cbr\u003e\n\u003ch4\u003eFetch Current Date and Time\u003c/h4\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e\tCurrent Date value\t\t\t\t          -\u003e Example : CURRENT_DATE\u003c/li\u003e\n\u003cli\u003e\tCurrent Date Time value\t\t\t\t      -\u003e Example : CURRENT_TIMESTAMP\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eFormat Date-Time values\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e\tDate Format\t\t\t\t\t\t            \t-\u003e Example : DATE_FORMAT(CURRENT_DATE, \u0027MMM dd, yyyy\u0027)\u003c/li\u003e\n\u003cli\u003e\tDate-Time Format\t\t\t\t\t\t            \t-\u003e Example : DATE_FORMAT(CURRENT_DATE, \u0027MMM dd, yyyy hh:mm:ss\u0027)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eString to Date-Time conversion\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e\tConvert a String to Date\t      \t\t-\u003e Example : TO_DATE(\u002712-DEC-21\u0027, \u0027dd-MMM-yy\u0027)\u003c/li\u003e\n\u003cli\u003e\tConvert a String to Datetime\t\t\t\t\t\t            \t-\u003e TO_TIMESTAMP(\u002712-DEC-21 15:55:45:789\u0027, \u0027dd-MMM-yy HH:mm:ss:SSS\u0027)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eDate-Time addition and substraction\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e\tAdd/Substract Years to a Date\t\t  -\u003e Example : ADD_MONTHS(CURRENT_DATE, 12)\u003c/li\u003e\n\u003cli\u003e\tAdd/Substract Months to a Date\t\t  -\u003e Example : ADD_MONTHS(CURRENT_DATE, 3)\u003c/li\u003e\n\u003cli\u003e\tAdd/Substract Days to a Date\t\t    -\u003e Example : DATE_ADD(CURRENT_DATE, -1)\u003c/li\u003e\n\u003cli\u003e\tAdd/Substract Hours to a Date\t\t  -\u003e Example : TO_TIMESTAMP(\u002712-DEC-21 15:55:45:789\u0027, \u0027dd-MMM-yy HH:mm:ss:SSS\u0027) + Interval 2 Hours\u003c/li\u003e\n\u003cli\u003e\tAdd/Substract Minutes to a Date\t\t  -\u003e Example : TO_TIMESTAMP(\u002712-DEC-21 15:55:45:789\u0027, \u0027dd-MMM-yy HH:mm:ss:SSS\u0027) + Interval 2 Minutes\u003c/li\u003e\n\u003cli\u003e\tAdd/Substract Seconds to a Date\t\t  -\u003e Example : TO_TIMESTAMP(\u002712-DEC-21 15:55:45:789\u0027, \u0027dd-MMM-yy HH:mm:ss:SSS\u0027) + Interval 2 Seconds\u003c/li\u003e\n\u003cli\u003e\tAdd/Substract Hours and Minutes to a Date\t\t  -\u003e Example : TO_TIMESTAMP(\u002712-DEC-21 15:55:45:789\u0027, \u0027dd-MMM-yy HH:mm:ss:SSS\u0027) + Interval 2 Hours + Interval 2 Minutes\u003c/li\u003e\n\u003cli\u003e\tSubstract Hours and Minutes from a Date\t\t  -\u003e Example : TO_TIMESTAMP(\u002712-DEC-21 15:55:45:789\u0027, \u0027dd-MMM-yy HH:mm:ss:SSS\u0027) - Interval 2 Hours - Interval 2 Minutes\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eFetch Next Day and Last Day of Month\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e\tLast Day of a Month   \t\t\t\t      -\u003e Example : LAST_DAY(CURRENT_DATE)\u003c/li\u003e\n\u003cli\u003e\tNext Day value\t\t   \t\t\t\t        -\u003e Example : NEXT_DAY(CURRENT_DATE, \u0027Sunday\u0027)\u003c/li\u003e\n\u003cli\u003e\tFirst Day of Year/Month\t\t\t\t      -\u003e Example : DATE_TRUNC(\u0027MONTH\u0027, CURRENT_DATE)\u003c/li\u003e\n\u003cli\u003e\tYear/Month/Quarter/DayOfMonth value\t-\u003e Example : YEAR(CURRENT_DATE)/MONTH(CURRENT_DATE)/QUARTER(CURRENT_DATE)/DAYOFMONTH(CURRENT_DATE)/DAYOFWEEK(CURRENT_DATE)\u003c/li\u003e\n\u003cli\u003e\tDay/Week count of the Year\t\t\t    -\u003e Example : DAYOFWEEK(CURRENT_DATE)/WEEKOFYEAR(CURRENT_DATE)\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eDate Difference functions\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e\tDate Diff between two Dates\t\t\t    -\u003e Example : DATEDIFF(CURRENT_DATE, TO_DATE(\u002712-DEC-21\u0027, \u0027dd-MMM-yy\u0027))\u003c/li\u003e\n\u003cli\u003e\tNumber of Months between two Dates\t-\u003e Example : MONTHS_BETWEEN(CURRENT_DATE, TO_DATE(\u002712-DEC-21\u0027, \u0027dd-MMM-yy\u0027))\u003c/li\u003e\n\u003cli\u003e\tNumber of Years between two Dates\t-\u003e Example : MONTHS_BETWEEN(CURRENT_DATE, TO_DATE(\u002712-DEC-21\u0027, \u0027dd-MMM-yy\u0027)) / 12\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003eRegex Functions\u003c/h3\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e\tReplace using Regex\t\t-\u003e Example : REGEXP_REPLACE(PRD_NAME, \u0027E\u0027, \u0027#\u0027)\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "\u003ch2\u003eExpressions Node Examples\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch4\u003eIncoming Dataframe\u003c/h4\u003e\n\u003cbr\u003e\nIn this example we have considered a Incoming Dataframe with following rows:\u003cbr\u003e\n\u003cbr\u003e\nPRD_CD    |    PRD_NAME          |    LIST_PRICE    |    TAX_AMT    |    DISCOUNT\u003cbr\u003e\n--------------------------------------------------------------------------------------\u003cbr\u003e\nP01       |    DRILL MACHINE     |    1000.0        |    100.0      |    50.0\u003cbr\u003e\nP02       |    WEIGHING MACHINE  |    1500.0        |    200.0      |    150.0\u003cbr\u003e\nP03       |    HAMMER            |    100.0         |    10.0       |    5.0\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eExpressions Node Configuration\u003c/h4\u003e\n\u003cbr\u003e\nExpressions node is configured to compute new columns as below:\u003cbr\u003e\n\u003cbr\u003e\nNEW COLUMNS NAME         |    EXPRESSIONS\u003cbr\u003e\n-----------------------------------------------------------------\u003cbr\u003e\nNET_AMT                  |    LIST_PRICE + TAX_AMT - DISCOUNT\u003cbr\u003e\nPRD_DETAILS              |    CONCAT(PRD_CD,\u0027:\u0027,PRD_NAME)\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eNode Output\u003c/h4\u003e\n\u003cbr\u003e\nOutgoing Dataframe would be created as below with new columns added:\u003cbr\u003e\n\u003cbr\u003e\nPRD_CD    |    PRD_NAME          |    LIST_PRICE    |    TAX_AMT    |    DISCOUNT    |    NET_AMT    |    PRD_DETAILS\u003cbr\u003e\n--------------------------------------------------------------------------------------------------------------------------------\u003cbr\u003e\nP01       |    DRILL MACHINE     |    1000.0        |    100.0      |    50.0        |    1050.0     |    P01:DRILL MACHINE\u003cbr\u003e\nP02       |    WEIGHING MACHINE  |    1500.0        |    200.0      |    150.0       |    1550.0     |    P02:WEIGHING MACHINE\u003cbr\u003e\nP03       |    HAMMER            |    100.0         |    10.0       |    5.0         |    105.0      |    P03:HAMMER\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eComputing Current Date value using Expression:\u003c/h4\u003e\n\u003cbr\u003e\nNEW COLUMNS NAME         |    EXPRESSIONS\u003cbr\u003e\n-----------------------------------------------------------------\u003cbr\u003e\nCURRENT_DATE_VAL         |    CURRENT_DATE\u003cbr\u003e\nCURRENT_DATETIME_VAL     |    CURRENT_TIMESTAMP\u003cbr\u003e\n\u003cbr\u003e\nOutput would contain below value\u003cbr\u003e\n\u003cbr\u003e\nCURRENT_DATE_VAL         |    CURRENT_DATETIME_VAL\u003cbr\u003e\n-----------------------------------------------------------------\u003cbr\u003e\n2022-09-07               |    2022-09-07 10:05:12.432\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeExpressions",
+      "x": "201.4px",
+      "y": "217.4px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "description",
+          "value": "",
+          "widget": "textfield",
+          "title": "Description",
+          "description": "Description to capture processing in this node",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"ToDate\",\"FromDate\"]",
+          "widget": "key_array",
+          "title": "New Column Names",
+          "description": "New Column Names",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "expressions",
+          "value": "[\"to_timestamp(TODATE)\",\"to_timestamp(FROMDATE)\"]",
+          "widget": "value_array",
+          "title": "Expressions",
+          "description": "Expressions to create new columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "6",
+      "name": "Date Difference",
+      "description": "This node finds difference between two dates",
+      "details": "\u003ch2\u003eDate Difference Details\u003c/h2\u003e\n\u003cbr\u003e\nCalculates the difference between two given date/datetime columns.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e FROMDATE :- The input column (i.e from which date) is selected here and it should be of Date\\TimeStump datatype. \u003c/li\u003e\n\u003cli\u003e TODATE :- The input column (i.e upto which date) is selected here and it should be of Date\\TimeStump datatype.\u003c/li\u003e\n\u003cli\u003e USECURRENTDATEASTOCOL :- When set to true, uses current Date as the \u0027TODATE\u0027 value \u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e Difference between the two date fields can be displayed in terms of days, hours, minutes and seconds.\u003c/li\u003e\n\u003cli\u003e To enable the new column(s) set the value of the field as true ( By Default, it is set to false )\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eExample\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e Date Difference output when all fields are enabled as true. \u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "\u003ch2\u003eFormat Examples\u003c/h2\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e dd-MM-yy : 30-11-95 to 19-02-18 diff- 8608 days : 206609 hours : 12396574 min :\t743794461 : second\u003c/li\u003e\n\u003cli\u003e dd-MM-yyyy : 10-02-1996 to 20-09-2017 diff- 8536 days : 204881 hours : 12292884 min :\t737573070 : second\u003c/li\u003e\n\u003cli\u003e MM-dd-yyyy : 19-10-1994 to 06-12-2017 diff- 9015 days : 216377 hours : 12982644 min :\t778958670 : second\u003c/li\u003e\n\u003cli\u003e yyyy-MM-dd : 1994-12-25 to 2019-01-16 diff- 8948 days : 214769 hours : 12886164 min :\t773169870 : second\u003c/li\u003e\n\u003cli\u003e yyyy-MM-dd HH:mm:ss : 2012-01-31 23:59:59 to 2010-12-30 22:59:59 diff-397 days: 1 hour: 0 minutes : 0 seconds\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeDateDiff",
+      "x": "429px",
+      "y": "217px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "fromDate",
+          "value": "From_Date",
+          "widget": "variable",
+          "title": "FromDate",
+          "description": "From date column name",
+          "datatypes": [
+            "timestamp",
+            "date"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "toDate",
+          "value": "To_Date",
+          "widget": "variable",
+          "title": "Todate",
+          "description": "To date column name",
+          "datatypes": [
+            "timestamp",
+            "date"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "useCurrentDateAsToDateCol",
+          "value": "false",
+          "widget": "array",
+          "title": "Use Current Date As To Date",
+          "description": "Current Date As ToDate",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "days",
+          "value": "false",
+          "widget": "array",
+          "title": "Days",
+          "description": "Days difference",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "hours",
+          "value": "true",
+          "widget": "array",
+          "title": "Hours",
+          "description": "Hours difference",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "minutes",
+          "value": "false",
+          "widget": "array",
+          "title": "Minutes",
+          "description": "Minutes difference",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "seconds",
+          "value": "false",
+          "widget": "array",
+          "title": "Seconds",
+          "description": "Seconds difference",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "10",
+      "name": "String Indexer",
+      "description": "StringIndexer encodes a string column of labels to a column of label indices",
+      "details": "\u003ch2\u003e String Indexer Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThe String Indexer node encodes a string column of labels to a column of label indices. The indices are in [0, numLabels).\u003cbr\u003e\n\u003cbr\u003e\nBy default, this is ordered by label frequencies so the most frequent label gets index 0. The ordering behavior is controlled by setting \u003cb\u003eSTRING ORDER TYPE\u003c/b\u003e. Its default value is ???frequencyDesc???. In case of equal frequency when under frequencyDesc/Asc, the strings are further sorted alphabetically\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e HANDLE INVALID : Specifies how to handle invalid data (unseen or NULL values) in features and label column of string type. Options are \u0027skip\u0027 (filter out rows with invalid data), or error (throw an error).\u003c/li\u003e\n\u003cli\u003e VARIABLES : Allows multiple string columns to be selected for conversion.\u003c/li\u003e\n\u003cli\u003e Input Columns : Select the column which needs to be converted.\u003c/li\u003e\n\u003cli\u003e Output Columns : The name of the output converted column.\u003c/li\u003e\n\u003cli\u003e STRING ORDER TYPE : Specifies how to order labels of string column. (default \u003d \"frequencyDesc\")\u003c/li\u003e\n\u003c/ul\u003e\n    \"frequencyDesc\": descending order by label frequency (most frequent label assigned 0)\u003cbr\u003e\n    \"frequencyAsc\": ascending order by label frequency (least frequent label assigned 0)\u003cbr\u003e\n    \"alphabetDesc\": descending alphabetical order\u003cbr\u003e\n    \"alphabetAsc\": ascending alphabetical order\u003cbr\u003e",
+      "examples": "\u003ch2\u003e String Indexer Node Example\u003c/h2\u003e\n\u003cbr\u003e\nAssume that we have the following DataFrame with columns id and category:\u003cbr\u003e\n\u003cbr\u003e\n id | category\u003cbr\u003e\n----|----------\u003cbr\u003e\n 0  | a\u003cbr\u003e\n 1  | b\u003cbr\u003e\n 2  | c\u003cbr\u003e\n 3  | a\u003cbr\u003e\n 4  | a\u003cbr\u003e\n 5  | c\u003cbr\u003e\ncategory is a string column with three labels: \"a\", \"b\", and \"c\". Applying \u003cb\u003eStringIndexer\u003c/b\u003e with \u003cb\u003ecategory\u003c/b\u003e as the input column and \u003cb\u003ecategoryIndex\u003c/b\u003e as the output column, we should get the following:\u003cbr\u003e\n\u003cbr\u003e\n id | category | categoryIndex\u003cbr\u003e\n----|----------|---------------\u003cbr\u003e\n 0  | a        | 0.0\u003cbr\u003e\n 1  | b        | 2.0\u003cbr\u003e\n 2  | c        | 1.0\u003cbr\u003e\n 3  | a        | 0.0\u003cbr\u003e\n 4  | a        | 0.0\u003cbr\u003e\n 5  | c        | 1.0\u003cbr\u003e\n\"a\" gets index 0 because it is the most frequent, followed by \"c\" with index 1 and \"b\" with index 2.\u003cbr\u003e",
+      "type": "ml-transformer",
+      "nodeClass": "fire.nodes.ml.NodeStringIndexer",
+      "x": "570px",
+      "y": "211px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "handleInvalid",
+          "value": "error",
+          "widget": "array",
+          "title": "Handle Invalid",
+          "description": "Invalid entries to be skipped or thrown error",
+          "optionsArray": [
+            "skip",
+            "error"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputCols",
+          "value": "[\"GENDER\",\"CITY\",\"STATE\",\"TYPE\",\"SPECIALITY\"]",
+          "widget": "variables_list_select",
+          "title": "Input Columns",
+          "description": "Input columns for encoding",
+          "datatypes": [
+            "string"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputCols",
+          "value": "[\"Gender_Encoded\",\"City_Encoded\",\"State_Encoded\",\"Type_Encoded\",\"Speciality_Encoded\"]",
+          "widget": "variables_list_textfield",
+          "title": "Output Columns",
+          "description": "Output columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "stringOrderType",
+          "value": "frequencyDesc",
+          "widget": "array",
+          "title": "String Order Type",
+          "description": "Param for how to order labels of string column",
+          "optionsArray": [
+            "frequencyDesc",
+            "frequencyAsc",
+            "alphabetDesc",
+            "alphabetAsc"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "11",
+      "name": "Vector Assembler",
+      "description": "Merges multiple columns into a vector column",
+      "details": "",
+      "examples": "\u003ch2\u003e h2: VectorAssembler Node Example\u003c/h2\u003e\n\u003cbr\u003e\nAssume that we have a DataFrame with the columns id, hour, mobile, userFeatures, and clicked:\u003cbr\u003e\n\u003cbr\u003e\n id | hour | mobile | userFeatures     | clicked\u003cbr\u003e\n----|------|--------|------------------|---------\u003cbr\u003e\n 0  | 18   | 1.0    | [0.0, 10.0, 0.5] | 1.0\u003cbr\u003e\n\u003cbr\u003e\n If we set VectorAssembler\u0027s \u003cb\u003einput Selected columns\u003c/b\u003e to hour, mobile, and userFeatures and \u003cb\u003eoutput column\u003c/b\u003e to features, after transformation we should get the following DataFrame:\u003cbr\u003e\n\u003cbr\u003e\n id | hour | mobile | userFeatures     | clicked | features\u003cbr\u003e\n----|------|--------|------------------|---------|-----------------------------\u003cbr\u003e\n 0  | 18   | 1.0    | [0.0, 10.0, 0.5] | 1.0     | [18.0, 1.0, 0.0, 10.0, 0.5]\u003cbr\u003e",
+      "type": "ml-transformer",
+      "nodeClass": "fire.nodes.ml.NodeVectorAssembler",
+      "x": "722.6px",
+      "y": "211.6px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputCols",
+          "value": "[\"ZIP\",\"LAT\",\"LON\",\"ENCOUNTERS\",\"PROCEDURES\",\"PAYMENTS\",\"HoursDiff\",\"Gender_Encoded\",\"City_Encoded\",\"State_Encoded\",\"Type_Encoded\",\"Speciality_Encoded\",\"OUTSTANDING\"]",
+          "widget": "variables",
+          "title": "Input Columns",
+          "description": "Input column of type - all numeric, boolean and vector",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float",
+            "vectorudt"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputCol",
+          "value": "vector_feature",
+          "widget": "textfield",
+          "title": "Output Column",
+          "description": "Output column name",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "handleInvalid",
+          "value": "error",
+          "widget": "array",
+          "title": "HandleInvalid",
+          "description": "How to handle invalid data (NULL values). Options are \u0027skip\u0027 (filter out rows with invalid data), \u0027error\u0027 (throw an error), or \u0027keep\u0027 (return relevant number of NaN in the output).",
+          "optionsArray": [
+            "error",
+            "skip",
+            "keep"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "12",
+      "name": "K-Means",
+      "description": "K-means clustering with support for k-means initialization proposed by Bahmani et al",
+      "details": "k-means is one of the most commonly used clustering algorithms that clusters the data points into a predefined number of clusters. The MLlib implementation includes a parallelized variant of the k-means++ method called kmeans||.\u003cbr\u003e\n\u003cbr\u003e\nKMeans is implemented as an Estimator and generates a KMeansModel as the base model.\u003cbr\u003e\n\u003cbr\u003e\nMore details are available at Apache Spark ML docs page:\u003cbr\u003e\n\u003cbr\u003e\n\u003ca href\u003d\"https://spark.apache.org/docs/latest/ml-clustering.html#k-means\" target\u003d\"_blank\"\u003espark.apache.org/docs/latest/ml-clustering.html#k-means\u003c/a\u003e\u003cbr\u003e",
+      "examples": "Below example is available at : \u003ca href\u003d\"https://spark.apache.org/docs/latest/ml-clustering.html#k-means\" target\u003d\"_blank\"\u003espark.apache.org/docs/latest/ml-clustering.html#k-means\u003c/a\u003e\u003cbr\u003e\n\u003cbr\u003e\nimport org.apache.spark.ml.clustering.KMeans\u003cbr\u003e\nimport org.apache.spark.ml.evaluation.ClusteringEvaluator\u003cbr\u003e\n\u003cbr\u003e\n// Loads data.\u003cbr\u003e\nval dataset \u003d spark.read.format(\"libsvm\").load(\"data/mllib/sample_kmeans_data.txt\")\u003cbr\u003e\n\u003cbr\u003e\n// Trains a k-means model.\u003cbr\u003e\nval kmeans \u003d new KMeans().setK(2).setSeed(1L)\u003cbr\u003e\nval model \u003d kmeans.fit(dataset)\u003cbr\u003e\n\u003cbr\u003e\n// Make predictions\u003cbr\u003e\nval predictions \u003d model.transform(dataset)\u003cbr\u003e\n\u003cbr\u003e\n// Evaluate clustering by computing Silhouette score\u003cbr\u003e\nval evaluator \u003d new ClusteringEvaluator()\u003cbr\u003e\n\u003cbr\u003e\nval silhouette \u003d evaluator.evaluate(predictions)\u003cbr\u003e\nprintln(s\"Silhouette with squared euclidean distance \u003d $silhouette\")\u003cbr\u003e\n\u003cbr\u003e\n// Shows the result.\u003cbr\u003e\nprintln(\"Cluster Centers: \")\u003cbr\u003e\nmodel.clusterCenters.foreach(println)\u003cbr\u003e",
+      "type": "ml-estimator",
+      "nodeClass": "fire.nodes.ml.NodeKMeans",
+      "x": "811.6px",
+      "y": "68.6px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "modelIdentifier",
+          "value": "",
+          "widget": "textfield",
+          "title": "Model Identifier",
+          "description": "modelIdentifier starts with $loop \u0026 columns names separated with underscore. Example: $loop_columnName1_columnName2.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "featuresCol",
+          "value": "vector_feature",
+          "widget": "variable",
+          "title": "Features Column",
+          "description": "Features column of type vectorUDT for model fitting.",
+          "datatypes": [
+            "vectorudt"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "k",
+          "value": "3",
+          "widget": "textfield",
+          "title": "K",
+          "description": "The number of clusters to create.",
+          "datatypes": [
+            "integer"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxIter",
+          "value": "100",
+          "widget": "textfield",
+          "title": "Max Iterations",
+          "description": "The maximum number of iterations.",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "predictionCol",
+          "value": "",
+          "widget": "textfield",
+          "title": "Prediction Column",
+          "description": "The prediction column created during model scoring.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "seed",
+          "value": "1234",
+          "widget": "textfield",
+          "title": "Seed",
+          "description": "Random Seed.",
+          "datatypes": [
+            "long"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "tol",
+          "value": "1e-4",
+          "widget": "textfield",
+          "title": "Tolerence",
+          "description": "The convergence tolerance for iterative algorithms.",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "initMode",
+          "value": "k-means||",
+          "widget": "array",
+          "title": "initMode",
+          "description": "The initialization algorithm mode.",
+          "optionsArray": [
+            "k-means||",
+            "random"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "initSteps",
+          "value": "10",
+          "widget": "textfield",
+          "title": "initSteps",
+          "description": "The number of steps for the k-means initialization mode. It will be ignored when other initialization modes are chosen.",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "distanceMeasure",
+          "value": "euclidean",
+          "widget": "array",
+          "title": "distanceMeasure",
+          "description": "Trait for shared param distanceMeasure",
+          "optionsArray": [
+            "euclidean",
+            "cosine"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "weightCol",
+          "value": "",
+          "widget": "variable",
+          "title": "Weight Column",
+          "description": "Weight Column",
+          "datatypes": [
+            "double"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "13",
+      "name": "Spark Predict",
+      "description": "Predict node takes in a DataFrame and Model and makes predictions",
+      "details": "Predict node takes in a DataFrame and Model and makes predictions on the data using the Model.\u003cbr\u003e",
+      "examples": "",
+      "type": "ml-predict",
+      "nodeClass": "fire.nodes.ml.NodePredict",
+      "x": "879.8px",
+      "y": "222.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "14",
+      "name": "Print N Rows",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "1021.8px",
+      "y": "209.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Row Values",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "15",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "16px",
+      "y": "340px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "169.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "59.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eRead data from snowflake\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "16",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "169px",
+      "y": "127px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "298.4px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "79.4px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eCalculating the difference between FROMDATE to TODATE i.e duration\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "17",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "516px",
+      "y": "292px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "179.4px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "69.4px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eUsing string indexer to encode category columns\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "18",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "725px",
+      "y": "312px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "104.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "135.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eVectorizing the selected features\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "19",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "903px",
+      "y": "50px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "146.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "109.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eUsing the K-Means cluster algorithm to form the cluster\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "20",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "859px",
+      "y": "310px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "128.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "65.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003ePredicting the cluster\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "21",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "1px",
+      "y": "-1px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "blue",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "390.4px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "94.4px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003e\u003cstrong\u003eThis workflow is been used to create segments on claim data using the K-Means cluster algorithm.\u003c/strong\u003e\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "5",
+      "id": 1
+    },
+    {
+      "source": "5",
+      "target": "3",
+      "id": 2
+    },
+    {
+      "source": "3",
+      "target": "6",
+      "id": 3
+    },
+    {
+      "source": "6",
+      "target": "10",
+      "id": 4
+    },
+    {
+      "source": "10",
+      "target": "11",
+      "id": 5
+    },
+    {
+      "source": "11",
+      "target": "12",
+      "id": 6
+    },
+    {
+      "source": "12",
+      "target": "13",
+      "id": 7
+    },
+    {
+      "source": "11",
+      "target": "13",
+      "id": 8
+    },
+    {
+      "source": "13",
+      "target": "14",
+      "id": 9
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "scala"
+}

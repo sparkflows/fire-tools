@@ -1,0 +1,2083 @@
+{
+  "name": "2_Data_Quality",
+  "uuid": "d120445f-5adf-43f6-9b05-dca3e3c05e50",
+  "category": "-",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Read Claims data",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "details": "\u003ch2\u003eRead CSV Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node reads CSV files and creates a DataFrame from it. It can read either from a single file, or a directory containing multiple files. The user can configure the below fields to parse the file.\u003cbr\u003e\n\u003cbr\u003e\nThe user can choose the \u003cb\u003eOutput storage level\u003c/b\u003e from the drop down. The options in the dropdown can be one of the following:\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e \u003cb\u003eMEMORY_ONLY\u003c/b\u003e          Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, some partitions will not be cached and will be recomputed on the fly each time they qre needed. This is the default level.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eMEMORY_AND_DISK\u003c/b\u003e       Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, store the partitions that do nott fit on disk, and read them from there when they are needed.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eMEMORY_ONLY_SER\u003c/b\u003e        Store RDD as serialized Java objects (one byte array per partition). This is generally more space-efficient than deserialized objects, especially when using a fast serializer, but more CPU-intensive to read.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eMEMORY_AND_DISK_SER\u003c/b\u003e    Similar to MEMORY_ONLY_SER, but spill partitions that do not fit in memory to disk instead of recomputing them on the fly each time they\u0027re needed.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eDISK_ONLY\u003c/b\u003e              Store the RDD partitions only on disk.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eMEMORY_ONLY_2, MEMORY_AND_DISK_2 others \u003c/b\u003e . Same as the levels above, but replicate each partition on two cluster nodes.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eOFF_HEAP\u003c/b\u003e               Similar to MEMORY_ONLY_SER, but store the data in off-heap memory. This requires off-heap memory to be enabled.\u003c/li\u003e\n\u003c/ul\u003e\nThe user need to provide a data file \u003cb\u003ePath\u003c/b\u003e to read the data from. This is a required field.\u003cbr\u003e\n\u003cbr\u003e\nThe user can choose the \u003cb\u003eSeperator\u003c/b\u003e used in the data file to parse it. The default seperator is \u003cb\u003e( , )\u003c/b\u003e comma.\u003cbr\u003e\n\u003cbr\u003e\nIn the \u003cb\u003eHeader\u003c/b\u003e field, one can choose:\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e \u003cb\u003etrue\u003c/b\u003e if the data file has header.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003efalse\u003c/b\u003e Otherwise.\u003c/li\u003e\n\u003c/ul\u003e\nIn the \u003cb\u003eDrop special character in column name\u003c/b\u003e field, one can choose:\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e \u003cb\u003etrue\u003c/b\u003e If you want to remove the special characters from column names.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003efalse\u003c/b\u003e Otherwise.\u003c/li\u003e\n\u003c/ul\u003e\nIn the \u003cb\u003eMode\u003c/b\u003e field, one can choose from the below options in the dropdown:\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e \u003cb\u003ePERMISSIVE\u003c/b\u003e When the parser meets a corrupt field in a records, it sets the value of the field to NULL and continues to the next record.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eDROPMALFORMED\u003c/b\u003e ignores the whole corrupted records.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003eFAILFAST\u003c/b\u003e throws an exception when it meets corrupted records.\u003c/li\u003e\n\u003c/ul\u003e\nIn the \u003cb\u003eEnforce Schema\u003c/b\u003e field, one can choose:\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e \u003cb\u003etrue\u003c/b\u003e The specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003efalse\u003c/b\u003e The schema will be validated against all headers in CSV files in the case when the header option is set to \u003cb\u003efalse\u003c/b\u003e.\u003c/li\u003e\n\u003c/ul\u003e\nIn the \u003cb\u003eWhether to add input file as a column in dataframe\u003c/b\u003e field, one can choose:\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e \u003cb\u003etrue\u003c/b\u003e There will be a new column added in the dataframe at the end which can be seen in the schema columns. One can enter the name of this column.\u003c/li\u003e\n\u003cli\u003e \u003cb\u003efalse\u003c/b\u003e This functionality is disabled and the dataframe consists of only the columns read from the data file.\u003c/li\u003e\n\u003c/ul\u003e\nIn the \u003cb\u003eENCODING\u003c/b\u003e field one can specify the encoding type to be used for reading the files. By default it is set as \u003cb\u003eUTF-8\u003c/b\u003e.\u003cbr\u003e\n\u003cbr\u003e\nThe \u003cb\u003eQUOTE\u003c/b\u003e field sets a single character used for escaping quoted values where the separator can be part of the value. The default value for this is \u003cb\u003e( \" )\u003c/b\u003e, a double quote.\u003cbr\u003e\n\u003cbr\u003e\nThe \u003cb\u003eESCAPE\u003c/b\u003e field sets a single character used for escaping quotes inside an already quoted value. The default value for this is \u003cb\u003e( \\ )\u003c/b\u003e, a backslash.\t\u003cbr\u003e\n\u003cbr\u003e\nAfter the above options are set, one can click on \u003cb\u003eRefresh Schema\u003c/b\u003e to see the final columns.\u003cbr\u003e\nUsers can still add or delete columns using \u003cb\u003e+\u003c/b\u003e button next to theRefresh schema and \u003cb\u003e-\u003c/b\u003e button next to the column names.\u003cbr\u003e",
+      "examples": "",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "56.4966px",
+      "y": "175.483px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "path",
+          "value": "/home/sparkflows/fire-data/rohit_test/DQ/",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the file/directory",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "false",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "true",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "encoding",
+          "value": "UTF-8",
+          "widget": "textfield",
+          "title": "Encoding",
+          "description": "Decodes the CSV files by the given encoding type",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "quote",
+          "value": "\"",
+          "widget": "textfield",
+          "title": "Quote",
+          "description": "Sets a single character used for escaping quoted values where the separator can be part of the value",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "escape",
+          "value": "\\",
+          "widget": "textfield",
+          "title": "Escape",
+          "description": "Sets a single character used for escaping quotes inside an already quoted value.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\",\"PROVIDER_ID\",\"ORGANIZATION\",\"NAME\",\"GENDER\",\"SPECIALITY\",\"ADDRESS\",\"CITY\",\"STATE\",\"ZIP\",\"LAT\",\"LON\",\"ENCOUNTERS\",\"PROCEDURES\",\"TYPE\",\"AMOUNT\",\"METHOD\",\"FROMDATE\",\"TODATE\",\"PLACEOFSERVICE\",\"PAYMENTS\",\"TRANSFERS\",\"OUTSTANDING\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"INTEGER\",\"DOUBLE\",\"DOUBLE\",\"INTEGER\",\"INTEGER\",\"STRING\",\"DOUBLE\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "4",
+      "name": "ExpectColumnValuesToMatchRegex",
+      "description": "",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValuesToMatchRegex",
+      "x": "339.8px",
+      "y": "171.762px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"FROMDATE\",\"TODATE\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "regex",
+          "value": "[\"\\\\d{4}-\\\\d{2}-\\\\d{2}T\\\\d{2}:\\\\d{2}:\\\\d{2}Z\",\"\\\\d{4}-\\\\d{2}-\\\\d{2}T\\\\d{2}:\\\\d{2}:\\\\d{2}Z\"]",
+          "widget": "variables_list_textfield",
+          "title": "Regex",
+          "description": "regex to match",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mostly",
+          "value": "[\"0.8\",\"0.8\"]",
+          "widget": "variables_list_textfield",
+          "title": "Mostly",
+          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns ???success???: True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "5",
+      "name": "ExpectColumnValuesToNotBeNull",
+      "description": "",
+      "details": "\u003ch2\u003eExpect Column Values To Not Be Null Details\u003c/h2\u003e\n\u003cbr\u003e\nExpect the column values to not be null.\u003cbr\u003e\n\u003cbr\u003e\nTo be counted as an exception, values must be explicitly null or missing, such as an np.NaN in pandas. Empty strings don\u0027t count as null unless they have been coerced to a null type.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eKeyword Args\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name: The column name\u003cbr\u003e\nMostly (None or a float between 0 and 1): Return `success`: True if at least mostly fraction of values match the expectation.\u003cbr\u003e",
+      "examples": "\u003ch2\u003eExample\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch4\u003eIncoming Dataframe\u003c/h4\u003e\n\u003cbr\u003e\nIn this example we have considered a Incoming Dataframe with following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |\u003cbr\u003e\n--------------------------------------\u003cbr\u003e\nE01       |    DAVID       |\u003cbr\u003e\nE02       |                |\u003cbr\u003e\nE03       |    MARK        |\u003cbr\u003e\nE04       |    JACK        |\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eConfiguration\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name   | Mostly  |\u003cbr\u003e\n-------------------------\u003cbr\u003e\nEMP_CD        |         |\u003cbr\u003e\nEMP_NAME      | 0.8     |           \u003cbr\u003e\n\u003cbr\u003e\nThe above setup would result in a status of `success: false`, as even though the `EMP_CD` column value evaluates to be true it fails for the condition setup for the column `EMP_NAME`.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValuesToNotBeNull",
+      "x": "498.4px",
+      "y": "162.387px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\",\"FROMDATE\",\"TODATE\",\"ENCOUNTERS\",\"PROVIDER_ID\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mostly",
+          "value": "[\"\",\"\",\"\",\"\",\"0.8\",\"\"]",
+          "widget": "variables_list_textfield",
+          "title": "Mostly",
+          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns ???success???: True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "6",
+      "name": "Output",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "348.4px",
+      "y": "38.4px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectColumnValuesToMatchRegex",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "7",
+      "name": "ExpectColumnValueLengthsToEqual",
+      "description": "",
+      "details": "\u003ch2\u003eExpect Column Values Lengths to Equal\u003c/h2\u003e\n\u003cbr\u003e\nExpect the column entries to be strings with length equal to the provided value.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eKeyword Args\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name: The column name\u003cbr\u003e\nValue (int or None): The expected value for a column entry length.\u003cbr\u003e\nMostly (None or a float between 0 and 1): Return `success`: True if at least mostly fraction of values match the expectation.\u003cbr\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValueLengthsToEqual",
+      "x": "650.2px",
+      "y": "163.187px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\",\"GENDER\",\"PROVIDER_ID\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "value",
+          "value": "[\"36\",\"36\",\"1\",\"36\"]",
+          "widget": "variables_list_textfield",
+          "title": "value",
+          "description": "The expected value for a column entry length.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mostly",
+          "value": "[\"\",\"\",\"\",\"\"]",
+          "widget": "variables_list_textfield",
+          "title": "Mostly",
+          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns ???success???: True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "8",
+      "name": "Output",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "481.6px",
+      "y": "41.6px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectColumnValuesToNotBeNull",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "9",
+      "name": "ExpectColumnValuesToMatchRegex",
+      "description": "",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValuesToMatchRegex",
+      "x": "852.2px",
+      "y": "175.175px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"GENDER\",\"CLAIMID\",\"PATIENT_ID\",\"PROVIDER_ID\",\"NAME\",\"TYPE\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "regex",
+          "value": "[\"^[M|F|\\\\s]$\",\"^[0-9]{5}\",\"^[^0-9]\",\"^[0-9]{1}\",\"^[a-zA-Z]+$\",\"^[a-zA-Z]+$\"]",
+          "widget": "variables_list_textfield",
+          "title": "Regex",
+          "description": "regex to match",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mostly",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "variables_list_textfield",
+          "title": "Mostly",
+          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns ???success???: True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "10",
+      "name": "Output",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "646.8px",
+      "y": "26.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectColumnValueLengthsToEqual",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "11",
+      "name": "ExpectTableRowCountToBeBetween",
+      "description": "",
+      "details": "\u003ch2\u003eExpect Table Row Count To Be Between Details\u003c/h2\u003e\n\u003cbr\u003e\nExpect the number of rows to be between two values.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eKeyword Args\u003c/h4\u003e\n\u003cbr\u003e\nMin Count : The minimum number of rows, inclusive.\u003cbr\u003e\nMax Count : The maximum number of rows, inclusive.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003e Notes\u003c/h4\u003e\n`Min Count` and `Max Count` are both inclusive.\u003cbr\u003e\nIf `Min Count` is None, then `Max Count` is treated as an upper bound, and the number of acceptable rows has no minimum.\u003cbr\u003e\nIf `Max Count` is None, then `Min Count` is treated as a lower bound, and the number of acceptable rows has no maximum.\u003cbr\u003e",
+      "examples": "\u003ch2\u003eExpect Table Row Count To Be Between Example\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch4\u003eIncoming Dataframe\u003c/h4\u003e\n\u003cbr\u003e\nIn this example we have considered a Incoming Dataframe with following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |    DEPT\u003cbr\u003e\n--------------------------------------\u003cbr\u003e\nE01       |    DAVID       |    \u003cbr\u003e\nE02       |    JANE        |    \u003cbr\u003e\nE03       |    MARK        |\u003cbr\u003e\nE04       |    JACK        |\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eExpect Table Row Count To Be Between Node Configuration\u003c/h4\u003e\n\u003cbr\u003e\nMin Count   |    Max Count   \u003cbr\u003e\n-----------------------------\u003cbr\u003e\n3           |    5          |       \u003cbr\u003e\n\u003cbr\u003e\nThe above setup would result in a status of `success: true`, as the number of records in the table is 4 which lies between the count of the configured minimum and maximum value.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectTableRowCountToBeBetween",
+      "x": "1053.69px",
+      "y": "158.705px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "min",
+          "value": "[\"10\"]",
+          "widget": "key_array",
+          "title": "Min Count",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "max",
+          "value": "[\"1000\"]",
+          "widget": "value_array",
+          "title": "Max Count",
+          "description": "",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "12",
+      "name": "Output",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "774.8px",
+      "y": "41.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectColumnValuesToMatchRegex",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "13",
+      "name": "ExpectColumnValueLengthToBeInBetween",
+      "description": "",
+      "details": "\u003ch2\u003eExpect Column Value length To be in Between Details\u003c/h2\u003e\n\u003cbr\u003e\nExpect the column value lengths to be between a minimum value and a maximum value (inclusive).\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eKeyword Args\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name: The column name\u003cbr\u003e\nMin (comparable type or None): The minimum value for a column entry.\u003cbr\u003e\nMax (comparable type or None): The maximum value for a column entry.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eNotes\u003c/h4\u003e\n`Min` and `Max` are both inclusive.\u003cbr\u003e\nIf `Min` is None, then `Max` is treated as an upper bound, and there is no minimum value checked.\u003cbr\u003e\nIf `Max` is None, then `Min` is treated as a lower bound, and there is no maximum value checked.\u003cbr\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValueLengthToBeInBetween",
+      "x": "1208.9px",
+      "y": "168.5px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "min",
+          "value": "[\"10\",\"15\"]",
+          "widget": "variables_list_textfield",
+          "title": "Min",
+          "description": "The minimum value for a column entry length.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "max",
+          "value": "[\"36\",\"36\"]",
+          "widget": "variables_list_textfield",
+          "title": "Max",
+          "description": "The maximum value for a column entry length.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "14",
+      "name": "ExpectColumnValuesToBeInBetween",
+      "description": "",
+      "details": "\u003ch2\u003eExpect Column Values To Between Details\u003c/h2\u003e\n\u003cbr\u003e\nExpect the column entries to be between a minimum value and a maximum value (inclusive).\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eKeyword Args\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name: The column name\u003cbr\u003e\nMin (comparable type or None): The minimum value for a column entry.\u003cbr\u003e\nMax (comparable type or None): The maximum value for a column entry.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eNotes\u003c/h4\u003e\n`Min` and `Max` are both inclusive.\u003cbr\u003e\nIf `Min` is None, then `Max` is treated as an upper bound, and there is no minimum value checked.\u003cbr\u003e\nIf `Max` is None, then `Min` is treated as a lower bound, and there is no maximum value checked.\u003cbr\u003e",
+      "examples": "\u003ch2\u003eExample\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch4\u003eIncoming Dataframe\u003c/h4\u003e\n\u003cbr\u003e\nIn this example we have considered a Incoming Dataframe with following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    | Joining AGE   |    Joining Date     |\u003cbr\u003e\n-------------------------------------------------\u003cbr\u003e\nE01       |    42         | Jan 01 1979 12:00:01\u003cbr\u003e\nE02       |    29         | Dec 31 1999 12:00:11\u003cbr\u003e\nE03       |    35         | Jan 01 2000 12:03:01\u003cbr\u003e\nE04       |    54         | Feb 01 2000 12:00:01\t\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eConfiguration #1\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name | Min  | Max  |\u003cbr\u003e\n--------------------------\u003cbr\u003e\nJoining AGE | 25   | 60   |\u003cbr\u003e\n\u003cbr\u003e\nThe above setup would result in a status of `success: true` as the condition is satisfied.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eConfiguration #2\u003c/h4\u003e\n\u003cbr\u003e\nColumn Name  |          Min           |          Max           |\u003cbr\u003e\n----------------------------------------------------------------\u003cbr\u003e\nJoining Date | Jan 01 1990 12:00:00   | Jan 01 2001 12:00:00   |\u003cbr\u003e\n\u003cbr\u003e\nThe above setup would result in a status of `success: false` as the condition is satisfied.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValuesToBeInBetween",
+      "x": "1379.3px",
+      "y": "181.698px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"CLAIMID\",\"PATIENT_ID\",\"PROVIDER_ID\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "min",
+          "value": "[\"100\",\"100\",\"100\"]",
+          "widget": "variables_list_textfield",
+          "title": "Min",
+          "description": "The minimum value for a column entry length.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "max",
+          "value": "[\"10000\",\"10000\",\"10000\"]",
+          "widget": "variables_list_textfield",
+          "title": "Max",
+          "description": "The maximum value for a column entry length.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "15",
+      "name": "Ouput",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "930.8px",
+      "y": "34.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectTableRowCountToBeBetween",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "16",
+      "name": "Ouput",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "1072.8px",
+      "y": "41.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectColumnValueLengthToBeInBetween",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "17",
+      "name": "Print N Rows",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "1452.31px",
+      "y": "98.2847px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Row Values",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "18",
+      "name": "Ouput",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "1204.8px",
+      "y": "39.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "ExpectColumnValuesToBeInBetween",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "19",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "219.986px",
+      "y": "300.101px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "191.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "134.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eChecking datetime format of the following columns:-\u003c/p\u003e\u003cul\u003e\u003cli\u003eFROMDATE\u003c/li\u003e\u003cli\u003eTODATE\u003c/li\u003e\u003c/ul\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "20",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "435.889px",
+      "y": "291px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "176.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "242.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eChecking whether the following columns contain null value or not:-\u003c/p\u003e\u003cul\u003e\u003cli\u003eCLAIMID\u003c/li\u003e\u003cli\u003ePATIENT_ID\u003c/li\u003e\u003cli\u003eFROMDATE\u003c/li\u003e\u003cli\u003eTODATE\u003c/li\u003e\u003cli\u003eENCOUNTERS\u003c/li\u003e\u003cli\u003ePROVIDER_ID\u003c/li\u003e\u003c/ul\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "21",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "630.889px",
+      "y": "287px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "155.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "228.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eChecking the lengths of the following columns:-\u003c/p\u003e\u003cul\u003e\u003cli\u003eCLAIMID\u003c/li\u003e\u003cli\u003ePATIENT_ID\u003c/li\u003e\u003cli\u003eGENDER\u003c/li\u003e\u003cli\u003ePROVIDER_ID\u003c/li\u003e\u003c/ul\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "22",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "803.889px",
+      "y": "295px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "241.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "322.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eThe following test is been performed with the help of ExpectColumnValuesToMatchRegex node-\u003c/p\u003e\u003cul\u003e\u003cli\u003eGENDER Column can contain either M or F\u003c/li\u003e\u003cli\u003eThe first 5 characters of CLAIMID must be a string\u003c/li\u003e\u003cli\u003einitial character of PATIENT_ID must be numeric\u003c/li\u003e\u003cli\u003eNAME column should contain only string values\u003c/li\u003e\u003cli\u003eTYPE column should contain only string values\u003c/li\u003e\u003c/ul\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "23",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "1247.89px",
+      "y": "319px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "139.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "208.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eChecking column value length to be in between 10 to 36 \u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "24",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "1062.89px",
+      "y": "293px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "133.77778px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "180.77778px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eChecking the table records\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "25",
+      "name": "Sticky Note",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "0px",
+      "y": "18.8px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "blue",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "300px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "110px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003e\u003cstrong\u003eThis workflow is been used to perform various kind of Data Quality check on Claims data.\u003c/strong\u003e\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "4",
+      "id": 1
+    },
+    {
+      "source": "4",
+      "target": "5",
+      "id": 2
+    },
+    {
+      "source": "4",
+      "target": "6",
+      "id": 3
+    },
+    {
+      "source": "5",
+      "target": "7",
+      "id": 4
+    },
+    {
+      "source": "5",
+      "target": "8",
+      "id": 5
+    },
+    {
+      "source": "7",
+      "target": "9",
+      "id": 6
+    },
+    {
+      "source": "7",
+      "target": "10",
+      "id": 7
+    },
+    {
+      "source": "9",
+      "target": "11",
+      "id": 8
+    },
+    {
+      "source": "9",
+      "target": "12",
+      "id": 9
+    },
+    {
+      "source": "11",
+      "target": "13",
+      "id": 10
+    },
+    {
+      "source": "13",
+      "target": "14",
+      "id": 11
+    },
+    {
+      "source": "11",
+      "target": "15",
+      "id": 12
+    },
+    {
+      "source": "13",
+      "target": "16",
+      "id": 13
+    },
+    {
+      "source": "14",
+      "target": "17",
+      "id": 14
+    },
+    {
+      "source": "14",
+      "target": "18",
+      "id": 15
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "pyspark"
+}
