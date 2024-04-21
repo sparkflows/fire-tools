@@ -1,4 +1,4 @@
 # Build the docker image by running
-docker build
+docker build .
 
-# Can add custom notebooks in the folder notebooks and build the docker image
+# Can add custom notebooks in the directory names `notebooks` and build the docker image
