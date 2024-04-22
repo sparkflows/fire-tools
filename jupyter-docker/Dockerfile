@@ -1,6 +1,6 @@
 # Docker demo image, as used on try.jupyter.org and tmpnb.org
 
-FROM jupyter/all-spark-notebook:c7fb6660d096
+FROM jupyter/all-spark-notebook:b736c31dc5d5
 
 MAINTAINER Jupyter Project <jupyter@googlegroups.com>
 
