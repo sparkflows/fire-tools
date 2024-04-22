@@ -50,6 +50,7 @@ USER $NB_USER
 
 
 # Extra Kernels
+RUN echo $NB_USER
 RUN pip install papermill
 RUN pip install pandas==1.2.4
 RUN pip install numpy==1.21.4
