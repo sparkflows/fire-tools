@@ -50,14 +50,14 @@ USER $NB_USER
 
 
 # Extra Kernels
-RUN echo $NB_USER
+RUN pip install --upgrade pip
 RUN pip install papermill
-RUN pip install pandas==1.2.4
-RUN pip install numpy==1.21.4
+RUN pip install pandas==1.1.2
+RUN pip install numpy==1.19.0
 RUN pip install seaborn==0.11.1
 RUN pip install scikit-learn==0.24.0
 RUN pip install plotly==5.5.0
-RUN pip install matplotlib==3.4.2
+RUN pip install matplotlib==3.3.4
 COPY fire_notebook-3.1.0-py3-none-any.whl /home/$NB_USER/
 RUN pip install fire_notebook-3.1.0-py3-none-any.whl
 RUN pip install --no-cache-dir bash_kernel && \
@@ -67,8 +67,9 @@ RUN pip install --no-cache-dir bash_kernel && \
 # Add local content, starting with notebooks and datasets which are the largest
 # so that later, smaller file changes do not cause a complete recopy during
 # build
+RUN mkdir -p /tmp/datasets
 COPY notebooks/ /home/$NB_USER/
-COPY datasets/ /home/$NB_USER/datasets/
+COPY datasets/ /tmp/datasets/
 
 # Switch back to root for permission fixes, conversions, and trust. Make sure
 # trust is done as $NB_USER so that the signing secret winds up in the $NB_USER
