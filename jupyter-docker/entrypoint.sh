@@ -4,4 +4,4 @@
 python3.8 --version
 python --version
 pip list | grep notebook
-jupyter notebook &
+jupyter notebook
