@@ -1,95 +1,78 @@
-# Docker demo image, as used on try.jupyter.org and tmpnb.org
+FROM ubuntu:20.04
+MAINTAINER sparkflows <jayant@sparkflows.io>
 
-FROM jupyter/all-spark-notebook:b736c31dc5d5
+ENV APP_HOME /usr/local
+ENV USERNAME=sparkflows
 
-MAINTAINER Jupyter Project <jupyter@googlegroups.com>
+RUN apt-get update
 
-USER root
+RUN apt-get install -y ca-certificates wget sudo && update-ca-certificates
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN apt-get --assume-yes install software-properties-common
+RUN add-apt-repository ppa:ts.sch.gr/ppa
+RUN apt-get update
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+RUN apt-get install -y --force-yes openjdk-8-jdk
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
+
+COPY requirements.txt ${APP_HOME}
+COPY requirements2.txt ${APP_HOME}
+COPY requirements3.txt ${APP_HOME}
+
 RUN apt-get update \
- && apt-get -y dist-upgrade --no-install-recommends \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+&& sudo apt install -q -y vim build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev wget libbz2-dev \
+&& mkdir -p /home/${USERNAME} \
+&& adduser --disabled-password --gecos '' ${USERNAME} \
+&& adduser ${USERNAME} sudo \
+&& echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+&& chown -R ${USERNAME} /home/${USERNAME} \
+&& wget https://www.python.org/ftp/python/3.8.10/Python-3.8.10.tgz \
+&& tar xzf Python-3.8.10.tgz \
+&& cd  Python-3.8.10 && \
+./configure --enable-optimizations  && make altinstall
 
-# BEGININCLUDE jupyter/datascience-notebook
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-# FROM jupyter/scipy-notebook
+#RUN sudo update-alternatives  --set python /usr/bin/python3.8
+#RUN cd /usr/bin && sudo ln -s python3.8 /usr/bin/python
+COPY fire_notebook-3.1.0-py3-none-any.whl ${APP_HOME}
+RUN sudo apt-get install -y python3-pip
+RUN cd ${APP_HOME} && \
+    #python3.8 -m venv venv && \
+    #source venv/bin/activate && \
+    pip install pip --upgrade && \
+    pip install six==1.15.0 && \
+    pip install -r requirements.txt && \
+    pip install -r requirements2.txt && \
+    pip install -r requirements3.txt && \
+    pip install pmdarima && \
+    pip install bs4 && \
+    pip install awscli && \
+    pip install kfp==1.8.1 && \
+    pip install kubernetes==18.20.0 && \
+    pip install numpy==1.21 && \
+    pip install notebook && \
+    pip install ${APP_HOME}/fire_notebook-3.1.0-py3-none-any.whl && \
+    pip install plotly
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+RUN cd /usr/bin && sudo ln -s python3.8 /usr/bin/python
 
+#RUN cd ${APP_HOME} && \
+    #python3.8 -m venv venv && \
+    #source venv/bin/activate && \
+#    pip install plotly
+
+COPY notebooks ${APP_HOME}
+COPY datasets ${APP_HOME}
+
+# Expose port
 USER root
+WORKDIR ${APP_HOME}
+# add provision to mount directories too - todo
 
-# R pre-requisites
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    fonts-dejavu \
-    tzdata \
-    gfortran \
-    gcc && apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+ADD entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
-
-# ENDINCLUDE jupyter/datascience-notebook
-
-
-# Install system libraries first as root
-USER root
-
-# The Glorious Glasgow Haskell Compiler
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends software-properties-common && \
-    add-apt-repository -y ppa:hvr/ghc && \
-    apt-get update && \
-    apt-get install -y cabal-install-1.24 ghc-8.0.2 happy-1.19.5 alex-3.1.7 && \
-    apt-get clean
-
-# IHaskell dependencies
-RUN apt-get install -y --no-install-recommends zlib1g-dev libzmq3-dev libtinfo-dev libcairo2-dev libpango1.0-dev && apt-get clean
-
-USER $NB_USER
-
-
-# Extra Kernels
-RUN pip install --upgrade pip
-RUN pip install papermill
-RUN pip install pandas==1.1.2
-RUN pip install numpy==1.19.0
-RUN pip install seaborn==0.11.1
-RUN pip install scikit-learn==0.24.0
-RUN pip install plotly==5.5.0
-RUN pip install matplotlib==3.3.4
-COPY fire_notebook-3.1.0-py3-none-any.whl /home/$NB_USER/
-RUN pip install fire_notebook-3.1.0-py3-none-any.whl
-RUN pip install --no-cache-dir bash_kernel && \
-    python -m bash_kernel.install --sys-prefix
-
-
-# Add local content, starting with notebooks and datasets which are the largest
-# so that later, smaller file changes do not cause a complete recopy during
-# build
-RUN mkdir -p /tmp/datasets
-COPY notebooks/ /home/$NB_USER/
-COPY datasets/ /tmp/datasets/
-
-# Switch back to root for permission fixes, conversions, and trust. Make sure
-# trust is done as $NB_USER so that the signing secret winds up in the $NB_USER
-# profile, not root's
-USER root
-
-
-# Finally, add the site specific tmpnb.org / try.jupyter.org configuration.
-# These should probably be split off into a separate docker image so that others
-# can reuse the very expensive build of all the above with their own site
-# customization.
-
-# Add the templates
-COPY resources/templates/ /srv/templates/
-RUN chmod a+rX /srv/templates
-
-USER $NB_USER
-
-# Install our custom.js
-COPY resources/custom.js /home/$NB_USER/.jupyter/custom/
-
-# Append tmpnb specific options to the base config
-COPY resources/jupyter_notebook_config.partial.py /tmp/
+ENTRYPOINT ["/entrypoint.sh"]
