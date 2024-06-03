@@ -29,7 +29,7 @@ The input and output folders to the workflow can be parameterized.
 Shell script
 ------------
 
-Below is the shell script that goes into the shell node in the worflows.
+Below is the shell script that goes into the shell node in the workflows.
 
 ```
 usage() {
