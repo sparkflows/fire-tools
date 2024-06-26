@@ -2,19 +2,19 @@
 
 This document describes the details of Sparkflows image and other configuration for deploying Sparkflows pod on kubernetes Cluster.
 
-### Docker image
+## Docker image
 
 Use the docker image sparkflows/fire:py_3.2.1_3.2.78-rc6
 
-#### Ports
+### Ports
 
 Expose the port 8080 for http and 8443 for https.
 
-#### Ingress
+### Ingress
 
 Use the ingress url of the service pointing to the port 8080/8443 to access the service.
 
-#### Deployment Steps
+### Deployment Steps
 
 NOTE: This is not recommended for production deployments.
 
