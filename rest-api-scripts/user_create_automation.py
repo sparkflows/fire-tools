@@ -125,8 +125,8 @@ if __name__ == '__main__':
     if len(sys.argv) == 11:
         print("Usage: user_create_automation.py <fire_host_url> <access_token> <username> <password> "
               "<firstName> <lastName> <email> <roles> <groups> <userId>")
-       print("Example create user: user_create_automation.py http://abc:8080 xyz username password firstName lastName test@gmail.com [1] [1] 0")
-       print("Example update user with id 1: user_create_automation.py http://abc:8080 xyz username password firstName lastName test@gmail.com [1] [1] 1")
+        #Example create user: user_create_automation.py http://hosturl:8080 xyz username password firstName lastName test@gmail.com [1] [1] 0
+        #Example update user with id 1: user_create_automation.py http://hosturl:8080 xyz username password firstName lastName test@gmail.com [1] [1] 1
 
         fire_host_url = sys.argv[1]
         access_token = sys.argv[2]
