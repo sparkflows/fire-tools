@@ -34,24 +34,6 @@ def create_update_user(fire_host, token, user_id, user_name, pwd, first_name, la
     return create_update_user_api_call_response.text
 
 
-# delete user by id
-def delete_user(fire_host: str, token: str, user_id: int):
-    delete_user_api_url = fire_host + "/deleteUser/" + str(user_id)
-
-    api_call_headers = {'token': token}
-
-    delete_user_api_call_response = requests.delete(delete_user_api_url, headers=api_call_headers)
-
-    if delete_user_api_call_response.status_code == 200:
-
-        print("delete user response: " + delete_user_api_call_response.text)
-
-    else:
-        print("Error in delete user api: " + delete_user_api_call_response.text)
-
-    return delete_user_api_call_response.text
-
-
 # user list
 def list_user(fire_host: str, token: str):
     list_user_api_url = fire_host + "/usersJSON"
@@ -157,16 +139,6 @@ if __name__ == '__main__':
 
         create_update_user(fire_host_url, access_token, userId, username, password, firstName, lastName, email, roles,
                            groups)
-
-    if len(sys.argv) == 5:
-        print("Usage: user_create_automation.py <fire_host_url> <access_token> <userId>")
-
-        fire_host_url = sys.argv[1]
-        access_token = sys.argv[2]
-        userId = sys.argv[3]
-        type = sys.argv[4]
-
-        delete_user(fire_host_url, access_token, userId)
 
     if len(sys.argv) == 4:
         print("Usage: user_create_automation.py <fire_host_url> <access_token> <type>")
