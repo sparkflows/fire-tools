@@ -13,7 +13,11 @@ pip install path/to/fire_notebook-3.1.0-py3-none-any.whl
 
 ### Sample Notebooks in the `notebooks` directory
 
-#### 1. ChurnAnalysisAndPrediction.ipynb
+#### 1. jupyter_with_additional_parameters.ipynb
+1. This notebook is used to test notebook connection and passing additional parameters.
+
+   
+#### 2. ChurnAnalysisAndPrediction.ipynb
 This is a sample notebook can be used to test the functionality of the Jupyter Notebook connection: 
 1. We start by initiating the connection using RestWorkflowContext.
 2. We then load the data from the `churn_data.csv` file.
@@ -22,8 +26,7 @@ This is a sample notebook can be used to test the functionality of the Jupyter N
 5. Data Visualization: Plots a histogram to see total_day_calls distribution. It also shows the correlation between the features using a heatmap.
 6. If the option is selected as Modelling, model_training function is called. This function replaces True/False strings to integers and splits the data into training and testing sets (80%-20%). It then uses RandomForestClassifier to train the model and returns the model accuracy report. 
 
-#### 2. jupyter_with_additional_parameters.ipynb
-1. This notebook is used to test notebook connection and passing additional parameters.
+
 
 
 
