@@ -19,8 +19,8 @@ If development == ”local”:
 
 else:
   	import sys
-parameters_list = sys.argv
-restworkflowcontext = RestWorkflowContext(parameters=parameters_list)
+    parameters_list = sys.argv
+    restworkflowcontext = RestWorkflowContext(parameters=parameters_list)
 ```
 OR 
 ```
@@ -171,3 +171,7 @@ Example notebook to show the progress and failure messages back to app.
 
 When failure message sent to app, the current app execution status will be updated to `FAILURE`
 
+```
+message = "Sending the failure message."
+restworkflowcontext.outFailure(id=9, title="Failure", text=message)
+```
