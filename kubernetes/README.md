@@ -55,7 +55,9 @@ You can open the browser and navigate to the http://<dsn.loadbalancer.sparkflows
 
 Use the external IP of the service to access Sparkflows. The external IP can be found using the following command:
 
+```bash
 kubectl get svc sparkflows-app
+```
 
 You can now use the <external-IP>:targetPort to access Sparkflows in the browser.
 
