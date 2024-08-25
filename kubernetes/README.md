@@ -61,6 +61,13 @@ kubectl get svc sparkflows-app
 
 You can now use the <external-IP>:targetPort to access Sparkflows in the browser.
 
+Two user accounts come preconfigured with Sparkflows, also make sure to update app.postMessageURL as per Sparkflows absolute URL running and should be accessible.
+
+* admin/admin
+* test/test
+
+You may change these usernames and passwords in Sparkflows.
+
 
 ### Step 5 : Update/Upgrade Sparkflows
 
