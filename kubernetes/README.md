@@ -4,7 +4,7 @@ This document describes the details of Sparkflows image and other configuration 
 
 ## Docker image
 
-Use the docker image sparkflows/fire:py_3.2.1_3.2.78-rc6
+Use the docker image sparkflows/fire:py_3.2.1_3.2.81-rc1
 
 ### Ports
 
