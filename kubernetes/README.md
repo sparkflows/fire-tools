@@ -33,8 +33,6 @@ Step 3 : Check Deployment
 
 On successful deployment, check the status of the pods and services using the following commands:
 
-kubectl get po -A | grep sparkflows-app
-
 ```bash
 $ kubectl get po -A | grep sparkflows-app
 
