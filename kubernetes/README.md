@@ -1,6 +1,6 @@
-# Sparkflows Installations on Kubernetes
+# Sparkflows Deployment on Kubernetes
 
-This document describes the details of Sparkflows image and other configuration for deploying Sparkflows pod on kubernetes Cluster.
+Below are the steps to deploy Sparkflows on Kubernetes.
 
 ## Docker image
 
@@ -9,6 +9,35 @@ Use the docker image sparkflows/fire:py_3.2.1_3.2.81-rc1
 ### Ports
 
 Expose the port 8080 for http and 8443 for https.
+
+### Step 1 : Create a Persistent Volume
+
+Use the following script for creating the Persistent Volume
+
+https://github.com/sparkflows/fire-tools/blob/main/kubernetes/fire-pv.yaml
+
+### Step 2: Create Sparkflows Service/Deployment
+
+Create deployment/service using kubectl. Update image url of deployment.yaml file as per the latest version available. The below yaml file creates a service and deployment for Sparkflows with resource limit of 16GB ram and 4vCPU. You can configure the resources limit, as per your requirement.
+
+https://github.com/sparkflows/fire-tools/blob/main/kubernetes/deployment.yaml
+
+### Step 3 : Check Deployment
+
+Step 3 : Check Deployment
+
+On successful deployment, check the status of the pods and services using the following commands:
+
+kubectl get po -A | grep sparkflows-app
+
+## Step 4 : Access Sparkflows
+
+Use the external IP of the service to access Sparkflows. The external IP can be found using the following command:
+
+kubectl get svc sparkflows-app
+
+You can now use the <external-IP>:targetPort to access Sparkflows in the browser.
+
 
 ### Ingress
 
