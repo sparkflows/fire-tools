@@ -59,8 +59,4 @@ kubectl get svc sparkflows-app
 You can now use the <external-IP>:targetPort to access Sparkflows in the browser.
 
 
-### Ingress
-
-Use the ingress url of the service pointing to the port 8080/8443 to access the service.
-
 
