@@ -62,4 +62,19 @@ kubectl get svc sparkflows-app
 You can now use the <external-IP>:targetPort to access Sparkflows in the browser.
 
 
+### Step 5 : Update/Upgrade Sparkflows
+
+In order to update any configuration in the deployment.yaml, like image version or container resources limits/requests you need to first delete the current deployment using the below command.
+
+```bash
+kubectl delete -f deployment.yaml
+```
+
+Once you’ve deleted the deployment, re-create the service. We need to do this, because two instances can’t use the same H2 database as it’s a file based DB.
+
+```bash
+kubectl apply -f deployment.yaml
+```
+
+
 
