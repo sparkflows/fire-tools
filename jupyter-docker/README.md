@@ -26,6 +26,10 @@ There are four sample Jupyter Notebooks in the notebooks folder to test some of 
 
 * ChurnAnalysisAndPrediction.ipynb
 
+### Sample Datasets in the `datasets` directory
+
+The datasets folder contains the churn dataset that is used by the sample notebook ``ChurnAnalysisAndPrediction.ipynb``, which performs some data preprocessing, data visualization, modelling and uses RandomForestClassifier to train the model and returns a model accuracy report.
+
 
 ## Create Docker Image with the Jupyter Notebooks
 
@@ -34,7 +38,8 @@ There are four sample Jupyter Notebooks in the notebooks folder to test some of 
 The Dockerfile sets up an environment for running Jupyter Notebooks with the necessary dependencies. 
 
 * It starts from an Ubuntu 20.04 base image, installs essential packages, and sets up Python 3.8.10.
-* It installs various Python packages listed in requirements.txt, requirements2.txt, and requirements3.txt, along with additional packages like pmdarima, bs4, awscli, kfp, kubernetes, numpy, notebook, and plotly.
+* It installs various Python packages listed in requirements.txt, requirements2.txt, and requirements3.txt.
+* It also installs additional packages like pmdarima, bs4, awscli, kfp, kubernetes, numpy, notebook, and plotly.
 * The fire_notebook-3.1.0-py3-none-any.whl package is also installed to facilitate integration with the Fire Insights API.
 * The Dockerfile configures the environment, copies necessary files, and sets up an entry point script for container initialization.
 
@@ -44,3 +49,4 @@ Below are the Docker commands used to build the image and push it to Docker Hub,
 docker build -t username/repo:tagname
 docker push username/repo:tagname
 ```
+Ensure that you replace username/repo and tagname with the actual names. Take note of the image name, which will be used in the next steps when creating a Jupyter connection in Fire Insights.
