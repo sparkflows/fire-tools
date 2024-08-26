@@ -1,4 +1,4 @@
-	apiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sparkflows-app
@@ -21,21 +21,22 @@ spec:
             claimName: fire-pvc
       containers:
         - name: sparkflows-fire
-          image: "sparkflows/fire:py_3.2.1_3.2.78-rc6"
+          image: "sparkflows/fire:py_3.2.1_3.2.81-rc1"
           imagePullPolicy: IfNotPresent
           resources:
-            requests:
-              memory: "8Gi"
-              cpu: "4000m"
             limits:
-              memory: "32Gi"
-              cpu: "12000m"
+              cpu: "4"
+              memory: "16Gi"
+            requests:
+              cpu: "2"
+              memory: "8Gi"
           volumeMounts:
             - name: sparkflows-vol
-              mountPath: /data
+              mountPath: /root
           env:
             - name: KEYSTORE_PASSWORD
               value: "12345678"
+
           ports:
             - name: http
               containerPort: 8080
@@ -50,4 +51,3 @@ spec:
             httpGet:
               path: /
               port: 8080
-
