@@ -43,17 +43,42 @@ The Dockerfile sets up an environment for running Jupyter Notebooks with the nec
 * The fire_notebook-3.1.0-py3-none-any.whl package is also installed to facilitate integration with the Fire Insights API.
 * The Dockerfile configures the environment, copies necessary files, and sets up an entry point script for container initialization.
 
-Below are the Docker commands used to build the image and push it to Docker Hub, making it accessible for pulling:
-
-```
-docker build -t username/repo:tagname
-docker push username/repo:tagname
-```
-Ensure that you replace username/repo and tagname with the actual names. Take note of the image name, which will be used in the next steps when creating a Jupyter connection in Fire Insights.
-
-
 #### entrypoint.sh
 1. The entrypoint.sh file first specifies that the scripts must be executed in the `/bin/sh` shell.
 2. It then prints and checks whether the `python` command is pointing to the intended version (3.8).
 3. Then it checks for python packages installed and filters the output to show packages with 'notebook' in the name to check if jupyter notebook is installed.
 4. And finally it starts the jupyter notebook server.
+
+
+## Project Setup Instructions
+
+1. **Download Project Files:**
+   - Ensure all files and folders in your project directory are downloaded.
+
+2. **Verify Required Files:**
+   - Ensure the following files are present in your project directory:
+     - `requirements.txt`, `requirements2.txt`, `requirements3.txt`
+     - `fire_notebook-3.1.0-py3-none-any.whl` file
+     - `Dockerfile`
+
+3. **Prepare Datasets:**
+   - Create a `datasets` folder in your project directory.
+   - Add the datasets you want to work with to this folder.
+
+4. **Prepare Notebooks:**
+   - Create a `notebooks` folder in your project directory.
+   - Add your Jupyter notebooks that will interact with the datasets and Fire Insights to this folder.
+
+5. **Build and Push Docker Image:**
+   - Use the Docker commands below to build your Docker image and push it to Docker Hub, making it accessible for pulling.
+
+
+    ```
+    docker build -t username/repo:tagname
+    docker push username/repo:tagname
+    ```
+    
+    Ensure that you replace `username/repo` and `tagname` with the actual names. Take note of the image name, which will be used in the next steps when creating a Jupyter connection in Fire Insights.
+
+
+
