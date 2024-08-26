@@ -24,7 +24,7 @@ kubectl apply -f fire-pv.yaml
 
 ## Step 2: Create Sparkflows Service/Deployment
 
-Create deployment/service using kubectl. Update image url of deployment.yaml file as per the latest version available. The below yaml file creates a service and deployment for Sparkflows with resources of 8GB memory and 4vCPUs with a limit of 32GB memory and 12vCPU. You can configure the resources limit, as per your requirement.
+Create deployment/service using kubectl. Update image url of deployment.yaml file as per the latest version available. The below yaml file creates a service and deployment for Sparkflows with resources of 8GB memory and 2vCPUs with a limit of 16GB memory and 4vCPU. You can configure the resources limit, as per your requirement.
 
 * https://github.com/sparkflows/fire-tools/blob/main/kubernetes/deployment.yaml
 * https://github.com/sparkflows/fire-tools/blob/main/kubernetes/service.yaml
