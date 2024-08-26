@@ -50,3 +50,10 @@ docker build -t username/repo:tagname
 docker push username/repo:tagname
 ```
 Ensure that you replace username/repo and tagname with the actual names. Take note of the image name, which will be used in the next steps when creating a Jupyter connection in Fire Insights.
+
+
+#### entrypoint.sh
+1. The entrypoint.sh file first specifies that the scripts must be executed in the `/bin/sh` shell.
+2. It then prints and checks whether the `python` command is pointing to the intended version (3.8).
+3. Then it checks for python packages installed and filters the output to show packages with 'notebook' in the name to check if jupyter notebook is installed.
+4. And finally it starts the jupyter notebook server.
