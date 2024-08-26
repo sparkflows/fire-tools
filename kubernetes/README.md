@@ -4,7 +4,10 @@ Below are the steps to deploy Sparkflows on Kubernetes.
 
 ## Docker image
 
-Use the docker image sparkflows/fire:py_3.2.1_3.2.81-rc1
+The Docker images for Sparkflows are listed here : https://hub.docker.com/r/sparkflows/fire/tags
+
+The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
+
 
 ### Ports
 
