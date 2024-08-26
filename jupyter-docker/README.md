@@ -18,9 +18,11 @@ pip install path/to/fire_notebook-3.1.0-py3-none-any.whl
 
 ### Sample Notebooks in the `notebooks` directory
 
-There are two sample Jupyter Notebooks in the notebooks folder. 
+There are four sample Jupyter Notebooks in the notebooks folder to test some of the various functionalites:
 
-* jupyter_lab_3.ipynb
+* fire_failure_notebook_functions.ipynb
+* fire_html_plotly_notebook_functions.ipynb
+* fire_notebook_functions.ipynb
 
 * ChurnAnalysisAndPrediction.ipynb
 
