@@ -12,14 +12,14 @@ Expose the port 8080 for http and 8443 for https.
 
 ## Step 1 : Create a Persistent Volume
 
-Use the configuration defined in the `fire-pv.yaml` file to setup the persistent volume. We'll be using this volume to mount on the sparkflows pod. The size we have set it up is 5GB. This storage will be mounted on the Sparkflows container, at the path where the H2 database is being stored. In the below, the host path is set to /data/fire
+Use the configuration defined in the `pv.yaml` file to setup the persistent volume. We'll be using this volume to mount on the sparkflows pod. The size we have set it up is 10GB. This storage will be mounted on the Sparkflows container, at the path where the H2 database is being stored. In the below, the host path is set to /data/fire
 
-* https://github.com/sparkflows/fire-tools/blob/main/kubernetes/fire-pv.yaml
+* https://github.com/sparkflows/fire-tools/blob/main/kubernetes/pv.yaml
 
 Use the below command ro create the persistent volumeand claim:
 
 ```bash
-kubectl apply -f fire-pv.yaml
+kubectl apply -f pv.yaml
 ```
 
 ## Step 2: Create Sparkflows Service/Deployment
