@@ -61,6 +61,7 @@ The Dockerfile sets up an environment for running Jupyter Notebooks with the nec
      - `requirements.txt`, `requirements2.txt`, `requirements3.txt`
      - `fire_notebook-3.1.0-py3-none-any.whl` file
      - `Dockerfile`
+     - `entrypoint.sh`
 
 3. **Prepare Datasets:**
    - Create a `datasets` folder in your project directory.
