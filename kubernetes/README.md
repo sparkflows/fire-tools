@@ -9,10 +9,6 @@ The Docker images for Sparkflows are listed here : https://hub.docker.com/r/spar
 The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
 
 
-### Ports
-
-Expose the port 8080 for http and 8443 for https.
-
 ## AWS EKS Setup Prerequisites
 
 The Jupyter Notebook serves as the backend logic for the Analytical Apps. It would receive inputs from the App, process it and output results to be displayed back in the App. For this we need to grant permissions to Sparkflows in AWS EKS cluster which is done using the following manifests:
@@ -99,6 +95,13 @@ kubectl create service nodeport sparkflows-svc --tcp=5050:8080
 Here 8080 is the target port, while 5050 is the exposed port.
 NodePort service command maps port 5050 on the Node to port 8080 inside the pod where the application is running and you can access the application by navigating to ``http://<node-IP>:5050`` in your browser.
 
+#### Ports
+Fire by default listens on port 8080 for HTTP and 8443 for HTTPS and this can be configured in the file `conf/application.properties`.
+```
+#Configure http and https port numbers
+http.port=8080
+https.port=8443
+```
 
 #### Pre-Configured Accounts
 Two user accounts come preconfigured with Sparkflows, also make sure to update app.postMessageURL as per Sparkflows absolute URL running and should be accessible.
