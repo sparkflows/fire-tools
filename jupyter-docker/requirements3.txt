@@ -16,7 +16,7 @@ openpyxl
 huggingface-hub==0.14.1
 numpy==1.21
 
-# Dependencies for pyspark code validator
+#Dependencies for pyspark code validator
 #astroid==2.4.2
 #click==7.1.2
 #colorama==0.4.3
