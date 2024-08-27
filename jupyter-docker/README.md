@@ -31,7 +31,7 @@ There are four sample Jupyter Notebooks in the notebooks folder to test some of 
 The datasets folder contains the churn dataset that is used by the sample notebook ``ChurnAnalysisAndPrediction.ipynb``, which performs some data preprocessing, data visualization, modelling and uses RandomForestClassifier to train the model and returns a model accuracy report.
 
 
-## Create Docker Image with the Jupyter Notebooks
+## Docker File Details
 
 #### Dockerfile
 
@@ -44,13 +44,14 @@ The Dockerfile sets up an environment for running Jupyter Notebooks with the nec
 * The Dockerfile configures the environment, copies necessary files, and sets up an entry point script for container initialization.
 
 #### entrypoint.sh
+
 1. The entrypoint.sh file first specifies that the scripts must be executed in the `/bin/sh` shell.
 2. It then prints and checks whether the `python` command is pointing to the intended version (3.8).
 3. Then it checks for python packages installed and filters the output to show packages with 'notebook' in the name to check if jupyter notebook is installed.
 4. And finally it starts the jupyter notebook server.
 
 
-## Project Setup Instructions
+## Building Docker Image Instructions
 
 1. **Download Project Files:**
    - Ensure all files and folders in your project directory are downloaded.
