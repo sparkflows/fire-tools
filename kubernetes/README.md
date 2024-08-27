@@ -13,6 +13,31 @@ The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
 
 Expose the port 8080 for http and 8443 for https.
 
+## AWS EKS Setup Prerequisites
+
+The Jupyter Notebook serves as the backend logic for the Analytical Apps. It would receive inputs from the App, process it and output results to be displayed back in the App. For this we need to grant permissions to Sparkflows in AWS EKS cluster which is done using the following manifests:
+
+### serviceaccount.yaml
+
+This creates a user account with a name say `sparkflows-admin`, and adds the role which was used to create the EKS in the annotation which is used by the deployment pods.
+
+**Ensure to replace the role-arn with the role-arn used to create the AWS EKS Cluster.**
+
+### role.yaml
+
+This creates a user job role, that defines and grants the set of permissions required for Sparkflows to `sparkflows-admin` in order to run Jupyter notebooks.
+
+### binding.yaml
+
+This binds the `job-creator` ClusterRole, using the job-binding resource with it's subject as `sparkflows-admin`.
+
+```
+kubectl apply -f serviceaccount.yaml
+kubectl apply -f job-role.yaml
+kubectl apply -f job-binding.yaml
+```
+
+
 ## Step 1 : Create a Persistent Volume
 
 Use the configuration defined in the `pv.yaml` file to setup the persistent volume. We'll be using this volume to mount on the sparkflows pod. 
