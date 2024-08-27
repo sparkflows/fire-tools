@@ -1,6 +1,6 @@
 # Sparkflows Deployment on Kubernetes
 
-Below are the steps to deploy Sparkflows on Kubernetes.
+Below are the steps to deploy Sparkflows on Kubernetes. In this deployment, Sparkflows is deployed with embedded H2DB for storing the metadata.
 
 ## Docker image
 
@@ -11,7 +11,7 @@ The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
 
 ## AWS EKS Setup Prerequisites
 
-The Jupyter Notebook serves as the backend logic for the Analytical Apps. It would receive inputs from the App, process it and output results to be displayed back in the App. For this we need to grant permissions to Sparkflows in AWS EKS cluster which is done using the following manifests:
+We need to grant permissions to Sparkflows in AWS EKS cluster which is done using the following manifests:
 
 ### serviceaccount.yaml
 
@@ -32,7 +32,6 @@ kubectl apply -f serviceaccount.yaml
 kubectl apply -f job-role.yaml
 kubectl apply -f job-binding.yaml
 ```
-
 
 ## Step 1 : Create a Persistent Volume
 
