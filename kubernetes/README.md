@@ -58,7 +58,8 @@ kubectl get svc sparkflows-app
 
 You can now navigate to ``http://<external-IP>:targetPort`` to access Sparkflows in the browser, the targetPort being 8080.
 
-#### Quick Testing using NodePort:
+#### Quick Testing using NodePort
+
 You can also use NodePort for quick testing using the below command.
 
 ```bash
@@ -74,7 +75,7 @@ Two user accounts come preconfigured with Sparkflows, also make sure to update a
 * admin/admin
 * test/test
 
-You may change these usernames and passwords in Sparkflows.
+You may change these usernames and passwords in Sparkflows. You can also add new users.
 
 
 ## Step 5 : Update/Upgrade Sparkflows
