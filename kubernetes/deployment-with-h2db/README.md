@@ -11,7 +11,7 @@ The Docker images for Sparkflows are listed here : https://hub.docker.com/r/spar
 The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
 
 
-## AWS EKS Setup Prerequisites
+## Preparing for running Jupyter Notebook Images
 
 We need to grant permissions to the sparkflows in AWS EKS cluster which is done using the following manifests:
 
