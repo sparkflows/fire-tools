@@ -11,7 +11,7 @@ The Docker images for Sparkflows are listed here : https://hub.docker.com/r/spar
 The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
 
 
-## Preparing for running Jupyter Notebook Images
+## Step 1 : Preparing for running Jupyter Notebook Images
 
 We need to grant permissions to the sparkflows in AWS EKS cluster which is done using the following manifests:
 
@@ -35,7 +35,7 @@ kubectl apply -f job-role.yaml
 kubectl apply -f job-binding.yaml
 ```
 
-## Step 1 : Create a Persistent Volume
+## Step 2 : Create a Persistent Volume
 
 Use the configuration defined in the `pv.yaml` file to setup the persistent volume. We'll be using this volume to mount on the sparkflows pod. 
 
@@ -49,7 +49,7 @@ Use the below command ro create the persistent volumeand claim:
 kubectl apply -f pv.yaml
 ```
 
-## Step 2: Create Sparkflows Service/Deployment
+## Step 3 : Create Sparkflows Service/Deployment
 
 Create deployment/service using kubectl. Update image url of deployment.yaml file as per the latest version available. The list of latest versions can be found at:
 
@@ -65,7 +65,7 @@ The below yaml file creates a service and deployment for Sparkflows with resourc
  kubectl apply -f service.yaml
 ```
 
-## Step 3 : Check Deployment
+## Step 4 : Check Deployment
 
 On successful deployment, check the status of the pods and services using the following commands:
 
@@ -76,7 +76,7 @@ default    sparkflows-app-6499d496cb-qvk2q      1/1     Running     0     14m
 
 ```
 
-## Step 4 : Access Sparkflows
+## Step 5 : Access Sparkflows
 
 The above service configuration will deploy using LoadBalancer. Use the external IP of the service to access Sparkflows. The external IP can be found using the following command:
 
@@ -115,7 +115,7 @@ Two user accounts come preconfigured with Sparkflows, also make sure to update a
 You may change these usernames and passwords in Sparkflows. You can also add new users.
 
 
-## Step 5 : Update/Upgrade Sparkflows
+## Step 6 : Update/Upgrade Sparkflows
 
 In order to update any configuration in the deployment.yaml, like image version or container resources limits/requests you need to first delete the current deployment using the below command.
 
