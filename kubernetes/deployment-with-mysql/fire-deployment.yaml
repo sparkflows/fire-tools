@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fire
+  namespace: demo
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+  selector:
+    app: fire
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fire
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: fire
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: fire
+    spec:
+      containers:
+        - image: sparkflows/k8s-fire:3.1.0
+          name: fire
+          resources:
+            limits:
+              memory: "3Gi"
+            requests:
+              memory: "1Gi"
+          ports:
+            - containerPort: 8080
+              name: fire
