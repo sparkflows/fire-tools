@@ -1,5 +1,7 @@
 # Sparkflows Deployment on Kubernetes
 
+## Overview
+
 Below are the steps to deploy Sparkflows on Kubernetes. In this deployment, Sparkflows is deployed with embedded H2DB for storing the metadata.
 
 ## Docker image
@@ -11,7 +13,7 @@ The latest docker image available is : sparkflows/fire:py_3.2.1_3.2.81-rc42
 
 ## AWS EKS Setup Prerequisites
 
-We need to grant permissions to Sparkflows in AWS EKS cluster which is done using the following manifests:
+We need to grant permissions to the sparkflows in AWS EKS cluster which is done using the following manifests:
 
 ### serviceaccount.yaml
 
@@ -95,6 +97,7 @@ Here 8080 is the target port, while 5050 is the exposed port.
 NodePort service command maps port 5050 on the Node to port 8080 inside the pod where the application is running and you can access the application by navigating to ``http://<node-IP>:5050`` in your browser.
 
 #### Ports
+
 Fire by default listens on port 8080 for HTTP and 8443 for HTTPS and this can be configured in the file `conf/application.properties`.
 ```
 #Configure http and https port numbers
@@ -103,6 +106,7 @@ https.port=8443
 ```
 
 #### Pre-Configured Accounts
+
 Two user accounts come preconfigured with Sparkflows, also make sure to update app.postMessageURL as per Sparkflows absolute URL running and should be accessible.
 
 * admin/admin
