@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sparkflows-app
+  labels:
+    app: sparkflows-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sparkflows-app
+  template:
+    metadata:
+      labels:
+        app: sparkflows-app
+    spec:
+      serviceAccountName: default
+      volumes:
+        - name: sparkflows-vol
+          persistentVolumeClaim:
+            claimName: fire-pvc
+      containers:
+        - name: sparkflows-fire
+          image: "sparkflows/fire:py_3.2.1_3.2.78-rc6"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: sparkflows-vol
+              mountPath: /data
+          env:
+            - name: KEYSTORE_PASSWORD
+              value: "12345678"
+
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sparkflows-app
+  labels:
+    app: sparkflows-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: sparkflows-app
+

@@ -29,12 +29,6 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       
       volumes:
-        - name: sso-config-volume
-          configMap:
-              name: {{ include "sparkflows.fullname" . }}
-        - name: app-secret-volume
-          secret:
-            secretName: sparkflows-app-secret
         - name: dind-storage
           emptyDir: {}
       containers:
@@ -47,8 +41,6 @@ spec:
             - secretRef:
                 name: sparkflows-db-secret
           env:
-          - name: DB_PORT
-            value: "3306"
           - name: DOCKER_HOST
             value: tcp://localhost:2376
           - name: DOCKER_TLS_VERIFY
