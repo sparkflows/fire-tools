@@ -4,9 +4,11 @@ Fire Insights provides a workbench for creating the frontend of Analytical Apps.
 
 This document describes the steps to create a Docker image which would execute the Jupyter Notebook.
 
-In order to process and parameters and to send output results to the App a library is made available as a wheel file.
+In order to process the parameters and to send output results to the App a library is made available as a wheel file.
 
 fire_notebook-3.1.0-py3-none-any.whl
+
+The latest wheel files are available at : https://docs.sparkflows.io/en/latest/release-notes/binaries.html
 
 ### fire_notebook-3.1.0-py3-none-any.whl
 
