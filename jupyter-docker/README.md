@@ -6,13 +6,14 @@ This document describes the steps to create a Docker image which would execute t
 
 In order to process the parameters and to send output results to the App a library is made available as a wheel file.
 
-fire_notebook-3.1.0-py3-none-any.whl
-
-The latest wheel files are available at : https://docs.sparkflows.io/en/latest/release-notes/binaries.html
 
 ### fire_notebook-3.1.0-py3-none-any.whl
 
-The `fire_notebook-3.1.0-py3-none-any.whl` file is a Python wheel package that facilitates the integration of the Fire Insights API with Jupyter Notebooks. This package allows for seamless data transmission and interaction between Sparkflows and Jupyter, enabling users to leverage the Fire Insights API for enhanced data analysis and workflow management within their notebooks. To install the package, use the following command:
+The `fire_notebook-3.1.0-py3-none-any.whl` file is a Python wheel package that facilitates the integration of the Fire Insights API with Jupyter Notebooks. This package allows for seamless data transmission and interaction between Sparkflows and Jupyter, enabling users to leverage the Fire Insights API for enhanced data analysis and workflow management within their notebooks. 
+
+Download the latest `fire_notebook-3.1.0-py3-none-any.whl` wheel file available at : https://docs.sparkflows.io/en/latest/release-notes/binaries.html
+
+Then, install the package using the downloaded wheel file, with the following command:
 
 ```
 pip install path/to/fire_notebook-3.1.0-py3-none-any.whl
