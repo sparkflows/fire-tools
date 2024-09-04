@@ -19,6 +19,12 @@ Then, install the package using the downloaded wheel file, with the following co
 pip install path/to/fire_notebook-3.1.0-py3-none-any.whl
 ```
 
+Or, you can directly install using the wheel file from S3: 
+
+```
+pip install https://sparkflows-release.s3.amazonaws.com/fire/jupyter-docker/firenotebookwheel/fire_notebook-3.1.0-py3-none-any.whl
+```
+
 ### Sample Notebooks in the `notebooks` directory
 
 There are four sample Jupyter Notebooks in the notebooks folder to test some of the various functionalites:
