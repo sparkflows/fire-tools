@@ -98,12 +98,19 @@ curl -X GET "http://localhost:8080/viewExecutionResult/1/0" \
 > execution_result.json
 ```
 
+#### Import Single Pipeline from JSON File
+```
+curl -X POST "http://localhost:8080/api/v1/pipelines/multiple/import?projectId=39" \
+        -H "token: xxxx" \
+        -F "file1=@/path/to/pipeline/pipeline.json"
+```
+
 #### Import Multiple Pipelines from JSON Files
 ```
 curl -X POST "http://localhost:8080/api/v1/pipelines/multiple/import?projectId=39" \
         -H "token: xxxx" \
-        -F "file1=@/Users/dhruv/Documents/Dev/sparkflows/fire-tools-main/rest-api-scripts/pipelines-6_9_2024 at 1_30_55/Optimization_Pipeline.json" \
-        -F "file1=@/Users/dhruv/Documents/Dev/sparkflows/fire-tools-main/rest-api-scripts/pipelines-6_9_2024 at 1_30_55/Optimization_Pipeline_300k.json"
+        -F "file1=@/path/to/pipeline/pipeline.json" \
+        -F "file1=@/path/to/pipeline/pipeline_2.json"
 
 {"fail":"0","total":"2","success":"2"}
 ```
@@ -111,7 +118,7 @@ curl -X POST "http://localhost:8080/api/v1/pipelines/multiple/import?projectId=3
 
 #### Execute Pipeline
 ```
-curl --location --request POST 'http://localhost:8080/executePipeline?pipelineName=Optimization_Pipeline&projectId=39' \
+curl --location --request POST 'http://localhost:8080/executePipeline?pipelineName=pipeline_2&projectId=39' \
         --header 'token: xxxx' \
         --header 'Content-Type: application/json' \
         --data-raw '{"userName": "admin", "workflowParameters":""}'
