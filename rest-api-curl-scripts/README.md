@@ -98,8 +98,6 @@ curl -X GET "http://localhost:8080/viewExecutionResult/1/0" \
 > execution_result.json
 ```
 
--.-
-
 #### Import Multiple Pipelines from JSON Files
 ```
 curl -X POST "http://localhost:8080/api/v1/pipelines/multiple/import?projectId=39" \
