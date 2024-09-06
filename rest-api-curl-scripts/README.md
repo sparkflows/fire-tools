@@ -97,6 +97,7 @@ curl -X GET "http://localhost:8080/viewExecutionResult/1/0" \
 -H "token: xxxx" \
 > execution_result.json
 ```
+---
 
 #### Import Single Pipeline from JSON File
 ```
