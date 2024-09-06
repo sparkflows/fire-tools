@@ -65,11 +65,11 @@ curl -X GET "http://localhost:8080/getExportPipelinesDetailsByProjectId/39" \
 
 ```
 curl -X POST "http://localhost:8080/api/v1/groups" \
--H "Content-Type: application/json" \
--H "token: xxxx" \
--d '{
-  "name": "testGroup"
-}'
+        -H "Content-Type: application/json" \
+        -H "token: xxxx" \
+        -d '{
+      "name": "testGroup1234"
+    }'
 
 ```
 
