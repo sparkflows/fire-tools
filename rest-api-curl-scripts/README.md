@@ -59,7 +59,7 @@ curl -X GET "http://localhost:8080/getExportPipelinesDetailsByProjectId/39" \
 -H "token: xxxx"
 
 ```
-
+---
 ### [create_group.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/create_group.py)
 #### Create New Group
 
@@ -72,6 +72,14 @@ curl -X POST "http://localhost:8080/api/v1/groups" \
     }'
 
 ```
+
+#### Delete Group ID
+```
+curl -X DELETE "http://localhost:8080/deleteGroup/3" \
+        -H "token: xxxx"
+```
+
+---
 
 ### **[execution_status_of_job.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/execution_status_of_job.py)**
 #### Get Job Status (`get_job_status` function)
@@ -123,6 +131,28 @@ curl --location --request POST 'http://localhost:8080/executePipeline?pipelineNa
         --header 'token: xxxx' \
         --header 'Content-Type: application/json' \
         --data-raw '{"userName": "admin", "workflowParameters":""}'
+```
+
+#### Workflow Execution
+```
+curl -X POST "http://localhost:8080/api/v1/create/workflowexecution/309" \
+        -H "Content-Type: application/json" \
+        -H "token: xxxx" \
+        -d '{
+      "userName": "admin",
+      "workflowParameters": ""
+    }'
+```
+
+#### Generate Token 
+```
+curl -X POST "http://localhost:8080/api/v1/tokens" \
+        -H "Content-Type: application/json" \
+        -H "token: xxxx" \
+        -d '{
+      "expiredDuration": "60" 
+    }'
+
 ```
 
 
