@@ -107,6 +107,8 @@ curl -X GET "http://localhost:8080/viewExecutionResult/1/0" \
 ```
 ---
 
+### Import and Execute Pipelines
+
 #### Import Single Pipeline from JSON File
 ```
 curl -X POST "http://localhost:8080/api/v1/pipelines/multiple/import?projectId=39" \
@@ -133,6 +135,8 @@ curl --location --request POST 'http://localhost:8080/executePipeline?pipelineNa
         --data-raw '{"userName": "admin", "workflowParameters":""}'
 ```
 
+### **[execute_workflow.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/execute_workflow.py)**
+
 #### Workflow Execution
 ```
 curl -X POST "http://localhost:8080/api/v1/create/workflowexecution/309" \
@@ -143,6 +147,7 @@ curl -X POST "http://localhost:8080/api/v1/create/workflowexecution/309" \
       "workflowParameters": ""
     }'
 ```
+### [generate_token.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/generate_token.py)
 
 #### Generate Token 
 ```
