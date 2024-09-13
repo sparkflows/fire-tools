@@ -1,4 +1,4 @@
-# Application Setup Guide using Helm
+# Sparkflows Setup Guide with MySQL using Helm Charts
 
 ## Overview
 
