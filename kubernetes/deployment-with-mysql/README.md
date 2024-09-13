@@ -89,3 +89,9 @@ If the readiness or liveness probe fails, you may need to adjust the timeouts in
 If the `fire` application cannot connect to MySQL, check the following:
 - Check the `DB_HOST` in the `secrets.yaml`.
 - Verify that MySQL is running and accessible on port `3306`.
+
+---
+
+## Best Practices
+
+You can go through and utilize our best practices guide here: https://docs.sparkflows.io/en/latest/best-practices/sparkflows-installation.html
