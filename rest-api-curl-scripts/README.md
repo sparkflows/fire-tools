@@ -160,4 +160,69 @@ curl -X POST "http://localhost:8080/api/v1/tokens" \
 
 ```
 
+---
+
+### Create and Update a User
+
+#### Create a User
+```
+curl --location 'http://localhost:8080/api/v1/users' \          
+--header 'token: xxxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "active": true,
+  "email": "FnameLname@domain.com",
+  "firstName": "FName",
+   "groups": [
+    1
+  ],
+  "id":0,
+  "isSuperuser": true,
+  "lastName": "LName",
+  "password": "test@123",
+  "persona": 0,
+  "roles": [
+    1
+  ],
+  "superuser": true,
+  "username": "FL1"
+}'
+```
+
+Example Output:
+```
+User FL1 created successfully with user id 38
+```
+
+#### Update the User
+```
+curl --location 'http://localhost:8080/api/v1/users' \          
+--header 'token: xxxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "active": true,
+  "email": "NEWFnameLname@domain.com",
+  "firstName": "FName",
+   "groups": [
+    1
+  ],
+  "id":38,
+  "isSuperuser": true,
+  "lastName": "LName",
+  "password": "test@123",
+  "persona": 0,
+  "roles": [
+    1
+  ],
+  "superuser": true,
+  "username": "FL1"
+}'
+```
+
+Example Output:
+```
+User FL1 created successfully with user id 38
+```
+
+
 
