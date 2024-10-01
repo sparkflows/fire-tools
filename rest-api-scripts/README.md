@@ -170,7 +170,7 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
 
 **Command**:
 
-`python update_users.py --fire_host_url="http://localhost:8080" --access_token="xxxx" --users_file_path="users_email_csv_file_path"`
+`python update_users_profile.py --fire_host_url="http://localhost:8080" --access_token="xxxx" --users_file_path="users_email_csv_file_path"`
 
 **Arguments**:
 
@@ -184,7 +184,7 @@ The script above expects the below command line arguments:
 
 **Example to update email ids for multiple users**:
 
-`python update_users.py --fire_host_url="http://localhost:8080" --access_token="xxxx" --users_file_path="users.csv"`
+`python update_users_profile.py --fire_host_url="http://localhost:8080" --access_token="xxxx" --users_file_path="users.csv"`
 
 It will display the below output for the list of users added to the users.csv file
 
