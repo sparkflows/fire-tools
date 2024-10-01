@@ -239,7 +239,7 @@ curl --location 'http://localhost:8080/api/v1/users' \
 
 Example Output:
 ```
-User FL1 created successfully with user id 38
+User Profile of testuser updated successfully
 ```
 
 
