@@ -105,7 +105,7 @@ This script will read `project.json` file and get the Project Tag to fetch the p
 
 
 
-View, Create, Update and Delete User Details
+View, Create, Update , Delete User Details and Update Email Ids for multiple users
 ---------------------------
 
 **Script Name**: `user_create_automation.py`
@@ -163,6 +163,33 @@ test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
 **Example to update the details of users**: 
 
    `python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"`
+
+- Update Email Ids for multiple users from a csv file
+
+**Script Name**: `update_users_profile.py`
+
+**Command**:
+
+`python update_users.py --fire_host_url="http://localhost:8080" --access_token="xxxx" --users_file_path="users_email_csv_file_path"`
+
+**Arguments**:
+
+The script above expects the below command line arguments:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--users_file_path` : The path of the csv file which contains the list of data having the column names as username and email.
+
+**Example to update email ids for multiple users**:
+
+`python update_users.py --fire_host_url="http://localhost:8080" --access_token="xxxx" --users_file_path="users.csv"`
+
+It will display the below output for the list of users added to the users.csv file
+
+User Profile of testuser updated successfully
+User Profile of testuser2 updated successfully
 
    
 Import Projects
