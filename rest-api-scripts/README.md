@@ -189,6 +189,7 @@ The script above expects the below command line arguments:
 It will display the below output for the list of users added to the users.csv file
 
 User Profile of testuser updated successfully
+
 User Profile of testuser2 updated successfully
 
    
