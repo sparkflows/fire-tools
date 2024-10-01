@@ -194,6 +194,24 @@ Example Output:
 User FL1 created successfully with user id 38
 ```
 
+
+### [update_users.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/update_users.py)
+#### Update the email id for a user by username
+```
+curl --location --request PUT 'http://localhost:8080/api/v1/users/profile?username=testuser' \
+--header 'token: xxxx' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "email": "testuser@gmail.com"
+}'
+```
+
+Example Output:
+```
+User Profile of testuser updated successfully
+```
+
+
 #### Update the User
 ```
 curl --location 'http://localhost:8080/api/v1/users' \          
@@ -224,22 +242,6 @@ Example Output:
 User FL1 created successfully with user id 38
 ```
 
-
-### [update_users.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/update_users.py)
-#### Update the email id for a user by username
-```
-curl --location --request PUT 'http://localhost:8080/api/v1/users/profile?username=testuser' \
---header 'token: xxxx' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "email": "testuser@gmail.com"
-}'
-```
-
-Example Output:
-```
-User Profile of testuser updated successfully
-```
 
 
 
