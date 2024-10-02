@@ -1,4 +1,4 @@
-README
+SAMPLE NOTEBOOK APPS
 ======
 
 This folder contains some example Analytical Apps backed by Notebooks.
