@@ -1,4 +1,4 @@
-SAMPLE NOTEBOOK APPS
+Sample Notebook Apps
 ======
 
 This folder contains some example Analytical Apps backed by Notebooks.
