@@ -4,12 +4,12 @@ This repository contains a set of example notebooks that demonstrate the use of 
 
 ## Table of Contents
 
-1. [Sample Failure Progress](#sample-failure-progress)
-2. [Churn Modeling and Profiling](#churn-modeling-and-profiling)
-3. [Customer Churn Exploratory Data Analysis](#customer-churn-exploratory-data-analysis)
-4. [Campaign Analytics](#campaign-analytics)
-5. [IoT Energy Solution](#iot-energy-solution)
-6. [Demand Analysis](#demand-analysis)
+1. [Sample Failure Progress](#1-sample-failure-progress)
+2. [Churn Modeling and Profiling](#2-churn-modeling-and-profiling)
+3. [Customer Churn Exploratory Data Analysis](#3-customer-churn-exploratory-data-analysis)
+4. [Campaign Analytics](#4-campaign-analytics)
+5. [IoT Energy Solution](#5-iot-energy-solution)
+6. [Demand Analysis](#6-demand-analysis)
 
 ---
 
