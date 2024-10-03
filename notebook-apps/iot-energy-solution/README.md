@@ -9,6 +9,7 @@ The notebook demonstrates how to perform exploratory data analysis (EDA) on a IO
 ## Features
 
 - **Data Loading & Preprocessing**: Ingests and cleans IOT energy data.
+- **Debug and development Options**: The Jupyter notebook App can be run in either debug mode, when development is on the local machine or run on the SDK. In debug mode, development flag needs to be set to local (i.e. Development = local). When this flag is set, the visualizations will be displayed on the notebook along with the debug logs.
 - **Exploratory Data Analysis (EDA)**: Provides key insights into various energy metrics and correlations using visualizations and statistical summaries.
 - **Fire Notebook SDK**: Demonstrates how to integrate and manage outputs and usage of the SDK.
 - **Insights Extraction**: Delivers time series analysis of energy consumption and energy generation for different devices.
