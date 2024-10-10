@@ -2,6 +2,11 @@
 
 This repository contains a set of example notebooks that demonstrate the use of the `fire_notebook` SDK for managing outputs, progress tracking, and visualizations. Each notebook showcases different aspects of how the SDK can be integrated into data analysis workflows, from failure handling to exploratory data analysis (EDA) and modeling.
 
+## Documentation
+
+The Documentation for building Analytical Apps on Jupyter Notebooks is available here : https://docs.sparkflows.io/en/latest/jupyter-guide/analytical-apps/index.html#
+
+
 ## Table of Contents
 
 1. [Sample Failure Progress](#1-sample-failure-progress)
