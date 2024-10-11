@@ -14,6 +14,11 @@ The notebook demonstrates how to perform exploratory data analysis (EDA) on a IO
 - **Fire Notebook SDK**: Demonstrates how to integrate and manage outputs and usage of the SDK.
 - **Insights Extraction**: Delivers time series analysis of energy consumption and energy generation for different devices.
 
+## Analytical App Screenshots
+
+- Introduction
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/35c1e890-8a34-4598-a063-ef1df6c37c86">
+
 ## Requirements
 To run the notebook and utilize the **Fire Notebook SDK**, you will need the following:
 
