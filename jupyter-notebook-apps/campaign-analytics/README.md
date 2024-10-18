@@ -6,6 +6,24 @@ This repository contains a Jupyter notebook titled **ExploringDataCampaignAnalyt
 
 The notebook demonstrates how to perform exploratory data analysis (EDA) on a marketing campaign dataset, leveraging the **Fire Notebook SDK** for notebook output management.
 
+The notebook accepts the following parameters:
+
+- Campaign Type
+- Coupon Type
+- Age Group
+- Income Group
+- Martial Status
+- Home Ownership
+- Household Composition
+- Household Size From
+- Household Size To
+
+
+The below screenshot of the application UI shows the input parameters being selected which are then sent to the notebook to be processed.
+
+<img width="1283" alt="image" src="https://github.com/user-attachments/assets/288f1e70-c7d1-4a68-afa1-c0b6020493a2">
+
+
 ## Features
 
 - **Data Loading & Preprocessing**: Ingests and cleans marketing campaign data.
