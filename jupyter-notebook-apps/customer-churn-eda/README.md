@@ -6,6 +6,17 @@ This repository contains a Jupyter notebook for **Customer Churn Exploratory Dat
 
 The goal of this project is to perform an exploratory analysis of customer churn data, extracting valuable insights through Python data processing libraries and using the **Fire Notebook SDK**.
 
+The application takes in the parameters:
+- Distributor
+- Sector
+- Category
+- Sub-Category
+
+The below screenshot of the application UI shows the input parameters being selected which are then sent to the notebook to be processed.
+
+<img width="1246" alt="image" src="https://github.com/user-attachments/assets/84c25996-a00a-4495-8c24-4ea360a0f1f4">
+
+
 ## Features
 
 - **Data Loading and Preprocessing**: Loads customer churn data from a dataset and preprocesses it for analysis.
