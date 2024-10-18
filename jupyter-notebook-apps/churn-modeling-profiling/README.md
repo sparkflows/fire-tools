@@ -1,5 +1,5 @@
 # Churn Modeling and Profiling
-This repository contains a Jupyter notebook titled ChurnModelingAndProfiling.ipynb that demonstrates how to model and profile customer churn using various Python data analysis libraries. Additionally, the notebook integrates with the Fire Notebook SDK to manage the workflow and outputs.
+This repository contains a Jupyter notebook titled ChurnModelingAndProfiling.ipynb that demonstrates how to model and profile customer churn using various Python data analysis libraries. Additionally, the notebook integrates with the Fire Notebook SDK to manage the outputs.
 
 ## Overview
 The notebook provides a complete workflow for analyzing customer churn data, offering options to either profile the data or run churn prediction models. It leverages the Fire Notebook SDK to manage outputs, track progress, and handle workflow states efficiently.
