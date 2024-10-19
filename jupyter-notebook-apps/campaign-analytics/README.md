@@ -55,3 +55,10 @@ pip install https://sparkflows-release.s3.amazonaws.com/fire/jupyter-docker/fire
 
 You can follow the documentation on how to create notebooks and use the fire notebook SDK here: 
 https://docs.sparkflows.io/en/latest/jupyter-guide/analytical-apps/index.html
+
+## Output
+
+Below, you can see a plot genererated by the notebook being outputted in the UI with the help of the Fire Notebook SDK.
+
+<img width="1266" alt="image" src="https://github.com/user-attachments/assets/8ba36ed7-8f51-47ae-9839-26cde8edc513">
+
