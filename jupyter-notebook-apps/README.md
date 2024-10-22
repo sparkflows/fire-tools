@@ -15,6 +15,9 @@ The Documentation for building Analytical Apps on Jupyter Notebooks is available
 4. [Campaign Analytics](#4-campaign-analytics)
 5. [IoT Energy Solution](#5-iot-energy-solution)
 6. [Demand Analysis](#6-demand-analysis)
+7. [MySQL Connection Details](#7-mysql-connection-details)
+8. [Telco Churn Analysis](#8-telco-churn-analysis)
+9. [Progress Failure](#9-progress-failure)
 
 ---
 
@@ -97,7 +100,48 @@ The Documentation for building Analytical Apps on Jupyter Notebooks is available
 
 [Link to app folder](./demand-analysis)
 
+---
 
+### 7. MySQL Connection Details
+
+**Description**: This repository folder contains a Jupyter notebook titled notebook_connections.ipynb that demonstrates how to leverage the fire_notebook SDK to securely retrieve MySQL connection details. This approach allows for concealing sensitive connection information and credentials from application users, while still enabling seamless interaction with MySQL databases.
+
+**Key Features**:
+- `outStr()`: To output text to Fire UI
+- `outputProgress()`: To share the progress of the Notebook run as a percentage with the analytical app
+- `outPandasDataframe()`: To showcase the contents of a Pandas DataFrame as a table in Fire UI
+- `outHTML()`: To display HTML code in Fire UI
+- `outSuccess()`: To display the SUCCESSFUL execution status of the job
+- `getConnectionDetails()`: Retrieves MySQL connection details
+
+[Link to app folder](./connections-example)
+
+---
+
+### 8. Telco Churn Analysis
+
+**Description**: This repository contains a Jupyter notebook titled telco_churn_analysis.ipynb that demonstrates customer churn analysis using various Python data analysis libraries. Additionally, the notebook integrates with the Fire Notebook SDK to accept parameters and produce outputs in Fire UI.
+
+**Key Features**:
+- `outStr()`: To output text to Fire UI
+- `outputProgress()`: To share the progress of the Notebook run as a percentage with the analytical app
+- `outPandasDataframe()`: To output a pandas data frame to Fire UI
+- `outSuccess()`: To indicate the execution status of SUCCESS for the job
+
+[Link to app folder](./telco-churn-analysis)
+
+---
+
+### 9. Progress Failure
+
+**Description**: This repository folder contains a Jupyter notebook titled sample_failure_progress.ipynb that demonstrates the usage of the fire_notebook SDK on how to show failures in progress and execution.
+
+**Key Features**:
+- `outStr()`: To output text to Fire UI
+- `outputProgress()`: To share the progress of the Notebook run as a percentage with the analytical app
+- `outFailure()`: To indicate the execution status of FAILURE of the job
+
+[Link to app folder](./sample-failure-progress)
 
 ---
 
