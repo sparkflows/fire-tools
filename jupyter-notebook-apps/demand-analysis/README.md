@@ -1,11 +1,11 @@
 # Demand Analysis
 
-This repository contains a Jupyter notebook titled demand_analysis.ipynb that demonstrates how to forecast demand using various Python data analysis libraries. Additionally, the notebook integrates with the Fire Notebook SDK for accepting parameters and producing outputs in Fire UI.
+This repository contains a Jupyter notebook titled demand_analysis.ipynb that demonstrates how to perform some demand analysis using various Python data analysis libraries. Additionally, the notebook integrates with the Fire Notebook SDK for accepting parameters and producing outputs in Fire UI.
 
 
 ## Overview
 
-The notebook provides an end-to-end workflow for demand forecasting. It includes data preprocessing, visualization, and time series forecasting techniques. The Fire Notebook SDK is used to accept input parameters, manage outputs and also track progress of execution.
+The notebook provides an example on how to create a notebook for an application which performs some demand analysis. It includes data preprocessing, visualization, and time series analysis techniques. The Fire Notebook SDK is used to accept input parameters, manage outputs and also track progress of execution.
 
 The application takes in the following parameters:
 - shape
@@ -19,8 +19,6 @@ The application takes in the following parameters:
 ## Features
 - **Data Loading & Preprocessing**: Ingests and cleans time series demand data.
 - **Exploratory Data Analysis (EDA)**: Visualizes trends, seasonality, and key metrics affecting demand using interactive plots.
-- **Demand Forecasting**: Implements time series forecasting models to predict future demand.
-- **Insights Extraction**: Provides actionable insights based on the analysis and forecasting of demand trends.
 - **Fire Notebook SDK**: Demonstrates how to integrate and manage outputs and other usage and features of the SDK.
 
 ### Some SDK Functions Used:
