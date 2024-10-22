@@ -2,6 +2,37 @@
 
 This repository contains a set of example notebooks that demonstrate the use of the `fire_notebook` SDK for managing outputs, progress tracking, and visualizations. Each notebook showcases different aspects of how the SDK can be integrated into data analysis workflows, from failure handling to exploratory data analysis (EDA) and modeling.
 
+## Getting Started
+
+### Requirements
+
+To run the notebook and integrate with the Fire Notebook SDK, ensure the following dependencies are installed:
+
+- Python 3.8+
+- pandas
+- pyspark
+- plotly
+
+Download the following dependencies to be able to use the `fire_notebook` SDK:
+
+```bash
+pip install pandas pyspark plotly
+```
+
+### Downloading SDK
+
+To run these notebooks, make sure you have the `fire_notebook` SDK installed. You can install it via pip:
+
+```bash
+pip install https://sparkflows-release.s3.amazonaws.com/fire/jupyter-docker/firenotebookwheel/fire_notebook-3.1.0-py3-none-any.whl
+```
+### Importing SDK
+To import the SDK, use the following line:
+```
+from fire_notebook.output.workflowcontext import RestWorkflowContext
+```
+
+
 ## Documentation
 
 The Documentation for building Analytical Apps on Jupyter Notebooks is available here : https://docs.sparkflows.io/en/latest/jupyter-guide/analytical-apps/index.html#
@@ -145,15 +176,4 @@ The Documentation for building Analytical Apps on Jupyter Notebooks is available
 
 ---
 
-## Getting Started
 
-To run these notebooks, make sure you have the `fire_notebook` SDK installed. You can install it via pip:
-
-```bash
-pip install https://sparkflows-release.s3.amazonaws.com/fire/jupyter-docker/firenotebookwheel/fire_notebook-3.1.0-py3-none-any.whl
-```
-
-To import the SDK, use the following line:
-```
-from fire_notebook.output.workflowcontext import RestWorkflowContext
-```
