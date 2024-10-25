@@ -1,6 +1,6 @@
 # Retail Campaign Analytics Data Exploration
 
-This repository contains a Jupyter notebook titled **ExploringDataCampaignAnalytics** that analyzes campaign data using various Python data analysis libraries. Additionally, the notebook integrates with the **Fire Notebook SDK** to manage the outputs.
+This repository contains a Databricks notebook titled **campaign_analytics.ipynb** that analyzes campaign data using various Python data analysis libraries. Additionally, the notebook integrates with the **Fire Notebook SDK** to manage the outputs.
 
 ## Overview
 
