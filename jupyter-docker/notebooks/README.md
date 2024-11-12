@@ -1,177 +1,163 @@
-## Sample Notebooks
+# Sample Notebook Apps using SDK
 
-### 1. ChurnAnalysisAndPrediction.ipynb
-This is a sample notebook can be used to test the functionality of the  notebook functions: 
-#### 1. Start by initiating the connection using RestWorkflowContext.
+This repository contains a set of example notebooks that demonstrate the use of the `fire_notebook` SDK for managing outputs, progress tracking, and visualizations. Each notebook showcases different aspects of how the SDK can be integrated into data analysis workflows, from failure handling to exploratory data analysis (EDA) and modeling.
 
-By default webServerURL and jobID passed to notebook from apps as parameters.
+## Getting Started
+
+### Requirements
+
+To run the notebook and integrate with the Fire Notebook SDK, ensure the following dependencies are installed:
+
+- Python 3.8+
+- pandas
+- pyspark
+- plotly
+
+Download the following dependencies to be able to use the `fire_notebook` SDK:
+
+```bash
+pip install pandas pyspark plotly
 ```
-webserverURL = "http://localhost:8080/messageFromSparkJob"
-jobId = "123456789"
+
+### Downloading SDK
+
+To run these notebooks, make sure you have the `fire_notebook` SDK installed. You can install it via pip:
+
+```bash
+pip install https://sparkflows-release.s3.amazonaws.com/fire/jupyter-docker/firenotebookwheel/fire_notebook-3.1.0-py3-none-any.whl
+```
+### Importing SDK
+To import the SDK, use the following line:
+```
 from fire_notebook.output.workflowcontext import RestWorkflowContext
-restworkflowcontext = RestWorkflowContext(webserverURL=webserverURL, jobId=jobId)
 ```
 
-In notebook below condition can be added to support in development env:
-```
-If development == ”local”:
-	restworkflowcontext = RestWorkflowContext(debug=False)
 
-else:
-  	import sys
-    parameters_list = sys.argv
-    restworkflowcontext = RestWorkflowContext(parameters=parameters_list)
-```
-OR 
-```
-from fire_notebook.output.workflowcontext import RestWorkflowContext
-import sys
-parameters_list = sys.argv
-if len(sys.argv) > 1:
-   restworkflowcontext = RestWorkflowContext(parameters=parameters_list)
-else:
-   restworkflowcontext = RestWorkflowContext(debug=False)
-```
-Above code snippet allows the developer to test the notebook locally before it is deployed through apps.
+## Documentation
 
-#### 2. Different Notebook functions
-
-2.1> Getting Other Parameter values
-
-Below is the code snippet used in notebook to get the passed parameters value from apps to notebook.
-
-```
-#To get the parameters value
-parameter_value = restworkflowcontext.getParameters(parameter_name="key", default="Value")
-print("parameter_value for key is: "+parameter_value)
-```
-In Sparklows during app execution user can select the Profiling or Modeling value for `option` field for this notebook.
-
-```
-#"Profiling" OR "Modeling"
-option = restworkflowcontext.getParmeters(parameter_name="option", default="Profiling")
-```
-
-2.2> Displaying the Progress
- 
- Displaying the execution progress in apps from notebook functions.
- ```
-#Output Progress Message: To share the progress of the Notebook run as a percentage with the analytical app
-percentage_progress = "50"
-restworkflowcontext.outputProgress(id=9, title="Progress", progress=percentage_progress)
-
- ```
-In above function can be used in notebbok to send the progess status back to apps.
-
-2.3> Display the HTML content: Output as HTML
-
-To display HTML content in Apps, use the following code.
-
-```
-htmlstr1 = "<h3>You can view HTML code in notebooks.</h3>"
-restworkflowcontext.outHTML(9, title="Example HTML", text = htmlstr1)
-```
-
-2.4> Display the dataframe as table.
-
-To display the dataframe as table in apps.
-
-```
-restworkflowcontext.outPandasDataframe(9, "Names", df)
-
-#To display 3 rows
-restworkflowcontext.outDataFrame(9, "Names", df, 3)
-```
-
-2.5> Text, Success and Failure Messgaes
-
-To display text messsage
-```
-restworkflowcontext.outStr(9, "Test String", text="text")
-```
-
-To display success message
-```
-message = "Job Execution Completed."
-restworkflowcontext.outSuccess(9, title="Success", text=message)
-```
-
-To display failure message
-
-```
-message = "Sending the failure message."
-restworkflowcontext.outFailure(id=9, title="Failure", text=message)
-```
-
-#### 3. Summary of the notebook
-load the data from the `churn_data.csv` file.
-Profiling function returns the statistics summary of the data.
-Data Preprocessing returns size and columns in the dataset and checks for missing values.
-Data Visualization: Plots a histogram to see total_day_calls distribution. It also shows the correlation between the features using a heatmap.
-If the option is selected as Modelling, model_training function is called. This function replaces True/False strings to integers and splits the data into training and testing sets (80%-20%). It then uses RandomForestClassifier to train the model and returns the model accuracy report. 
-
-### 2. fire_notebook_functions.ipynb
-
-#### 1. To get connection details.
-
-```
-#To get the connection details
-connection_details = restworkflowcontext.getConnectionDetails(conn_name="mysql", default="host,port,database,username,password")
-print(connection_details)
-
-if connection_details is not None and connection_details != "host,port,database,username,password":
-    # Access data from the parsed JSON
-    print("Connection Name:", connection_details['connectionName'])
-    print("URL:", connection_details['url'])
-    print("Username:", connection_details['username'])
-    print("Password:", connection_details['password'])
-    print("DriverClass:", connection_details['driverClass'])
-    mysqlurl = connection_details['url']
-    restworkflowcontext.outStr(id=9, title="URL:", text=mysqlurl)
-    message = "Successfully Retreved the Connection Details!"
-    restworkflowcontext.outStr(id=9, title="Message", text=message)
-```
-
-First step is to create the connection in Sparkflows and use the name of the connection to get the details in notebook.
+The Documentation for building Analytical Apps on Jupyter Notebooks is available here : https://docs.sparkflows.io/en/latest/jupyter-guide/analytical-apps/index.html#
 
 
-Also in App create the field `CONNECTION_NAME` with values and pass it to notebook as parameter.
+## Table of Contents
 
-```
-connection_name_value = restworkflowcontext.getParmeters(parameter_name="CONNECTION_NAME", default="mysql")
+1. [Sample Failure Progress](#1-sample-failure-progress)
+2. [Churn Modeling and Profiling](#2-churn-modeling-and-profiling)
+3. [Customer Churn Exploratory Data Analysis](#3-customer-churn-exploratory-data-analysis)
+4. [Campaign Analytics](#4-campaign-analytics)
+5. [IoT Energy Solution](#5-iot-energy-solution)
+6. [Demand Analysis](#6-demand-analysis)
+7. [MySQL Connection Details](#7-mysql-connection-details)
+8. [Telco Churn Analysis](#8-telco-churn-analysis)
+9. [Progress Failure](#9-progress-failure)
 
-connection_details = restworkflowcontext.getConnectionDetails(conn_name=connection_name_value, default="host,port,database,username,password")
-```
+---
 
-connection_details gets the details of the connection as  json with all the fields like url, username, password, dbname etc.
+### 1. Sample Failure Progress
 
-#### 2. To get user details.
+**Description**: This notebook is a basic demonstration of the `fire_notebook` SDK, showing how to:
+- Output a string message during execution.
+- Display progress percentage.
+- Handle failure scenarios by providing a failure message.
 
-Below is the code snippet used in notebook to get the current user name of running apps with attached notebook.
+**Key Features**:
+- Example of `outStr()`.
+- Progress tracking with `outputProgress()`.
+- Failure message handling `outFailure()`.
 
-```
-#To get UserDetails of app execution
+---
 
-user_details = restworkflowcontext.getUserDetailsOfAppExecute()
-print(user_details)
-if user_details is not None:
-   print("username:", user_details['username'])
-   username = user_details['username']
-   restworkflowcontext.outStr(id=9, title="Current User Name: ", text=username)
+### 2. Churn Modeling and Profiling
 
-```
+**Description**: This notebook allows users to choose between profiling and modeling operations on a customer churn dataset. Based on the user’s selection, the notebook app performs the corresponding operations.
 
-#### 3. fire_html_plotly_notebook_functions.ipynb
+**Key Features**:
+- Interactive choice between profiling and modeling.
+- Conditional logic for performing different tasks using the `fire_notebook` SDK.
 
-Example notebook functions to send the html, plotly, text, success and progress messages back to apps.
+---
 
-#### 4. fire_failure_notebook_functions.ipynb
+### 3. Customer Churn Exploratory Data Analysis
 
-Example notebook to show the progress and failure messages back to app.
+**Description**: This notebook performs extensive exploratory data analysis (EDA) on a customer churn dataset. It includes visualizations created using the `outPlotly()` function from the `fire_notebook` SDK, and it demonstrates how to:
+- Provide progress updates during execution with `outputProgress()`.
+- Display running and success messages at the start and end of execution.
 
-When failure message sent to app, the current app execution status will be updated to `FAILURE`
+**Key Features**:
+- EDA on customer churn data.
+- Plotting with `outPlotly()`.
+- Progress percentage updates and status messages.
 
-```
-message = "Sending the failure message."
-restworkflowcontext.outFailure(id=9, title="Failure", text=message)
-```
+---
+
+### 4. Campaign Analytics
+
+**Description**: This notebook performs EDA on a retail campaign analytics dataset. It also includes visualizations, with charts created using the `outPlotly()` function of the `fire_notebook` SDK.
+
+**Key Features**:
+- EDA on retail campaign data.
+- Visualization with `outPlotly()` from the `fire_notebook` SDK.
+
+---
+
+### 5. IoT Energy Solution
+
+**Description**: This notebook focuses on EDA for an IoT energy dataset. It utilizes `outPlotly()` from the `fire_notebook` SDK to generate visualizations, demonstrating its ability to handle large-scale IoT data.
+
+**Key Features**:
+- EDA on IoT energy data.
+- Chart plotting with `outPlotly()`.
+
+[Link to app folder](./IOT-Energy_Solution)
+
+---
+
+### 6. Demand Analysis
+
+**Description**: This notebook demonstrates how to leverage the fire_notebook SDK while performing demand forecasting on sales data. It includes features for outputting progress, status messages, and visualizations throughout the analysis process. It serves as an example of how the SDK can be integrated into more complex analytical workflows.
+
+**Key Features**:
+
+- Real-time progress updates with `outputProgress()`.
+- Status messages to indicate execution stages with `outStr()`.
+- Interactive visualizations using `outPlotly()`.
+
+---
+
+### 7. MySQL Connection Details
+
+**Description**: This repository folder contains a Jupyter notebook titled notebook_connections.ipynb that demonstrates how to leverage the fire_notebook SDK to securely retrieve MySQL connection details. This approach allows for concealing sensitive connection information and credentials from application users, while still enabling seamless interaction with MySQL databases.
+
+**Key Features**:
+- `outStr()`: To output text to Fire UI
+- `outputProgress()`: To share the progress of the Notebook run as a percentage with the analytical app
+- `outPandasDataframe()`: To showcase the contents of a Pandas DataFrame as a table in Fire UI
+- `outHTML()`: To display HTML code in Fire UI
+- `outSuccess()`: To display the SUCCESSFUL execution status of the job
+- `getConnectionDetails()`: Retrieves MySQL connection details
+
+---
+
+### 8. Telco Churn Analysis
+
+**Description**: This repository contains a Jupyter notebook titled telco_churn_analysis.ipynb that demonstrates customer churn analysis using various Python data analysis libraries. Additionally, the notebook integrates with the Fire Notebook SDK to accept parameters and produce outputs in Fire UI.
+
+**Key Features**:
+- `outStr()`: To output text to Fire UI
+- `outputProgress()`: To share the progress of the Notebook run as a percentage with the analytical app
+- `outPandasDataframe()`: To output a pandas data frame to Fire UI
+- `outSuccess()`: To indicate the execution status of SUCCESS for the job
+
+---
+
+### 9. Progress Failure
+
+**Description**: This repository folder contains a Jupyter notebook titled sample_failure_progress.ipynb that demonstrates the usage of the fire_notebook SDK on how to show failures in progress and execution.
+
+**Key Features**:
+- `outStr()`: To output text to Fire UI
+- `outputProgress()`: To share the progress of the Notebook run as a percentage with the analytical app
+- `outFailure()`: To indicate the execution status of FAILURE of the job
+
+---
+
+
