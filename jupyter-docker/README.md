@@ -34,17 +34,21 @@ The wheel file needs the following dependencies:
 
 ### Sample Notebooks in the `notebooks` directory
 
-There are four sample Jupyter Notebooks in the notebooks folder to test some of the various functionalites:
+There are some sample Jupyter Notebooks in the notebooks folder to test some of the various functionalites:
 
-* fire_failure_notebook_functions.ipynb
-* fire_html_plotly_notebook_functions.ipynb
-* fire_notebook_functions.ipynb
-
-* ChurnAnalysisAndPrediction.ipynb
+1. Sample Failure Progress
+2. Churn Modeling and Profiling
+3. Customer Churn Exploratory Data Analysis
+4. Campaign Analytics
+5. IoT Energy Solution
+6. Demand Analysis
+7. MySQL Connection Details
+8. Telco Churn Analysis
+9. Progress Failure
 
 ### Sample Datasets in the `datasets` directory
 
-The datasets folder contains the churn dataset that is used by the sample notebook ``ChurnAnalysisAndPrediction.ipynb``, which performs some data preprocessing, data visualization, modelling and uses RandomForestClassifier to train the model and returns a model accuracy report.
+The datasets folder contains the datasets that are used by the sample notebooks, which performs some data preprocessing, data visualization or modelling.
 
 
 ## Docker File Details
