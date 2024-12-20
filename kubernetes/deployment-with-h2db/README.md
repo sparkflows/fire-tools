@@ -107,7 +107,6 @@ kubectl apply -f deployment.yaml
 
 # Notes 
 
-Make sure to have backup of db (firedb) available on mounted path.
-
+Update Sparkflows Image based on release, which would be shared by Sparkflows and copy the db(firedb) available on mounted path.
 
 
