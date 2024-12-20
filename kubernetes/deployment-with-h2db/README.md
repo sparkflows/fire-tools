@@ -105,5 +105,9 @@ Once you’ve deleted the deployment, re-create the service. We need to do this,
 kubectl apply -f deployment.yaml
 ```
 
+# Notes 
+
+Make sure to have backup of db (firedb) available on mounted path.
+
 
 
