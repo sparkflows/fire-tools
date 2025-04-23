@@ -1,36 +1,30 @@
-
 # CLI Scripts
 
 Following Python scripts allow users to interact with Fire REST API's.
 
-Prerequisites
--------------
+## Prerequisites
 
 Python 3.7+ is needed.
 
 The following libraries need to be installed:
 
-* `pip install pandas`
-* `pip install requests`
-* `pip install aiohttp`
+- `pip install pandas`
+- `pip install requests`
+- `pip install aiohttp`
 
-
-Generating Access Token
--------------------------
+## Generating Access Token
 
 For interacting with Fire REST API's access token is required. The steps to generate the same can be found in the page below:
 
 https://docs.sparkflows.io/en/latest/rest-api/rest-api-authentication/acquire-token-curl.html
 
-Swagger UI
--------------------------
+## Swagger UI
 
 For information on enabling and accessing SwaggerUI review the docs below:
 
 https://docs.sparkflows.io/en/latest/installation/monitoringandmetrics/rest-api.html
 
-Fetch All Active Users and Groups
----------------------------
+## Fetch All Active Users and Groups
 
 **Script Name**: `active_users_and_groups.py`
 
@@ -52,12 +46,11 @@ This script retrieves all active users and their groups. It then writes these de
 
 This will write a csv file containing all active users and groups of this url
 
-Display or hide Apps
-----------------------
+## Display or hide Apps
 
 **Script Name**: `display-hide-apps.py`
 
-This script displays or hide apps based on the customer’s licensed use case. Ex: sales & marketing customers should only see apps that are Sales & Marketing related. It would be done via the usecase of each app.  If the usecase of the fire app matches the use case in yaml (ex: marketing or finance), that app will be displayed. Any usecase of app not matching the customer’s use case will be hidden.
+This script displays or hide apps based on the customer’s licensed use case. Ex: sales & marketing customers should only see apps that are Sales & Marketing related. It would be done via the usecase of each app. If the usecase of the fire app matches the use case in yaml (ex: marketing or finance), that app will be displayed. Any usecase of app not matching the customer’s use case will be hidden.
 
 **Command**:
 
@@ -75,16 +68,15 @@ This script displays or hide apps based on the customer’s licensed use case. E
 
 `python display-hide-apps.py http://localhost:8080 cacaksncaskjuuonn777-cdck config.yaml`
 
-Load Apps
--------------
+## Load Apps
 
 **Script Name**: `load-app.py`
 
 This script will read `project.json` file and get the Project Tag to fetch the projects to be updated. Then it would read through all the Projects listed one by one and would read all the Apps in the Project. For each App, it would find the corresponding App based on UUID of the App in Fire and:
 
-   1. Update, if it exists. 
-   2. Create a new one if it does not exist. 
-   3. Hide apps if doesn’t exist in zip file
+1.  Update, if it exists.
+2.  Create a new one if it does not exist.
+3.  Hide apps if doesn’t exist in zip file
 
 **Command**:
 `python load-app.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="/sah/trud/" --group_name="abc"`
@@ -103,10 +95,7 @@ This script will read `project.json` file and get the Project Tag to fetch the p
 
 `python load-app.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="/sah/trud/" --group_name="abc"`
 
-
-
-View, Create, Update , Delete User Details and Update Email Ids for multiple users
----------------------------
+## View, Create, Update , Delete User Details and Update Email Ids for multiple users
 
 **Script Name**: `user_create_automation.py`
 
@@ -132,11 +121,9 @@ If you would like to create or update a user:
 
 `python user_create_automation.py <fire_host_url> <access_token> <username> <password> <firstName> <lastName> <email> <roles> <groups> <userId>`
 
-
-
 - Create/update User details based on provided list of users in the file.
 
-**Command**: 
+**Command**:
 
 `python users_create_automation.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --users_file_path="path_of_file_with_list_of_users"`
 
@@ -150,7 +137,7 @@ The script above expects the below command line arguments:
 
 `--users_file_path` : The path of the file which has the list of Users. Format of each row in the file should be in the format below.Multiple roles and group ids can be separated with pipe.
 
-```<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>```
+`<username>,<password>,<first_name>,<last_name>,<email>,<role_ids>,<group_ids>,<is_superuser>,<is_active>`
 
 **Example to update only one role and group along with other properties**:
 
@@ -159,10 +146,10 @@ test,test@123,test,test,test@email.com,role1,group1,true,true
 **Example to update multiple roles and groups along with other properties**:
 
 test,test@123,test,test,test@email.com,role1|role2,group1|group1,true,true
-   
-**Example to update the details of users**: 
 
-   `python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"`
+**Example to update the details of users**:
+
+`python users_create_automation.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --users_file_path="new_users_file_path"`
 
 - Update Email Ids for multiple users from a csv file
 
@@ -192,9 +179,7 @@ User Profile of testuser updated successfully
 
 User Profile of testuser2 updated successfully
 
-   
-Import Projects
-----------------------
+## Import Projects
 
 **Script Name**: `import_project.py`
 
@@ -218,24 +203,19 @@ The script above expects the below command line arguments:
 
 `--project_id` : Pass the project ID if the project needs to be imported/updated into one of the existing project. This will not create a new project.
 
-   
-
 **Example to import as a new project**:
 
 `python import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics"`
 
 Projects_133535.zip can have multiple project folders. The comand above will create the new project with name analytics.
-   
-   
-**Example to import into an existing project**: 
+
+**Example to import into an existing project**:
 
 `import_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_zip_path="Projects_133535.zip" --selected_project_name="analytics" --project_id "42"`
-   
+
 The command above will update the existing project with id 42.
-   
-   
-Export Projects
-----------------------
+
+## Export Projects
 
 **Script Name**: `export_project.py`
 
@@ -255,21 +235,21 @@ The script above expects the below command line arguments:
 
 `--project_ids` : Pass the project ID's of the porjects that need to be Exported seperated by a Pipe operator
 
-**Example to export multiple projects**:  
+**Example to export multiple projects**:
 
-   `python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"`
-   
-   The command above will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
+`python export_project.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_ids="1|3"`
 
-Workflow Metric Reporter
-----------------------
+The command above will create one zipfolder with separate sub-folder for each project id that is passed in via the --project_ids argument.
+
+## Workflow Metric Reporter
+
 **Script Name**: `workflow_metric_reporter.py`
 
 This script will export a csv file containing execution results regarding a specified project_id.
 
 **Command**:
 
-`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`  
+`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`
 
 The script above expects the below command line arguments:
 
@@ -279,26 +259,25 @@ The script above expects the below command line arguments:
 
 `--project_id` : The Project ID whose executions you want to export
 
-`--summary` : Optional Parameter if included descriptive csv is returned as well. 
+`--summary` : Optional Parameter if included descriptive csv is returned as well.
 
+`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
 
-   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
+The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow.
 
-   The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
-   
-   `python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
-   
-   The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
+`python workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
 
-Async Workflow Metric Reporter
-----------------------
+The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions.
+
+## Async Workflow Metric Reporter
+
 **Script Name**: `async_workflow_metric_reporter.py`
 
 This script will export a csv file containing execution results regarding a specified project_id. It works the same as workflow_metric_reporter just faster.
 
 **Command**:
 
-`python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`  
+`python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary=True`
 
 The script above expects the below command line arguments:
 
@@ -308,16 +287,43 @@ The script above expects the below command line arguments:
 
 `--project_id` : The Project ID whose executions you want to export
 
-`--summary` : Optional Parameter if included descriptive csv is returned as well. 
+`--summary` : Optional Parameter if included descriptive csv is returned as well.
 
+`python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
 
-   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1" --summary`
+The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow.
 
-   The command above will create 3 csv files containing information regarding project 1. One general csv file containing all executions, one csv file containing the average latency of each workflow, one containing the workflows sorted by exeuction time, and one csv file containing the execution status count for each workflow. 
-   
-   `python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
-   
-   The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions. 
+`python async_workflow_metric_reporter.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --project_id="1"`
 
+The command above will create 1 csv file containing information regarding project 1. One general csv file containing all executions.
 
-   
+## Import Workflows
+
+**Script Name**: `import_workflow.py`
+
+This script will import workflows into an existing project. It provides options to handle UUID conflicts when importing workflows.
+
+**Command**:
+
+`python import_workflow.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_json_path="Workflow_xxxx.json" --project_id="123" --uuid_option="createNewUUID"`
+
+**Arguments**:
+
+`--fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`--access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`--workflow_json_path` : The json file containing the workflow that needs to be imported.
+
+`--project_id` : The ID of the project where the workflow should be imported.
+
+`--uuid_option` : Optional parameter to handle UUID conflicts. Available options:
+
+- createNewUUID (default): Creates new UUID for the workflow
+- createNewUUIDIfExist: Creates new UUID only if a workflow with same UUID exists
+
+**Example**:
+
+`python import_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_json_path="Workflow_123.json" --project_id="456" --uuid_option="createNewUUID"`
+
+This command will import the workflow from Workflow_123.zip into project with ID 456, creating a new UUID for the workflow.
