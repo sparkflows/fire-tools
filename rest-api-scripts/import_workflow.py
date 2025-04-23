@@ -9,9 +9,9 @@ import argparse
 #python import_workflow.py --fire_host_url="https://localhost:8080" --access_token="token123" --workflow_zip_path="Workflow_123.zip" --project_id="456" --uuid_option="createNewUUID"
 #***********************************
 def import_workflow(token: str, fire_host: str, file_path: str, proj_id: str, uuid_option: str):
-    import_wf_api_url = fire_host + "/api/v1/workflows/import"
+    import_wf_api_url = fire_host + f"/api/v1/workflows/import?projectId={proj_id}&uuidOption={uuid_option}"
 
-    api_call_headers = {'token': token, 'projectId': proj_id, 'uuidOption': uuid_option}
+    api_call_headers = {'token': token}
 
     files = {
         'file': (file_path, open(file_path, 'rb'))
