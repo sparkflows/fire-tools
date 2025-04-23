@@ -305,7 +305,7 @@ This script will import workflows into an existing project. It provides options 
 
 **Command**:
 
-`python import_workflow.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_zip_path="Workflow_xxxx.zip" --project_id="123" --uuid_option="createNewUUID"`
+`python import_workflow.py --fire_host_url="https://host_name:port" --access_token="xxxxxxxxxxxx" --workflow_json_path="Workflow_xxxx.json" --project_id="123" --uuid_option="createNewUUID"`
 
 **Arguments**:
 
@@ -313,7 +313,7 @@ This script will import workflows into an existing project. It provides options 
 
 `--access_token` : The access token generated from the Administrative tab of Sparkflows.
 
-`--workflow_zip_path` : The zip file containing the workflow that needs to be imported.
+`--workflow_json_path` : The json file containing the workflow that needs to be imported.
 
 `--project_id` : The ID of the project where the workflow should be imported.
 
@@ -324,6 +324,6 @@ This script will import workflows into an existing project. It provides options 
 
 **Example**:
 
-`python import_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_zip_path="Workflow_123.zip" --project_id="456" --uuid_option="createNewUUID"`
+`python import_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_json_path="Workflow_123.json" --project_id="456" --uuid_option="createNewUUID"`
 
 This command will import the workflow from Workflow_123.zip into project with ID 456, creating a new UUID for the workflow.
