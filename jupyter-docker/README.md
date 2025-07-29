@@ -1,6 +1,6 @@
 ## Create Analytical Apps using Jupyter Notebooks
 
-Fire Insights provides a workbench for creating the frontend of Analytical Apps. The backend can be Jupyter Notebook. The Jupyter Notebook would receive input parameters from the Analytical App, process it and output the results to be displayed in the App for the user.
+Fire Insights provides a workbench for creating the frontend of Analytical Apps. The backend logic of the App can be in a Jupyter Notebook. The Jupyter Notebook would receive input parameters from the Analytical App, process it and output the results to be displayed in the App for the user.
 
 This document describes the steps to create a Docker image which would execute the Jupyter Notebook.
 
