@@ -53,7 +53,7 @@ RUN cd ${APP_HOME} && \
     pip install kfp==1.8.1 && \
     pip install kubernetes==18.20.0 && \
     pip install numpy==1.21 && \
-    pip install notebook && \
+    pip install notebook==6.5.6 && \
     pip install ${APP_HOME}/fire_notebook-3.1.0-py3-none-any.whl && \
     pip install plotly
 
