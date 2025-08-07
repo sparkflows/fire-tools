@@ -55,7 +55,7 @@ RUN cd ${APP_HOME} && \
     pip install numpy==1.21 && \
     pip install notebook==6.5.6 && \
     pip install ${APP_HOME}/fire_notebook-3.1.0-py3-none-any.whl && \
-    pip install plotly
+    pip install plotly==5.24.0
 
 RUN cd /usr/bin && sudo ln -s python3.8 /usr/bin/python
 
