@@ -1,4 +1,4 @@
-# Retail Campaign Analytics Data Exploration
+# Demand Forecasting and Analysis
 
 In this project, we forecast sales for the next 3 months for 50 different products across 10 different stores using 5 years of store-item sales data. The dataset includes daily sales figures for each store and product. We've applied various techniques to analyze this time series data and predict future demand using machine learning methods.
 
