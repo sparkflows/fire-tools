@@ -1,6 +1,6 @@
-# Customer Churn Exploratory Data Analysis
+# Customer Churn Analysis
 
-This repository contains a Databricks notebook for **Customer Churn Exploratory Data Analysis (EDA)** using the **Fire Notebook SDK**. The notebook helps in analyzing customer churn data, integrating Fire Notebook SDK for producing outputs with Python.
+This repository contains a Databricks notebook for **Customer Churn Analysis** using the **Fire Notebook SDK**. The notebook helps in analyzing customer churn data, integrating Fire Notebook SDK for producing outputs with Python.
 
 ## Overview
 
