@@ -25,7 +25,6 @@ def execute_pipeline(fire_host, token, pipeline_name,project_id):
         "token": token
     }
     data = {
-        "userName": "admin",
         "workflowParameters": ""
     }
     execute_pipeline_api_response = requests.post(execute_pipeline_api_url, json=data, headers=api_call_headers)
