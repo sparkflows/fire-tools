@@ -41,8 +41,10 @@ spec:
             - secretRef:
                 name: sparkflows-db-secret
           env:
+          - name: DB
+            value: "mysql"
           - name: DOCKER_HOST
-            value: tcp://localhost:2376
+            value: tcp://localhost:2376  
           - name: DOCKER_TLS_VERIFY
             value: "1"
           - name: DOCKER_CERT_PATH
