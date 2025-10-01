@@ -73,14 +73,23 @@ def export_roles_with_users(fire_host: str, token: str, role_filter: Optional[st
 
     for u in users:
         username = str(u.get("username", "") or "")
-        user_role_ids = u.get("roles") or []
-        if not isinstance(user_role_ids, list):
+        raw_roles = u.get("roles") or []
+        if not isinstance(raw_roles, list):
             continue
-        for rid in user_role_ids:
-            try:
-                rid_int = int(rid)
-            except Exception:
-                continue
+
+        for item in raw_roles:
+            rid_int = None
+            if isinstance(item, dict):  
+                try:
+                    rid_int = int(item.get("id"))
+                except Exception:
+                    continue
+            else:  
+                try:
+                    rid_int = int(item)
+                except Exception:
+                    continue
+
             rname = role_id_to_name.get(rid_int)
             if rname:
                 role_name_to_users.setdefault(rname, []).append(username)
