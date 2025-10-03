@@ -11,6 +11,7 @@ The following libraries need to be installed:
 - `pip install pandas`
 - `pip install requests`
 - `pip install aiohttp`
+- `pip install urllib3`
 
 ## Generating Access Token
 
@@ -327,3 +328,50 @@ This script will import workflows into an existing project. It provides options 
 `python import_workflow.py --fire_host_url="https://localhost:8080" --access_token="cacaksncaskjuuonn777-cdck" --workflow_json_path="Workflow_123.json" --project_id="456" --uuid_option="createNewUUID"`
 
 This command will import the workflow from Workflow_123.zip into project with ID 456, creating a new UUID for the workflow.
+
+## Fetch all Users Associated to a Role
+
+**Script Name**: `get_users_by_roles.py`
+
+This script retrieves all users for a specific role or gets all users for all the roles present. It then writes these details into a csv file.
+
+**Command**:
+
+`python get_users_by_roles.py <fire_host_url> <access_token> --role “role_name”`
+
+**Arguments**:
+
+`fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`role_name` : The role name to get associated users for. (role_name is case insensitive , optional field).
+
+**Example 1**:
+
+`python get_users_by_roles.py http://localhost:8080 cacaksncaskjuuonn777-cdck --role “Data Scientist”`
+
+The above command writes a CSV file named **roles_users.csv** with two headers: **role** and **users**. The file will contain a **single row**, where the role column has the role name passed in the command, and the users column lists the associated users as a comma-separated string.
+
+**roles_users.csv** would contain data in the below format -
+
+```
+role,users
+Data Scientist,"alice.smith@example.com,bob.jones@example.com,charlie.wang@example.com"
+```
+
+**Example 2**:
+
+`python get_users_by_roles.py http://localhost:8080 cacaksncaskjuuonn777-cdck`
+
+The above command where in if **no role name** is provided, the command writes a CSV file named **roles_users.csv** with two headers: **role** and **users**. The file will contain **one row per role for all the roles that have been created**, where the role column has the role name and the users column lists all users associated with that role as a comma-separated string.
+
+**roles_users.csv** would contain data in the below format -
+
+```
+role,users
+ADMIN,admin@example.com
+DATA ANALYST,"dana.lee@example.com,eric.miller@example.com"
+DATA SCIENTIST,"alice.smith@example.com,bob.jones@example.com,charlie.wang@example.com"
+BUSINESS ANALYST,"fiona.khan@example.com,george.li@example.com"
+```
