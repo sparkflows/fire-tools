@@ -1,0 +1,39 @@
+{
+  "id": "11",
+  "name": "Read CSV",
+  "iconImage": "/images/icons/node-icon/csv.svg",
+
+  "description": "It reads in CSV files and creates a DataFrame from it.",
+  "input": "It reads in CSV text files",
+  "output": "It creates a DataFrame from the data read and sends it to its output",
+  "hint": "Infer the schema when a new file is selected or the file content has changed",
+  "type": "dataset",
+  "engine": "all",
+  "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+  "fields" : [
+    {"name":"path", "display":true,"value":"", "widget": "textfield", "required":true, "title": "Path", "description": "Path of the file/directory"},
+    {"name":"separator", "value":",", "widget": "textfield", "title": "Separator", "description": "CSV Separator"},
+    {"name": "header", "value":"true", "widget": "array", "title": "Header", "optionsArray": ["true","false"],
+            "description": "Whether the file has a header row"},
+    {"name": "dropSpecialCharacterInColumnName", "value":"false", "widget": "array", "title": "Drop Special Character In ColumnName", "optionsArray": ["true","false"],
+      "description": "Whether to drop the Special Characters and Spaces in Column Name."},
+    {"name": "mode", "value":"PERMISSIVE", "widget": "array", "title": "Mode", "optionsArray": ["PERMISSIVE","DROPMALFORMED","FAILFAST"],
+      "description": "Mode for dealing with corrupt records during parsing."},
+    {"name": "enforceSchema", "value":"false", "widget": "array", "title": "Enforce Schema", "optionsArray": ["false","true"],
+      "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true."},
+    {"name": "addInputFileName", "value":"false", "widget": "array", "title": "Whether to Add Input File Name as Column in the Dataframe", "optionsArray": ["false","true"],
+      "description": "Add the new field:input_file_name"},
+    {"name": "encoding", "value":"UTF-8", "widget": "textfield", "title": "Encoding", "description": "Decodes the CSV files by the given encoding type"},
+    {"name":"quote", "value":"\"", "widget": "textfield", "title": "Quote", "description": "Sets a single character used for escaping quoted values where the separator can be part of the value"},
+    {"name":"escape", "value":"\\", "widget": "textfield", "title": "Escape", "description": "Sets a single character used for escaping quotes inside an already quoted value."},
+    {"name": "schema", "value": "", "widget": "tab", "title": "InferSchema"},
+    {"name":"outputColNames", "value":"[]", "widget": "schema_col_names", "title": "Column Names for the CSV", "description": "New Columns from CSV"},
+    {"name":"outputColTypes", "value":"[]", "widget": "schema_col_types", "title": "Column Types for the CSV", "description": "Data Type of the Output Columns"},
+    {"name":"outputColFormats", "value":"[]", "widget": "schema_col_formats", "title": "Column Formats for the CSV", "description": "Format of the Output Columns"},
+
+    {"name": "properties", "value": "", "widget": "tab", "title": "Properties"},
+    {"name": "extraOptionsKeys", "value":"[]", "widget": "key_array", "title": "Properties Name", "description": "Extra options/properites available while executing in Read CSV."},
+    {"name": "extraOptionsValues", "value":"[]", "widget": "value_array", "title": "Properties Value", "description": "Config Values for the Corresponding properites name"}
+
+  ]
+}
