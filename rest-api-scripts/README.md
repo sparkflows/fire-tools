@@ -375,3 +375,27 @@ DATA ANALYST,"dana.lee@example.com,eric.miller@example.com"
 DATA SCIENTIST,"alice.smith@example.com,bob.jones@example.com,charlie.wang@example.com"
 BUSINESS ANALYST,"fiona.khan@example.com,george.li@example.com"
 ```
+
+## Fetch Run Id By Passing the Activity Id
+
+**Script Name**: `get_run_id_by_activity_id.py`
+
+This script retrieves run_id when given a valid activityId as the input parameter and prints it on the console.
+
+**Command**:
+
+`python get_run_id_by_activity_id.py <fire_host_url> <access_token> --activityId 1234`
+
+**Arguments**:
+
+`fire_host_url` : The URL in the format http://host_ip:port where Sparkflows is running.
+
+`access_token` : The access token generated from the Administrative tab of Sparkflows.
+
+`activityId` : The activityId whose associated run_id is to be retrieved (valid integer number).
+
+**Example**:
+
+`python get_run_id_by_activity_id.py http://localhost:8080 cacaksncaskjuuonn777-cdck --activityId 1234`
+
+The above command prints the **run_id** associated to the **activityId** passed as the input parameter for the python script.
