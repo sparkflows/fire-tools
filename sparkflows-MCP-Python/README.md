@@ -31,7 +31,7 @@ Server starts on: `http://localhost:8090/`
 
 ---
 
-## API (JSON-RPC-ish)
+## 1. API (JSON-RPC-ish)
 
 Single POST endpoint at `/`. Send a JSON-RPC-like body:
 
@@ -150,6 +150,56 @@ curl -s http://localhost:8090/ \
   -H 'Content-Type: application/json' \
   -d '{"id":"4","jsonrpc":"2.0","method":"tools/call","params":{"name":"CreateExtractionLegoBlock","arguments":{"first_string":"hello ","second_string":"world"}}}' | jq
 ```
+
+---
+## 2. MCP HTTP Transport (SSE + message POST)
+
+- Open an SSE stream: `GET /sse`  
+    The server returns a **session id**:
+    - As **header** `Mcp-Session-Id`, and
+    - As the first SSE event: `event: session` / `data: {"sid":"<SESSION_ID>"}`
+
+- Send JSON-RPC messages to: `POST /mcp/message`  
+    Include header **`Mcp-Session-Id: <SESSION_ID>`**.  
+    The server pushes the **actual JSON-RPC response over SSE** (`event: rpc`).  
+    (The POST itself returns a small ack by default.)
+
+**Open SSE & grab SID (method A: header)**
+
+`curl -s -D - http://localhost:8090/sse -o /dev/null \ | awk 'BEGIN{IGNORECASE=1} /^Mcp-Session-Id:/{sub(/^[^:]*:[[:space:]]*/,""); print}'`
+
+**Open SSE & grab SID (method B: first event)**
+
+`curl -N http://localhost:8090/sse # output starts with: # event: session # data: {"sid":"<SESSION_ID>"}`
+
+**Send messages referencing that session**
+
+```bash
+SID="<SESSION_ID>"
+
+# initialize
+curl -s http://localhost:8090/mcp/message \
+  -H 'Content-Type: application/json' \
+  -H "Mcp-Session-Id: $SID" \
+  -d '{"id":"1","jsonrpc":"2.0","method":"initialize","params":{}}'
+
+# tools/list
+curl -s http://localhost:8090/mcp/message \
+  -H 'Content-Type: application/json' \
+  -H "Mcp-Session-Id: $SID" \
+  -d '{"id":"2","jsonrpc":"2.0","method":"tools/list","params":{}}'
+
+```
+
+**Watch responses on the SSE stream** (another terminal):
+```bash
+curl -N http://localhost:8090/sse \
+| awk '/^data: /{sub(/^data: /,""); print}' \
+| jq .
+
+```
+
+> ⚠️ Keep the SSE connection open while posting messages. If the SSE client disconnects, the session is removed (unless you enabled a TTL). Reopen `/sse` to get a new SID.
 
 ---
 
