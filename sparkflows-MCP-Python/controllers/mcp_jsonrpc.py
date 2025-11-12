@@ -1,20 +1,45 @@
+"""
+controllers/mcp_jsonrpc.py
+
+FastAPI controller that exposes:
+  1) A simple JSON-RPC-like endpoint at POST "/"
+  2) MCP-style HTTP transport:
+       - GET  /sse           -> opens an SSE stream; returns a session id in headers
+       - POST /mcp/message   -> accepts JSON-RPC requests, routes replies via that SSE session
+
+This mirrors the Java Spring AI MCP WebMVC transport pattern while preserving the
+easy curl-able "/" endpoint for direct tests.
+"""
+
 from fastapi import APIRouter, Request
-from typing import Any, Dict, List, Optional, Tuple
+from fastapi.responses import JSONResponse
+from sse_starlette.sse import EventSourceResponse
+
+from typing import Any, Dict, List, Tuple
+import asyncio
+import json
+import time
+import uuid
 
 from services.mysql_mcp_service import MySqlMcpService
 
+# Setup
 router = APIRouter()
 svc = MySqlMcpService()
 
-# ---- helpers ------------------------------------------------
+# Session registry for SSE: sid -> asyncio.Queue (server -> client messages)
+_sessions: Dict[str, asyncio.Queue] = {}
+
+
+# Helpers
 
 def _tool_entry(
     name: str,
     description: str,
     properties: Dict[str, Any],
-    required: List[str]
+    required: List[str],
 ) -> Dict[str, Any]:
-    # Mirrors the Java controller's tools/list shape
+    """Build a tool descriptor (mirrors the Java controller's tools/list shape)."""
     return {
         "name": name,
         "description": description,
@@ -35,36 +60,56 @@ def _tool_entry(
         },
     }
 
+
 def _ok_content(text: str) -> Dict[str, Any]:
+    """Wrap a tool's successful payload into MCP 'content' envelope."""
     return {"content": [{"type": "text", "text": text}], "isError": False}
 
+
 def _err_content(msg: str) -> Dict[str, Any]:
+    """Wrap an error message into MCP 'content' envelope."""
     return {"content": [{"type": "text", "text": f"Error: {msg}"}], "isError": True}
 
-# ---- tools/list (same as Java) -------------------------------
 
 def _tools_list() -> Dict[str, Any]:
+    """Return the tools metadata (same as Java)."""
     tools: List[Dict[str, Any]] = []
 
-    # Workflow Tools (resource-backed)
-    tools.append(_tool_entry("createWorkflow",
+    # Resource-backed tools
+    tools.append(_tool_entry(
+        "createWorkflow",
         "Create workflow - returns the workflow JSON",
-        {}, []))
-    tools.append(_tool_entry("LegoblockXMLParser",
+        {},
+        []
+    ))
+    tools.append(_tool_entry(
+        "LegoblockXMLParser",
         "Lego Block: Execute Generic XML Parser (a wrapper around Spark XML)",
-        {}, []))
-    tools.append(_tool_entry("LegoblockXMLMapping",
+        {},
+        []
+    ))
+    tools.append(_tool_entry(
+        "LegoblockXMLMapping",
         "Lego Block: Execute Mapping Language Pipeline (a wrapper around Mapping Language Engine)",
-        {}, []))
-    tools.append(_tool_entry("createPipelineNode",
+        {},
+        []
+    ))
+    tools.append(_tool_entry(
+        "createPipelineNode",
         "Create pipeline node - returns the pipeline node JSON",
-        {}, []))
-    tools.append(_tool_entry("createWorkflowNode",
+        {},
+        []
+    ))
+    tools.append(_tool_entry(
+        "createWorkflowNode",
         "Create workflow node - returns the workflow node JSON",
-        {}, []))
+        {},
+        []
+    ))
 
-    # Extraction Lego Block (toy example)
-    tools.append(_tool_entry("CreateExtractionLegoBlock",
+    # Constructed tools
+    tools.append(_tool_entry(
+        "CreateExtractionLegoBlock",
         "Create an extraction lego block by combining 2 strings",
         {
             "first_string": {"type": "string", "description": "First string"},
@@ -73,8 +118,8 @@ def _tools_list() -> Dict[str, Any]:
         ["first_string", "second_string"]
     ))
 
-    # Logo block XML (toy example to mirror Java)
-    tools.append(_tool_entry("logoblockXMl",
+    tools.append(_tool_entry(
+        "logoblockXMl",
         "Create a small XML block descriptor",
         {
             "ClusterId": {"type": "string", "description": "Cluster ID"},
@@ -84,20 +129,18 @@ def _tools_list() -> Dict[str, Any]:
         ["ClusterId", "StepName", "deploy-mode"]
     ))
 
-    # Read CSV tool
-    tools.append(_tool_entry("ReadCSV",
+    tools.append(_tool_entry(
+        "ReadCSV",
         "Read CSV file from the specified path",
-        {
-            "path": {"type": "string", "description": "Path to the CSV file to read"}
-        },
+        {"path": {"type": "string", "description": "Path to the CSV file to read"}},
         ["path"]
     ))
 
     return {"tools": tools}
 
-# ---- initialize (same spirit as Java) ------------------------
 
 def _initialize() -> Dict[str, Any]:
+    """Return MCP initialize payload (similar to Java)."""
     return {
         "protocolVersion": "2024-11-05",
         "capabilities": {
@@ -113,11 +156,14 @@ def _initialize() -> Dict[str, Any]:
         },
     }
 
-# ---- tools/call dispatcher -----------------------------------
 
 def _call_tool(name: str, arguments: Dict[str, Any]) -> Tuple[bool, str]:
-    """Returns (ok, payload_string) to wrap into MCP content shape."""
+    """
+    Dispatch a tool call and return (ok, payload_string).
+    The payload_string is what we place into 'content[0].text' to mirror Java behavior.
+    """
     try:
+        # Resource-backed tools
         if name == "createWorkflow":
             return True, svc.createWorkflow()
         if name == "LegoblockXMLParser":
@@ -129,6 +175,7 @@ def _call_tool(name: str, arguments: Dict[str, Any]) -> Tuple[bool, str]:
         if name == "createWorkflowNode":
             return True, svc.createWorkflowNode()
 
+        # Constructed tools
         if name == "CreateExtractionLegoBlock":
             a = arguments or {}
             s1 = a.get("first_string", "")
@@ -141,7 +188,6 @@ def _call_tool(name: str, arguments: Dict[str, Any]) -> Tuple[bool, str]:
                 "result": {"combined": f"{s1}{s2}"},
                 "next_steps": {},
             }
-            import json
             return True, json.dumps(result, ensure_ascii=False, indent=2)
 
         if name == "logoblockXMl":
@@ -159,20 +205,17 @@ def _call_tool(name: str, arguments: Dict[str, Any]) -> Tuple[bool, str]:
                 },
                 "next_steps": {},
             }
-            import json
             return True, json.dumps(result, ensure_ascii=False, indent=2)
 
         if name == "ReadCSV":
             a = arguments or {}
             path = a["path"]
-            # Mirror Java: return a small, declarative JSON blob
             result = {
                 "tool_name": "ReadCSV",
                 "status": "success",
                 "result": {"path": path, "format": "csv"},
                 "next_steps": {},
             }
-            import json
             return True, json.dumps(result, ensure_ascii=False, indent=2)
 
         # Unknown tool
@@ -183,10 +226,15 @@ def _call_tool(name: str, arguments: Dict[str, Any]) -> Tuple[bool, str]:
     except Exception as e:
         return False, str(e)
 
-# ---- JSON-RPC endpoint ---------------------------------------
+
+
+# JSON-RPC (simple) endpoint at "/"
 
 @router.post("/")
 async def json_rpc_root(req: Request):
+    """
+    Synchronous JSON-RPC-ish handler (no SSE). Useful for curl tests and parity with earlier Python demo.
+    """
     body = await req.json()
     method = body.get("method")
     _id = body.get("id")
@@ -210,3 +258,93 @@ async def json_rpc_root(req: Request):
         response["error"] = {"code": -32000, "message": str(e)}
 
     return response
+
+
+# ---------------------------------------------------------------------------
+# MCP HTTP transport: /sse and /mcp/message
+# ---------------------------------------------------------------------------
+
+async def _heartbeat_writer(q: asyncio.Queue):
+    """Optional heartbeat events to keep SSE alive."""
+    while True:
+        await asyncio.sleep(15)
+        await q.put({"event": "heartbeat", "data": {"ts": time.time()}})
+
+
+@router.get("/sse")
+async def sse():
+    sid = str(uuid.uuid4())
+    q: asyncio.Queue = asyncio.Queue()
+    _sessions[sid] = q
+
+    # push first event so clients can read SID from the stream
+    q.put_nowait({"event": "session", "data": {"sid": sid}})
+
+    # heartbeat to keep connection alive
+    asyncio.create_task(_heartbeat_writer(q))
+
+    async def event_gen():
+        try:
+            while True:
+                payload = await q.get()
+                event = payload.get("event", "message")
+                data = json.dumps(payload.get("data", {}), ensure_ascii=False)
+                yield {"event": event, "data": data}
+        except asyncio.CancelledError:
+            pass
+        finally:
+            _sessions.pop(sid, None)
+
+    # set header on the EventSourceResponse object
+    resp = EventSourceResponse(event_gen())
+    resp.headers["Mcp-Session-Id"] = sid
+    return resp
+
+
+
+@router.post("/mcp/message")
+async def mcp_message(req: Request):
+    """
+    Receive a JSON-RPC message from client -> server.
+    Route the full JSON-RPC response to the associated SSE session (server -> client).
+    Return a small ACK immediately (typical MCP HTTP behavior).
+    """
+    body = await req.json()
+    sid = req.headers.get("Mcp-Session-Id")
+    if not sid or sid not in _sessions:
+        return JSONResponse(status_code=400, content={"error": "Missing or invalid Mcp-Session-Id"})
+
+    method = body.get("method")
+    _id = body.get("id")
+    params = body.get("params", {})
+
+    try:
+        # Reuse existing handlers
+        if method == "tools/list":
+            result = _tools_list()
+        elif method == "initialize":
+            result = _initialize()
+        elif method == "tools/call":
+            name = params.get("name")
+            arguments = params.get("arguments", {})
+            ok, payload = _call_tool(name, arguments)
+            result = _ok_content(payload) if ok else _err_content(payload)
+        else:
+            # JSON-RPC error over SSE
+            err = {"id": _id, "jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found"}}
+            await _sessions[sid].put({"event": "rpc", "data": err})
+            return {"ok": False}
+
+        # Push JSON-RPC response over SSE
+        await _sessions[sid].put({
+            "event": "rpc",
+            "data": {"id": _id, "jsonrpc": "2.0", "result": result}
+        })
+
+        # Immediate ACK to the POST
+        return {"ok": True}
+
+    except Exception as e:
+        err = {"id": _id, "jsonrpc": "2.0", "error": {"code": -32000, "message": str(e)}}
+        await _sessions[sid].put({"event": "rpc", "data": err})
+        return {"ok": False}
