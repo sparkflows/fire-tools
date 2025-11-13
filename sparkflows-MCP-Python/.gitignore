@@ -1,4 +1,4 @@
 .env
 server-setup/client-credentials.json
 .jwt.secret
-
+.DS_Store
