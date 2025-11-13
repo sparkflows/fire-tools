@@ -86,3 +86,19 @@ def require_access_token(Authorization: Optional[str] = Header(default=None)) ->
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing bearer token")
     return decode_jwt(token, expect_typ="access")
+
+def verify_bearer_token(token: str) -> str:
+    """
+    Validates a JWT *access* token and returns the subject ('sub').
+    Raises HTTP 401 if invalid/expired/wrong type.
+    """
+    try:
+        claims = decode_jwt(token, expect_typ="access")  # you already have decode_jwt(...)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail=f"Invalid bearer token: {e}")
+    sub = claims.get("sub")
+    if not sub:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="Invalid bearer token: missing subject")
+    return sub
