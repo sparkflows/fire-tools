@@ -159,6 +159,29 @@ def get_tools_list() -> Dict[str, Any]:
         )
     )
 
+    # Logo Block XML Parser Tool
+    tools.append(
+        create_tool(
+            "logoblockXMl",
+            "Parse XML for Logo Block with cluster and deployment configuration",
+            {
+                "ClusterId": {
+                    "type": "string",
+                    "description": "Cluster identifier for the logo block",
+                },
+                "StepName": {
+                    "type": "string",
+                    "description": "Name of the execution step",
+                },
+                "deploy-mode": {
+                    "type": "string",
+                    "description": "Deployment mode (e.g., cluster, client)",
+                },
+            },
+            ["ClusterId", "StepName", "deploy-mode"],
+        )
+    )
+
     tools.append(
         create_tool(
             "ReadCSV",
@@ -277,6 +300,125 @@ def create_extraction_lego_block(first_string: str, second_string: str) -> str:
 
     return json.dumps(response)
 
+def create_logoblock_xml(cluster_id: str, step_name: str, deploy_mode: str) -> str:
+    """
+    Python createLogoblockXMl(String clusterId, String stepName, String deployMode).
+    Builds XML parser config and next_steps for the Logo Block.
+    """
+    if not cluster_id or not cluster_id.strip() or \
+       not step_name or not step_name.strip() or \
+       not deploy_mode or not deploy_mode.strip():
+        raise ValueError("ClusterId, StepName, and deploy-mode are all required")
+
+    block_id = uuid.uuid4().hex[:8]
+    timestamp = datetime.now().isoformat()
+
+    # Cluster configuration
+    cluster_config = {
+        "clusterId": cluster_id,
+        "region": "us-east-1",
+        "instanceType": "m5.xlarge",
+        "autoScaling": True,
+    }
+
+    # Step configuration
+    step_config = {
+        "stepName": step_name,
+        "actionOnFailure": "CONTINUE",
+        "hadoopJarStep": {
+            "jar": "command-runner.jar",
+            "args": ["spark-submit", "--deploy-mode", deploy_mode],
+        },
+    }
+
+    # Deployment configuration
+    deployment_config = {
+        "deployMode": deploy_mode,
+        "driverMemory": "2g",
+        "executorMemory": "4g",
+        "executorCores": 2,
+        "numExecutors": 3,
+    }
+
+    # Processing rules
+    processing_rules = [
+        {"type": "xml_validation", "enabled": True},
+        {"type": "schema_validation", "enabled": True},
+        {"type": "transformation", "enabled": True},
+    ]
+
+    settings = {
+        "clusterConfig": cluster_config,
+        "stepConfig": step_config,
+        "deploymentConfig": deployment_config,
+        "processingRules": processing_rules,
+    }
+
+    xml_parser_config = {
+        "blockId": block_id,
+        "parserType": "xml_logoblock_parser",
+        "clusterId": cluster_id,
+        "stepName": step_name,
+        "deployMode": deploy_mode,
+        "timestamp": timestamp,
+        "settings": settings,
+    }
+
+    position = {
+        "x": 150,
+        "y": 200,
+        "width": 250,
+        "height": 120,
+        "zIndex": 1,
+        "gridAlign": True,
+    }
+
+    parameters = [
+        {
+            "ClusterId": cluster_id,
+            "type": "string",
+            "description": "Cluster identifier for the logo block",
+        },
+        {
+            "StepName": step_name,
+            "type": "string",
+            "description": "Name of the execution step",
+        },
+        {
+            "deployMode": deploy_mode,
+            "type": "string",
+            "description": "Deployment mode (e.g., cluster, client)",
+        },
+        {
+            "xmlParserConfig": json.dumps(xml_parser_config),
+            "type": "string",
+            "description": "XML Parser Configuration Parameter",
+        },
+        {
+            "position": json.dumps(position),
+            "type": "string",
+            "description": "Position Parameter",
+        },
+    ]
+
+    next_steps = [
+        {
+            "action": "create_node",
+            "node_name": "XMLMapping",
+            "parameters": parameters,
+            "required": ["message", "next_steps"],
+        }
+    ]
+
+    response = {
+        "tool_name": "logoblockXMl",
+        "status": "success",
+        "result": {"message": "Parse XML for Logo Block with cluster configuration"},
+        "next_steps": next_steps,
+    }
+
+    return json.dumps(response)
+
 
 def create_read_csv(path: str) -> str:
     if not path or not path.strip():
@@ -365,6 +507,12 @@ def handle_tool_call(params: Dict[str, Any]) -> Dict[str, Any]:
             first = arguments.get("first_string")
             second = arguments.get("second_string")
             result_str = create_extraction_lego_block(first, second)
+
+        elif tool_name == "logoblockXMl":
+            cluster_id = arguments.get("ClusterId")
+            step_name = arguments.get("StepName")
+            deploy_mode = arguments.get("deploy-mode")
+            result_str = create_logoblock_xml(cluster_id, step_name, deploy_mode)
 
         elif tool_name == "ReadCSV":
             path = arguments.get("path")
