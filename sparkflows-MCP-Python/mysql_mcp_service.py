@@ -13,13 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent
 RESOURCES_DIR = BASE_DIR / "resources"
 
 
-# ---------- Helpers (similar to static helpers in Java service) ----------
+# ---------- Helpers ----------
 
 def load_resource(relative_path: str) -> str:
-    """
-    Equivalent to Java ClassPathResource("...").
-    Reads from resources/<relative_path>.
-    """
     path = RESOURCES_DIR / relative_path
     try:
         return path.read_text(encoding="utf-8")
@@ -31,10 +27,6 @@ def load_resource(relative_path: str) -> str:
 
 
 def wrap_tool_result_text(text: str) -> Dict[str, Any]:
-    """
-    Matches Java handleToolCall result:
-      { "content": [ { "type": "text", "text": resultString } ], "isError": false }
-    """
     return {
         "content": [{"type": "text", "text": text}],
         "isError": False,
@@ -49,9 +41,6 @@ def wrap_tool_error_text(message: str) -> Dict[str, Any]:
 
 
 def get_initialize_response() -> Dict[str, Any]:
-    """
-    Port of Java getInitializeResponse().
-    """
     return {
         "protocolVersion": "2024-11-05",
         "capabilities": {
@@ -72,9 +61,6 @@ def create_tool(
     properties: Dict[str, Any],
     required: List[str],
 ) -> Dict[str, Any]:
-    """
-    Port of Java createTool() helper.
-    """
     input_schema = {
         "type": "object",
         "properties": properties,
@@ -104,16 +90,15 @@ def create_tool(
         "description": description,
         "input_schema": input_schema,
         "output_schema": output_schema,
-        "next_steps": {},  # to mirror the Java structure
+        "next_steps": {},
     }
 
 
-# ---------- Tool definitions (like getToolsList) ----------
+# ---------- Tool definitions ----------
 
 def get_tools_list() -> Dict[str, Any]:
     tools: List[Dict[str, Any]] = []
 
-    # Tools that just return JSON from resources (same as MySqlMcpService)
     tools.append(
         create_tool(
             "createWorkflow",
@@ -191,7 +176,7 @@ def get_tools_list() -> Dict[str, Any]:
     return {"tools": tools}
 
 
-# ---------- Tool implementations (ex-MySqlMcpService methods) ----------
+# ---------- Tool implementations ----------
 
 def create_workflow() -> str:
     return load_resource("workflow/Read-And-Display-Data.json")
@@ -214,9 +199,6 @@ def create_workflow_node() -> str:
 
 
 def create_extraction_lego_block(first_string: str, second_string: str) -> str:
-    """
-    Python port of Java createExtractionLegoBlock().
-    """
     if not first_string or not first_string.strip() or not second_string or not second_string.strip():
         raise ValueError("Both first_string and second_string are required")
 
@@ -297,9 +279,6 @@ def create_extraction_lego_block(first_string: str, second_string: str) -> str:
 
 
 def create_read_csv(path: str) -> str:
-    """
-    Python port of Java createReadCSV(String path).
-    """
     if not path or not path.strip():
         raise ValueError("path is required")
 
@@ -361,12 +340,9 @@ def create_read_csv(path: str) -> str:
     return json.dumps(response)
 
 
-# ---------- Dispatcher (like handleToolCall in Java) ----------
+# ---------- Dispatcher ----------
 
 def handle_tool_call(params: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Equivalent of Java handleToolCall(JsonNode params).
-    """
     try:
         tool_name = params["name"]
         arguments = params.get("arguments") or {}
@@ -374,7 +350,6 @@ def handle_tool_call(params: Dict[str, Any]) -> Dict[str, Any]:
         raise ValueError("Missing 'name' or 'arguments' in params")
 
     try:
-        # Resource-backed tools
         if tool_name == "createWorkflow":
             result_str = create_workflow()
         elif tool_name == "LegoblockXMLParser":
@@ -386,7 +361,6 @@ def handle_tool_call(params: Dict[str, Any]) -> Dict[str, Any]:
         elif tool_name == "createWorkflowNode":
             result_str = create_workflow_node()
 
-        # Dynamic tools
         elif tool_name == "CreateExtractionLegoBlock":
             first = arguments.get("first_string")
             second = arguments.get("second_string")

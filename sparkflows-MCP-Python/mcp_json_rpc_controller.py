@@ -1,4 +1,3 @@
-# mcp_json_rpc_controller.py
 import os
 from typing import Any, Dict, Optional, Union
 
@@ -13,15 +12,12 @@ from mysql_mcp_service import (
 
 router = APIRouter()
 
-# Expected API key; if unset, auth is disabled (for dev)
+# We’ll still read it at module import, but _verify_api_key will
+# *require* that it is set and non-empty.
 API_KEY = os.getenv("MCP_API_KEY")
 
 
 class JSONRPCRequest(BaseModel):
-    """
-    Matches the Java JsonNode behavior:
-    - accepts numeric or string IDs
-    """
     jsonrpc: Union[str, int, None] = "2.0"
     id: Union[str, int, None] = None
     method: str
@@ -30,7 +26,7 @@ class JSONRPCRequest(BaseModel):
 
 def _extract_api_key_from_headers(request: Request) -> Optional[str]:
     """
-    Try a few common header patterns:
+    Try common patterns:
       - Authorization: Bearer <token>
       - Authorization: <token>
       - X-API-Key: <token>
@@ -51,33 +47,33 @@ def _extract_api_key_from_headers(request: Request) -> Optional[str]:
 
 def _verify_api_key(request: Request) -> None:
     """
-    If MCP_API_KEY is set, require a matching key somewhere in the headers.
-    Otherwise, skip auth (useful for local dev).
+    Require MCP_API_KEY and require that at least one header value matches it.
     """
+    # 1) Ensure server is configured
     if not API_KEY:
-        # Auth disabled if no env var set
-        return
+        # Hard fail if the env var is not set – auth is mandatory
+        raise HTTPException(
+            status_code=500,
+            detail="MCP_API_KEY environment variable is not set",
+        )
 
-    # 1) Try normal patterns first
+    # 2) Try normal patterns first
     incoming = _extract_api_key_from_headers(request)
     if incoming and incoming == API_KEY:
         return
 
-    # 2) Fallback: accept the key if it appears as the *value* of any header.
+    # 3) Fallback: accept the key if it appears as the *value* of any header.
+    #    (still requires an exact match to API_KEY)
     for _, value in request.headers.items():
         if value.strip() == API_KEY:
             return
 
-    # If we reach here, no header value matched MCP_API_KEY
+    # 4) No match found → unauthorized
     raise HTTPException(status_code=401, detail="Invalid API key")
 
 
 @router.post("/rpc")
 async def rpc_handler(http_request: Request, request: JSONRPCRequest) -> Dict[str, Any]:
-    """
-    Python port of McpJsonRpcController.handleJsonRpc().
-    Adds API key auth via headers.
-    """
     # ---- API key check ----
     _verify_api_key(http_request)
 
@@ -107,7 +103,7 @@ async def rpc_handler(http_request: Request, request: JSONRPCRequest) -> Dict[st
             }
 
     except HTTPException:
-        # re-raise auth errors untouched
+        # Let 4xx / 5xx from _verify_api_key bubble up unchanged
         raise
     except Exception as e:
         response["error"] = {
