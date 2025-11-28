@@ -1,0 +1,4 @@
+fastapi
+mcp[cli]
+pyarrow
+uvicorn

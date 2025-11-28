@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "description": "Example 278 extraction config for synthetic request/response parquet files.",
+  "sources": {
+    "inReq": {
+      "alias": "inReq",
+      "path": "/Users/dhruv/Documents/Dev/sparkflows/mcp/fire-tools/sparkflows-mcp-server/data/part-00000-278-requests.snappy.parquet",
+      "batch_column": "batch",
+      "metadata_prefix": "metadata_",
+      "filters": {
+        "event_source_suffix": [
+          "GatewayRequest",
+          "PayerInteractionRequest"
+        ],
+        "msg_domain": "PA",
+        "payload_format": "X12",
+        "event_type": "IN",
+        "market_base_in": [
+          "ARK",
+          "IMN"
+        ],
+        "payload_schema_version_in": [
+          "005010X215",
+          "005010X216",
+          "005010X217"
+        ],
+        "trace_id_not_like": "e2e-%"
+      }
+    },
+    "outReq": {
+      "alias": "outReq",
+      "path": "/Users/dhruv/Documents/Dev/sparkflows/mcp/fire-tools/sparkflows-mcp-server/data/part-00000-278-requests.snappy.parquet",
+      "batch_column": "batch",
+      "metadata_prefix": "metadata_",
+      "filters": {
+        "event_source_suffix": [
+          "GatewayRequest",
+          "PayerInteractionRequest"
+        ],
+        "msg_domain": "PA",
+        "payload_format": "X12",
+        "event_type": "OUT",
+        "market_base_in": [
+          "ARK",
+          "IMN"
+        ],
+        "payload_schema_version_in": [
+          "005010X215",
+          "005010X216",
+          "005010X217"
+        ],
+        "trace_id_not_like": "e2e-%"
+      }
+    },
+    "inRes": {
+      "alias": "inRes",
+      "path": "/Users/dhruv/Documents/Dev/sparkflows/mcp/fire-tools/sparkflows-mcp-server/data/part-00000-278-responses.snappy.parquet",
+      "batch_column": "batch",
+      "metadata_prefix": "metadata_",
+      "filters": {
+        "event_source_suffix": [
+          "GatewayResponse",
+          "PayerInteractionResponse"
+        ],
+        "msg_domain": "PA",
+        "payload_format": "X12",
+        "event_type": "IN",
+        "market_base_in": [
+          "ARK",
+          "IMN"
+        ],
+        "payload_schema_version_in": [
+          "005010X215",
+          "005010X216",
+          "005010X217"
+        ],
+        "trace_id_not_like": "e2e-%"
+      }
+    },
+    "outRes": {
+      "alias": "outRes",
+      "path": "/Users/dhruv/Documents/Dev/sparkflows/mcp/fire-tools/sparkflows-mcp-server/data/part-00000-278-responses.snappy.parquet",
+      "batch_column": "batch",
+      "metadata_prefix": "metadata_",
+      "filters": {
+        "event_source_suffix": [
+          "GatewayResponse",
+          "PayerInteractionResponse"
+        ],
+        "msg_domain": "PA",
+        "payload_format": "X12",
+        "event_type": "OUT",
+        "market_base_in": [
+          "ARK",
+          "IMN"
+        ],
+        "payload_schema_version_in": [
+          "005010X215",
+          "005010X216",
+          "005010X217"
+        ],
+        "trace_id_not_like": "e2e-%"
+      }
+    }
+  },
+  "dedupe_and_join": {
+    "primary_key": "trace_id",
+    "timestamp_column": "event_time",
+    "target_batch_param": "target_batch",
+    "previous_batch_param": "previous_batch",
+    "sql": "WITH inReq_filtered AS (\n  SELECT *\n  FROM inReq\n  WHERE\n    (metadata_event_source LIKE '%GatewayRequest'\n     OR metadata_event_source LIKE '%PayerInteractionRequest')\n    AND metadata_msg_domain = 'PA'\n    AND metadata_payload_format = 'X12'\n    AND metadata_event_type = 'IN'\n    AND metadata_market_base IN ('ARK', 'IMN')\n    AND metadata_payload_schema_version IN ('005010X215', '005010X216', '005010X217')\n    AND trace_id NOT LIKE 'e2e-%'\n),\noutReq_filtered AS (\n  SELECT *\n  FROM outReq\n  WHERE\n    (metadata_event_source LIKE '%GatewayRequest'\n     OR metadata_event_source LIKE '%PayerInteractionRequest')\n    AND metadata_msg_domain = 'PA'\n    AND metadata_payload_format = 'X12'\n    AND metadata_event_type = 'OUT'\n    AND metadata_market_base IN ('ARK', 'IMN')\n    AND metadata_payload_schema_version IN ('005010X215', '005010X216', '005010X217')\n    AND trace_id NOT LIKE 'e2e-%'\n),\ninRes_filtered AS (\n  SELECT *\n  FROM inRes\n  WHERE\n    (metadata_event_source LIKE '%GatewayResponse'\n     OR metadata_event_source LIKE '%PayerInteractionResponse')\n    AND metadata_msg_domain = 'PA'\n    AND metadata_payload_format = 'X12'\n    AND metadata_event_type = 'IN'\n    AND metadata_market_base IN ('ARK', 'IMN')\n    AND metadata_payload_schema_version IN ('005010X215', '005010X216', '005010X217')\n    AND trace_id NOT LIKE 'e2e-%'\n),\noutRes_filtered AS (\n  SELECT *\n  FROM outRes\n  WHERE\n    (metadata_event_source LIKE '%GatewayResponse'\n     OR metadata_event_source LIKE '%PayerInteractionResponse')\n    AND metadata_msg_domain = 'PA'\n    AND metadata_payload_format = 'X12'\n    AND metadata_event_type = 'OUT'\n    AND metadata_market_base IN ('ARK', 'IMN')\n    AND metadata_payload_schema_version IN ('005010X215', '005010X216', '005010X217')\n    AND trace_id NOT LIKE 'e2e-%'\n),\ninReq_dedup AS (\n  SELECT *\n  FROM inReq_filtered\n  QUALIFY ROW_NUMBER() OVER (PARTITION BY trace_id ORDER BY event_time DESC) = 1\n),\noutReq_dedup AS (\n  SELECT *\n  FROM outReq_filtered\n  QUALIFY ROW_NUMBER() OVER (PARTITION BY trace_id ORDER BY event_time DESC) = 1\n),\ninRes_dedup AS (\n  SELECT *\n  FROM inRes_filtered\n  QUALIFY ROW_NUMBER() OVER (PARTITION BY trace_id ORDER BY event_time DESC) = 1\n),\noutRes_dedup AS (\n  SELECT *\n  FROM outRes_filtered\n  QUALIFY ROW_NUMBER() OVER (PARTITION BY trace_id ORDER BY event_time DESC) = 1\n)\nSELECT\n  COALESCE(inReq_dedup.batch, 'null')     AS inReq_batch,\n  COALESCE(outReq_dedup.batch, 'null')    AS outReq_batch,\n  COALESCE(inRes_dedup.batch, 'null')     AS inRes_batch,\n  COALESCE(outRes_dedup.batch, 'null')    AS outRes_batch,\n  inReq_dedup.trace_id,\n  inReq_dedup.event_time                  AS inReq_event_time,\n  outReq_dedup.event_time                 AS outReq_event_time,\n  inRes_dedup.event_time                  AS inRes_event_time,\n  outRes_dedup.event_time                 AS outRes_event_time,\n  inReq_dedup.payload_raw                 AS inReq_payload,\n  outReq_dedup.payload_raw                AS outReq_payload,\n  inRes_dedup.payload_raw                 AS inRes_payload,\n  outRes_dedup.payload_raw                AS outRes_payload\nFROM inReq_dedup\nLEFT JOIN outReq_dedup\n  ON inReq_dedup.trace_id = outReq_dedup.trace_id\nLEFT JOIN inRes_dedup\n  ON inReq_dedup.trace_id = inRes_dedup.trace_id\nLEFT JOIN outRes_dedup\n  ON inReq_dedup.trace_id = outRes_dedup.trace_id\nWHERE\n  inReq_dedup.batch = :target_batch\n  AND inReq_dedup.batch > :previous_batch"
+  },
+  "null_handling": {
+    "batch_columns": [
+      "inReq_batch",
+      "outReq_batch",
+      "inRes_batch",
+      "outRes_batch"
+    ],
+    "null_fill_value": "null"
+  }
+}
