@@ -59,7 +59,7 @@ This workflow is used to get the latest execution status of all workflows of all
 
 **Default Value:** **none** , When set as **none** In this case data of latest execution status of all workflows of all projects will be retrieved
 
-**Comma separted single quoted project ids** - In this case data of latest execution status of all workflows of only the projects whose ids are passed like below will be retrieved.
+**Comma separted single quoted project ids** - In this case data of latest execution status of all workflows of only the projects whose ids are passed like the following will be retrieved - 
 Ex: '14788','14865'
 
 3. Once the fields are correctly updated execute the workflow , and the output will contains the following headers -
@@ -71,3 +71,4 @@ Ex: '14788','14865'
 * startTime
 * endTime
 * username
+
