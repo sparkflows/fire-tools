@@ -3,7 +3,7 @@
   "uuid": "ab1129f9-f64d-4836-a14e-29f1e1a4b64a",
   "category": "-",
   "description": "-",
-  "parameters": "--var fire_host=http://74.249.52.2:8080 --var api_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCdWdCYXNoQWRtaW4iLCJpYXQiOjE3NjUzNzQ4MDksImV4cCI6MTc2NzE0NTM2ODYxMH0.8ztd2IM9YEz0j6rKaQgmiEvyMI7QGIIC3liZnmUiJUNzf0zAPl30RBd1IfrZoAxr7RIDi4b9rXiFV7GTfdDKVw --var from_date=2025-12-03 --var to_date=2025-12-05",
+  "parameters": "--var fire_host=http://fire-host-url --var api_token=access-token --var from_date=2025-12-03 --var to_date=2025-12-05",
   "nodes": [
     {
       "id": "1",
