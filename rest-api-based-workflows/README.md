@@ -35,6 +35,7 @@ This workflow is used to get all the executions of a user from a given from and 
 * workflowName
 * projectId
 * projectName
+* userId
 * username
 * status
 * startTime
@@ -42,7 +43,6 @@ This workflow is used to get all the executions of a user from a given from and 
 * applicationId
 * fireJobId
 * logs
-* executionType
 
 ## Workflow - PySparkWorkflowStatusAgent
 
@@ -71,4 +71,5 @@ Ex: '14788','14865'
 * startTime
 * endTime
 * username
+
 
