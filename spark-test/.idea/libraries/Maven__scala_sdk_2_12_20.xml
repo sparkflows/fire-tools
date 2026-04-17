@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Maven: scala-sdk-2.12.20" type="Scala">
+    <properties>
+      <language-level>Scala_2_12</language-level>
+      <compiler-classpath>
+        <root url="file://$MAVEN_REPOSITORY$/org/scala-lang/scala-compiler/2.12.20/scala-compiler-2.12.20.jar" />
+        <root url="file://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.12.20/scala-library-2.12.20.jar" />
+        <root url="file://$MAVEN_REPOSITORY$/org/scala-lang/scala-reflect/2.12.20/scala-reflect-2.12.20.jar" />
+        <root url="file://$MAVEN_REPOSITORY$/org/scala-lang/modules/scala-xml_2.12/2.3.0/scala-xml_2.12-2.3.0.jar" />
+      </compiler-classpath>
+    </properties>
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
