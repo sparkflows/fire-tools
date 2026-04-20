@@ -1,12 +1,16 @@
 package fire
 
 import fire.output.OutputCustomMetrics
+import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-
+import java.io.{BufferedReader, DataOutputStream, InputStreamReader}
+import java.net.{HttpURLConnection, URL}
 import scala.util.Try
 
 object SparkExample {
+
+  val logger: Logger = Logger.getLogger(SparkExample.getClass)
 
   case class Config(
                      postBackUrl: Option[String] = None,
@@ -47,6 +51,10 @@ object SparkExample {
     println(s"Job ID: ${config.jobId.getOrElse("Not provided")}")
     println(s"Custom Metrics Enabled: ${config.enableCustomMetrics}")
 
+    logger.info(s"Input Path: ${config.inputPath}")
+    logger.info(s"PostBack URL: ${config.postBackUrl.getOrElse("Not provided")}")
+    logger.info(s"Job ID: ${config.jobId.getOrElse("Not provided")}")
+    logger.info(s"Custom Metrics Enabled: ${config.enableCustomMetrics}")
 
     // Initialize SparkSession
     val spark = SparkSession.builder()
@@ -71,29 +79,69 @@ object SparkExample {
       .mode("overwrite")
       .parquet("data/output_parquet")
 
+    aggDF.show(false)
 
-  if(config.enableCustomMetrics){
+    if(config.enableCustomMetrics){
 
-    val outputMetrics = new OutputCustomMetrics()
-    outputMetrics.customFields.put("region", "us-east-1") // String
-    outputMetrics.customFields.put("retryCount", Integer.valueOf(3)) // Integer
-    outputMetrics.customFields.put("isSpilled", java.lang.Boolean.TRUE) // Boolean
-    outputMetrics.customFields.put("latencyP99",  java.lang.Double.valueOf(245.7)) //Double
-    outputMetrics.customFields.put("throughput", java.lang.Long.valueOf(9800L) ) // Long, type-validated
-    println("++==++")
-    println(outputMetrics.toJSON)
-    println("++==++")
-
-    val postBackUrl = config.postBackUrl.getOrElse("Not provided")
-    val jobId = config.jobId.getOrElse("Not provided")
-    if(postBackUrl != "Not provided" && jobId !="Not provided" ){
-      println("++Post the metrics back to sparkflows++")
-
+      val outputMetrics = new OutputCustomMetrics()
+      outputMetrics.customFields.put("region", "us-east-1") // String
+      outputMetrics.customFields.put("retryCount", Integer.valueOf(3)) // Integer
+      outputMetrics.customFields.put("isSpilled", java.lang.Boolean.TRUE) // Boolean
+      outputMetrics.customFields.put("latencyP99",  java.lang.Double.valueOf(245.7)) //Double
+      outputMetrics.customFields.put("throughput", java.lang.Long.valueOf(9800L) ) // Long, type-validated
       println("++==++")
-    }
-  }
+      println(outputMetrics.toJSON)
+      println("++==++")
 
-  // Stop the SparkSession
-  spark.stop()
+      val postBackUrl = config.postBackUrl.getOrElse("Not provided")
+      val jobId = config.jobId.getOrElse("Not provided")
+      if(postBackUrl != "Not provided" && jobId !="Not provided" ){
+        println("++Post the metrics back to sparkflows++")
+        logger.info("++Post the metrics back to sparkflows++")
+
+        val APIUrl = postBackUrl.replace("messageFromSparkJob", "metricsFromPipelineJob")
+
+        println("++**++**++")
+        println(APIUrl)
+        val apiBody = "{\n" +
+          "  \"jobId\": \""+jobId+"\",\n" +
+          "  \"message\": \""+outputMetrics.toJSON+"\"\n" +
+          "}";
+
+        println("++==++")
+        println(apiBody)
+        val connection = new URL(APIUrl).openConnection().asInstanceOf[HttpURLConnection]
+
+        try {
+          connection.setRequestMethod("POST")
+          connection.setRequestProperty("accept", "*/*")
+          connection.setRequestProperty("Content-Type", "application/json")
+          connection.setDoOutput(true)
+
+          // Write request body
+          val outputStream = new DataOutputStream(connection.getOutputStream)
+          outputStream.writeBytes(apiBody)
+          outputStream.flush()
+          outputStream.close()
+
+          // Read response
+          val statusCode = connection.getResponseCode
+          val reader = new BufferedReader(new InputStreamReader(connection.getInputStream))
+          val responseBody = Iterator.continually(reader.readLine())
+            .takeWhile(_ != null)
+            .mkString("\n")
+          reader.close()
+
+          println(s"Status Code: $statusCode")
+          println(s"Response Body: $responseBody")
+
+        } finally {
+        connection.disconnect()
+        }
+      }
+    }
+
+    // Stop the SparkSession
+    spark.stop()
   }
 }
