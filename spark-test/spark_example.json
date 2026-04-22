@@ -3,7 +3,7 @@
   "name": "SparkExample",
   "description": "SparkExample ",
   "type": "legoblock",
-  "nodeClass": "fire.SparkExample",
+  "nodeClass": "fire.pipelineNodes.SparkExample",
   "fields" : [
     {"name": "Name", "value":"", "required":true, "widget": "textfield", "title": "Task Name", "description": "Name of the task in airflow dag and it should be unique in the dag."},
     {"name": "StepName", "value":"", "required":true, "widget": "textfield", "title": "Step Name", "description": "Name of emr step" },
@@ -20,8 +20,8 @@
     {"name": "aws_conn_id", "value":"", "required":false, "widget": "textfield", "title": "AWS Connection ID", "description": "AWS Connection ID" },
 
     {"name": "parameters", "value":"", "widget": "tab", "title": "Parameters"},
-    {"name": "inputPath", "value":"hdfs:///interoperability/valid/270", "widget": "textfield", "title": "nput Path", "description": ""},
-    {"name": "enableCustomMetrics", "value":"false", "widget": "textfield", "title": "Enable Custom Metrics", "description": ""}
+    {"name": "inputPath", "value":"hdfs:///interoperability/valid/270", "widget": "textfield", "title": "Input Path", "description": ""},
+    {"name": "enableCustomMetrics", "value":"False","widget": "array", "optionsArray": ["True","False"], "title": "Enable Custom Metrics", "description": "Enable custom metrics." }
 
   ]
 }
