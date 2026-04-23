@@ -4,8 +4,11 @@ import fire.output.OutputCustomMetrics
 import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
+import com.fasterxml.jackson.databind.ObjectMapper
+
 import java.io.{BufferedReader, DataOutputStream, InputStreamReader}
 import java.net.{HttpURLConnection, URL}
+import java.util
 import scala.util.Try
 
 object SparkExample {
@@ -103,10 +106,18 @@ object SparkExample {
 
         println("++**++**++")
         println(APIUrl)
-        val apiBody = "{\n" +
-          "  \"jobId\": \""+jobId+"\",\n" +
-          "  \"message\": \""+outputMetrics.toJSON+"\"\n" +
-          "}";
+        val metricsJson =
+          if (outputMetrics != null) outputMetrics.toJSON
+          else "{}"
+
+        // Build JSON payload safely
+        val payload = new util.HashMap[String, String]()
+        payload.put("jobId", jobId)
+        payload.put("message", metricsJson)
+
+        val mapper = new ObjectMapper()
+        val apiBody = mapper.writeValueAsString(payload)
+
 
         println("++==++")
         println(apiBody)
