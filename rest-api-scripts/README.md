@@ -399,3 +399,25 @@ This script retrieves run_id when given a valid activityId as the input paramete
 `python get_run_id_by_activity_id.py http://localhost:8080 cacaksncaskjuuonn777-cdck --activityId 1234`
 
 The above command prints the **run_id** associated to the **activityId** passed as the input parameter for the python script.
+
+## Export and Import multiple projects from one environment to another
+
+**Script Name**: `export-import-projects.py`
+
+This script exports the specified projects from one enviroment and then imports those projects to another environment.
+
+**Command**:
+
+`python export-import-projects.py`
+
+**Arguments to be Updated within the Python Script**:
+
+`SOURCE_HOST` : The Source URL in the format http://host_ip:port where Sparkflows is running from where the projects are to be **exported**.
+
+`SOURCE_TOKEN` : The access token generated from the Administrative tab of Sparkflows for the Source host.
+
+`SOURCE_PROJECT_IDS` : The project ids that are to be exported from the source host.
+
+`TARGET_HOST` : The Target URL in the format http://host_ip:port where Sparkflows is running where the exported projects are to be **imported**.
+
+`TARGET_TOKEN` : The access token generated from the Administrative tab of Sparkflows for the Target host.
