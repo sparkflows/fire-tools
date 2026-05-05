@@ -147,6 +147,34 @@ curl -X POST "http://localhost:8080/api/v1/create/workflowexecution/309" \
       "workflowParameters": ""
     }'
 ```
+
+### Import Workflows
+
+#### UUID Options
+
+| Option Description                                      | `uuidOption` Value                     |
+|--------------------------------------------------------|--------------------------------------|
+| Overwrite workflow if same UUID exists in the project   | `overwriteWorkflowIfUUIDExistInProject` |
+| Create a new UUID if one already exists                | `createNewUUIDIfExist`               |
+| Create a new UUID                                      | `createNewUUID`                      |
+
+#### Import Single Workflow from JSON File
+```
+curl -X POST "http://localhost:8080/api/v1/workflows/import?projectId=2414&uuidOption=createNewUUID" \
+-H "token: token_value" \
+-F "file[]=@complete_path_to_wf_json_file_1;type=application/json"
+```
+
+#### Import Multiple Workflows from JSON Files 
+```
+curl -X POST "http://localhost:8080/api/v1/workflows/import?projectId=2414&uuidOption=createNewUUID" \
+-H "token: token_value" \
+-F "file[]=@complete_path_to_wf_json_file_1;type=application/json" \
+-F "file[]=@complete_path_to_wf_json_file_2;type=application/json"
+```
+
+
+
 ### [generate_token.py](https://github.com/sparkflows/fire-tools/blob/main/rest-api-scripts/generate_token.py)
 
 #### Generate Token 
